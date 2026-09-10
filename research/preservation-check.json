@@ -1,0 +1,13 @@
+{
+  "original_files_checked": 204,
+  "original_changed_since_start": [],
+  "preview_changed_baseline_files": [
+    "app/layout.tsx",
+    "components/sections/hero-reel.tsx",
+    "components/site/intro.tsx",
+    "components/site/footer.tsx",
+    "components/site/masthead.tsx"
+  ],
+  "all_page_files_unchanged": true,
+  "all_content_and_navigation_unchanged": true
+}

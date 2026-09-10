@@ -1,0 +1,118 @@
+/* Second pass: stage openings and photographic components, same content slots. */
+.brandmark { display: inline-flex; line-height: 0; }
+.brandmark img, .brand .brandmark img { width: 94px; height: 70px; object-fit: contain; margin: 0; filter: none; }
+.foot__brand .brandmark { margin-bottom: 2rem; }
+.foot__brand .brandmark img { width: 150px; height: auto; margin: 0; }
+.intro__in .brandmark img { width: 220px; height: auto; }
+
+/* The proscenium is behind the existing title, description and facts. */
+.phero {
+  --hero-ground: #B9ADE8; --hero-text: #18131E; --hero-em: #54283F;
+  --hero-muted: #392A46; --hero-rule: #30203F30;
+  --cue-one: #AA98DA; --cue-two: #C6B9E9; --cue-three: #D6CCEC;
+  position: relative; isolation: isolate; overflow: clip; background: var(--hero-ground);
+}
+.phero[data-scene="Faculty"], .phero[data-scene="Stage"], .phero--bare {
+  --hero-ground: #211625; --hero-text: #F0EEF4; --hero-em: #C9A227;
+  --hero-muted: #D5C5DB; --hero-rule: #ECE3F326;
+  --cue-one: #392A43; --cue-two: #2C2035; --cue-three: #46334D;
+}
+.phero[data-scene="Workshops"] {
+  --hero-ground: #54283F; --hero-text: #F0EEF4; --hero-em: #E3C766;
+  --hero-muted: #E3D5DF; --hero-rule: #F0EEF433;
+  --cue-one: #67394F; --cue-two: #613349; --cue-three: #70465B;
+}
+.phero[data-scene="Studio hire"] {
+  --hero-ground: #E5DEC9; --hero-text: #211625; --hero-em: #54283F;
+  --hero-muted: #483745; --hero-rule: #54283F26;
+  --cue-one: #D6C99E; --cue-two: #D8CEB2; --cue-three: #EEE8D8;
+}
+.phero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: linear-gradient(90deg,transparent calc(66.666% - .5px),var(--hero-rule) 66.666%,transparent calc(66.666% + .5px),transparent calc(83.333% - .5px),var(--hero-rule) 83.333%,transparent calc(83.333% + .5px));
+}
+.phero::after { content: ''; position: absolute; bottom: 0; left: var(--gut); right: var(--gut); height: 1px; background: var(--hero-rule); transform-origin: left; }
+.phero > .wrap, .phero__media { position: relative; z-index: 1; }
+.phero .h1 { color: var(--hero-text); }
+.phero .h1 em { color: var(--hero-em); }
+.phero__eyebrow, .phero .crumbs a, .phero .crumbs ol, .phero .crumbs [aria-current="page"], .phero__standfirst { color: var(--hero-muted); }
+.phero .crumbs li+li::before { color: var(--hero-muted); }
+.phero__meta { border-color: var(--hero-rule); }
+.phero__meta dt { color: var(--hero-muted); }
+.phero__meta dd { color: var(--hero-text); }
+.phero .studio-word { padding-bottom: .12em; margin-bottom: -.12em; }
+.page-cue { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3,1fr); pointer-events: none; z-index: 0; }
+.page-cue > span { background: var(--cue-one); transform: scaleX(0); transform-origin: right; }
+.page-cue > span:nth-child(2) { background: var(--cue-two); }
+.page-cue > span:nth-child(3) { background: var(--cue-three); }
+
+/* One asset, three clearing shutters, no duplicate photographs on the wire. */
+.image-frame { display: block; width: 100%; aspect-ratio: var(--image-ratio); position: relative; isolation: isolate; background: var(--ink); }
+.image-frame__window { display: block; position: absolute; inset: 0; overflow: hidden; }
+.image-frame__picture { object-fit: cover; transition: transform 800ms var(--studio-ease); }
+.image-frame__shutters { position: absolute; inset: -1px; display: grid; grid-template-columns: repeat(3,1fr); pointer-events: none; }
+.image-frame__shutter { background: var(--lilac); transform: scaleY(0); transform-origin: top; }
+.image-frame__shutter:nth-child(2) { background: #D4C7E8; }
+.image-frame__shutter:nth-child(3) { background: var(--gold); }
+.image-frame__hit { position: absolute; inset: 0; display: block; width: 100%; height: 100%; cursor: zoom-in; background: transparent; border: 0; color: var(--ink); }
+.image-frame__open { position: absolute; right: 10px; bottom: 10px; display: grid; place-items: center; width: 38px; height: 38px; background: var(--gold); color: var(--ink); transition: background .2s, transform .4s var(--studio-ease); }
+.image-frame__hit:hover .image-frame__open, .image-frame__hit:focus-visible .image-frame__open { background: var(--paper); transform: rotate(90deg); }
+.image-frame__hit:focus-visible { outline-offset: 6px; }
+.image-frame__hit:hover .image-frame__picture, .image-frame__hit:focus-visible .image-frame__picture { transform: scale(1.045); }
+.image-frame--portrait { aspect-ratio: 4/5; overflow: visible; background: transparent; }
+.image-frame--portrait::before { content: ''; position: absolute; inset: 2px; background: var(--wine); transform: rotate(-2.5deg); transition: transform .65s var(--studio-ease); z-index: -1; }
+.image-frame--portrait .image-frame__window { inset: 7px; border: 5px solid var(--paper); background: var(--paper); transform: rotate(1.2deg); transition: transform .65s var(--studio-ease); }
+.facultycard:nth-child(even) .image-frame--portrait::before { transform: rotate(2.5deg); background: #A58CC0; }
+.facultycard:nth-child(even) .image-frame--portrait .image-frame__window { transform: rotate(-1.2deg); }
+.facultycard:hover .image-frame--portrait::before, .facultycard:focus-within .image-frame--portrait::before { transform: rotate(0); }
+.teachercard:hover .image-frame__window, .teachercard:focus-within .image-frame__window, .facultycard:hover .image-frame__window, .facultycard:focus-within .image-frame__window { transform: rotate(0); }
+.teachercard__frame.image-frame, .facultycard__frame.image-frame { background: transparent; overflow: visible; }
+.facultycard:hover .image-frame__picture { transform: scale(1.045); }
+.facultycard__name { transition: color .3s; }
+.facultycard:hover .facultycard__name, .facultycard:focus-within .facultycard__name { color: var(--wine); }
+.phero--deep .image-frame--hero { aspect-ratio: 16/9; }
+.phero__media img, .phero--deep .phero__media img { aspect-ratio: auto; height: 100%; }
+.image-frame--hero .image-frame__window { inset: 0; }
+.stills .image-frame { outline: 1px solid var(--line); outline-offset: 8px; }
+.space__photos .image-frame { background: var(--ink); }
+.space__photos .image-frame__window { inset: 6px; }
+
+/* The existing film cards become windows in a cinema frame. */
+.stagecard__link { position: relative; }
+.stagecard__vid .vfig__frame { padding: 0; border: 7px solid var(--ink); }
+.stagecard__link .vfig__frame, .stagecard__link:hover .vfig__frame { clip-path: none; }
+.stagecard__vid .vfig__frame::before, .stagecard__vid .vfig__frame::after {
+  content: ''; position: absolute; z-index: 1; left: 0; right: 0; height: 7%; background: var(--ink); pointer-events: none;
+  transition: transform .65s var(--studio-ease);
+}
+.stagecard__vid .vfig__frame::before { top: 0; transform-origin: top; }
+.stagecard__vid .vfig__frame::after { bottom: 0; transform-origin: bottom; }
+.stagecard__link:hover .vfig__frame::before, .stagecard__link:hover .vfig__frame::after,
+.stagecard__link:focus-visible .vfig__frame::before, .stagecard__link:focus-visible .vfig__frame::after { transform: scaleY(0); }
+.stagecard__vid video { transition: transform .85s var(--studio-ease); }
+.stagecard__link:hover video, .stagecard__link:focus-visible video { transform: scale(1.04); }
+.stagecard__meta { border-bottom: 1px solid var(--line); padding-bottom: 1rem; margin-bottom: 1.1rem; }
+.stagecard__title { position: relative; padding-right: 2.4rem; }
+.stagecard__title::after {
+  content: ''; position: absolute; right: .1rem; top: .3rem; width: 24px; height: 24px; background: var(--wine);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 19 19 5M5 5h14v14' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E") center/contain no-repeat;
+  transition: transform .5s var(--studio-ease);
+}
+.stagecard__link:hover .stagecard__title::after, .stagecard__link:focus-visible .stagecard__title::after { transform: translate(3px,-3px); }
+.prodvideo .vfig__frame { border: 1px solid #79617B; outline: 8px solid var(--ink); outline-offset: 0; }
+.vfig__play { width: auto; height: auto; min-height: 56px; padding: 1rem 1.5rem; white-space: nowrap; transition: transform .35s var(--studio-ease), background .25s; }
+.vfig__play:hover, .vfig__play:focus-visible { transform: translate(-50%,-50%) scale(1.09); background: var(--paper); }
+
+@media (max-width:699px) {
+  .brand .brandmark img { width: 78px; height: 59px; }
+  .phero--deep .image-frame--hero { aspect-ratio: 4/3; }
+  .image-frame--portrait .image-frame__window { inset: 5px; border-width: 4px; }
+  .stagecard__vid .vfig__frame { border-width: 5px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .page-cue { display: none; }
+  .image-frame__shutters { display: none; }
+  .image-frame__picture, .image-frame__window, .image-frame--portrait::before,
+  .facultycard:nth-child(even) .image-frame--portrait::before,
+  .facultycard:nth-child(even) .image-frame__window { transform: none !important; }
+}

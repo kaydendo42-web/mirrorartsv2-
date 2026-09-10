@@ -1,0 +1,12 @@
+[
+  {
+    "antipattern": "layout-transition",
+    "name": "Layout property animation",
+    "description": "Animating width, height, padding, or margin causes layout thrash and janky performance. Use transform and opacity instead, or grid-template-rows for height animations.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "/Users/kaydendo/.codex/visualizations/2026/09/09/01a0867c-b64d-79f2-b513-6bfa3925b1cb/mirror-arts-preview/app/studio.css",
+    "line": 92,
+    "snippet": "transition: padding-left"
+  }
+]

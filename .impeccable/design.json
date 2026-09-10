@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-10T01:34:00.000000+00:00",
+  "title": "Design System: Mirror Arts Education",
+  "extensions": {
+    "colorMeta": {
+      "gold": {
+        "displayName": "Gold",
+        "role": "primary",
+        "tonalRamp": [
+          "oklch(15% 0.1380 89.73)",
+          "oklch(27% 0.1380 89.73)",
+          "oklch(38% 0.1380 89.73)",
+          "oklch(50% 0.1380 89.73)",
+          "oklch(61% 0.1380 89.73)",
+          "oklch(73% 0.1380 89.73)",
+          "oklch(84% 0.1380 89.73)",
+          "oklch(95% 0.1380 89.73)"
+        ]
+      },
+      "gold-light": {
+        "displayName": "Gold Light",
+        "role": "primary",
+        "tonalRamp": [
+          "oklch(15% 0.1211 93.53)",
+          "oklch(27% 0.1211 93.53)",
+          "oklch(38% 0.1211 93.53)",
+          "oklch(50% 0.1211 93.53)",
+          "oklch(61% 0.1211 93.53)",
+          "oklch(73% 0.1211 93.53)",
+          "oklch(84% 0.1211 93.53)",
+          "oklch(95% 0.1211 93.53)"
+        ]
+      },
+      "lilac": {
+        "displayName": "Lilac",
+        "role": "secondary",
+        "tonalRamp": [
+          "oklch(15% 0.0839 293.68)",
+          "oklch(27% 0.0839 293.68)",
+          "oklch(38% 0.0839 293.68)",
+          "oklch(50% 0.0839 293.68)",
+          "oklch(61% 0.0839 293.68)",
+          "oklch(73% 0.0839 293.68)",
+          "oklch(84% 0.0839 293.68)",
+          "oklch(95% 0.0839 293.68)"
+        ]
+      },
+      "wine": {
+        "displayName": "Wine",
+        "role": "secondary",
+        "tonalRamp": [
+          "oklch(15% 0.0723 348.95)",
+          "oklch(27% 0.0723 348.95)",
+          "oklch(38% 0.0723 348.95)",
+          "oklch(50% 0.0723 348.95)",
+          "oklch(61% 0.0723 348.95)",
+          "oklch(73% 0.0723 348.95)",
+          "oklch(84% 0.0723 348.95)",
+          "oklch(95% 0.0723 348.95)"
+        ]
+      },
+      "ink": {
+        "displayName": "Ink",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0229 305.14)",
+          "oklch(27% 0.0229 305.14)",
+          "oklch(38% 0.0229 305.14)",
+          "oklch(50% 0.0229 305.14)",
+          "oklch(61% 0.0229 305.14)",
+          "oklch(73% 0.0229 305.14)",
+          "oklch(84% 0.0229 305.14)",
+          "oklch(95% 0.0229 305.14)"
+        ]
+      },
+      "band": {
+        "displayName": "Band",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0327 316.83)",
+          "oklch(27% 0.0327 316.83)",
+          "oklch(38% 0.0327 316.83)",
+          "oklch(50% 0.0327 316.83)",
+          "oklch(61% 0.0327 316.83)",
+          "oklch(73% 0.0327 316.83)",
+          "oklch(84% 0.0327 316.83)",
+          "oklch(95% 0.0327 316.83)"
+        ]
+      },
+      "paper": {
+        "displayName": "Paper",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0082 301.35)",
+          "oklch(27% 0.0082 301.35)",
+          "oklch(38% 0.0082 301.35)",
+          "oklch(50% 0.0082 301.35)",
+          "oklch(61% 0.0082 301.35)",
+          "oklch(73% 0.0082 301.35)",
+          "oklch(84% 0.0082 301.35)",
+          "oklch(95% 0.0082 301.35)"
+        ]
+      },
+      "base-secondary": {
+        "displayName": "Base Secondary",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0240 304.47)",
+          "oklch(27% 0.0240 304.47)",
+          "oklch(38% 0.0240 304.47)",
+          "oklch(50% 0.0240 304.47)",
+          "oklch(61% 0.0240 304.47)",
+          "oklch(73% 0.0240 304.47)",
+          "oklch(84% 0.0240 304.47)",
+          "oklch(95% 0.0240 304.47)"
+        ]
+      },
+      "muted": {
+        "displayName": "Muted",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0395 311.27)",
+          "oklch(27% 0.0395 311.27)",
+          "oklch(38% 0.0395 311.27)",
+          "oklch(50% 0.0395 311.27)",
+          "oklch(61% 0.0395 311.27)",
+          "oklch(73% 0.0395 311.27)",
+          "oklch(84% 0.0395 311.27)",
+          "oklch(95% 0.0395 311.27)"
+        ]
+      },
+      "grey": {
+        "displayName": "Grey",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0401 312.09)",
+          "oklch(27% 0.0401 312.09)",
+          "oklch(38% 0.0401 312.09)",
+          "oklch(50% 0.0401 312.09)",
+          "oklch(61% 0.0401 312.09)",
+          "oklch(73% 0.0401 312.09)",
+          "oklch(84% 0.0401 312.09)",
+          "oklch(95% 0.0401 312.09)"
+        ]
+      },
+      "line": {
+        "displayName": "Line",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0253 309.32)",
+          "oklch(27% 0.0253 309.32)",
+          "oklch(38% 0.0253 309.32)",
+          "oklch(50% 0.0253 309.32)",
+          "oklch(61% 0.0253 309.32)",
+          "oklch(73% 0.0253 309.32)",
+          "oklch(84% 0.0253 309.32)",
+          "oklch(95% 0.0253 309.32)"
+        ]
+      }
+    },
+    "shadows": [
+      {
+        "name": "dropdown",
+        "value": "0 20px 50px #08060d3d",
+        "purpose": "Soft separation beneath desktop navigation."
+      }
+    ],
+    "motion": [
+      {
+        "name": "studio-ease",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "Text, arrows and image settling."
+      },
+      {
+        "name": "media-reveal",
+        "value": "1100ms",
+        "purpose": "Transient shutter reveal."
+      },
+      {
+        "name": "heading-reveal",
+        "value": "850ms",
+        "purpose": "Transient upward settle."
+      },
+      {
+        "name": "nav-roll",
+        "value": "550ms",
+        "purpose": "Masked navigation labels."
+      },
+      {
+        "name": "intro-hold",
+        "value": "850ms",
+        "purpose": "Session-only hold, independent of film loading."
+      },
+      {
+        "name": "intro-lift",
+        "value": "850ms cubic-bezier(.76,0,.24,1)",
+        "purpose": "Short curtain lift."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "699px"
+      },
+      {
+        "name": "collapsed-navigation",
+        "value": "1040px"
+      },
+      {
+        "name": "narrow-phone",
+        "value": "370px"
+      },
+      {
+        "name": "wide-hero",
+        "value": "1600px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Gold trial action with arrow and lilac hover.",
+      "html": "<button class=\"ds-action ds-primary\">Book a trial <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></button>",
+      "css": ".ds-action{display:inline-flex;align-items:center;justify-content:center;gap:1.7rem;min-height:48px;border:1px solid transparent;border-radius:2px;padding:.82rem 1.35rem;font:700 .78rem Manrope,sans-serif;letter-spacing:.015em;text-decoration:none;cursor:pointer;transition:background .3s,color .3s}.ds-action svg{transition:transform .5s cubic-bezier(.16,1,.3,1)}.ds-action:hover svg{transform:translateX(3px)}.ds-action:focus-visible{outline:3px solid var(--color-gold,#C9A227);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-action,.ds-action svg{transition:none}}.ds-primary{background:var(--color-gold,#C9A227);color:var(--color-ink,#18131E)}.ds-primary:hover{background:var(--lilac,#B9ADE8)}"
+    },
+    {
+      "name": "Form submission",
+      "kind": "button",
+      "refersTo": "button-submit",
+      "description": "Dark form action; disabled state remains visible.",
+      "html": "<button class=\"ds-action ds-submit\">Send enquiry <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></button>",
+      "css": ".ds-action{display:inline-flex;align-items:center;justify-content:center;gap:1.7rem;min-height:48px;border:1px solid transparent;border-radius:2px;padding:.82rem 1.35rem;font:700 .78rem Manrope,sans-serif;letter-spacing:.015em;text-decoration:none;cursor:pointer;transition:background .3s,color .3s}.ds-action svg{transition:transform .5s cubic-bezier(.16,1,.3,1)}.ds-action:hover svg{transform:translateX(3px)}.ds-action:focus-visible{outline:3px solid var(--color-gold,#C9A227);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-action,.ds-action svg{transition:none}}.ds-submit{background:var(--color-ink,#18131E);color:var(--paper,#F0EEF4);justify-content:space-between;font-size:.85rem}.ds-submit:hover{background:var(--wine,#54283F)}.ds-submit:disabled{opacity:.6}"
+    },
+    {
+      "name": "Secondary action",
+      "kind": "button",
+      "description": "Underlined text action with directional motion.",
+      "html": "<a class=\"ds-ghost\" href=\"#programmes\">Explore our programmes <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></a>",
+      "css": ".ds-ghost{display:inline-flex;align-items:center;gap:2rem;padding:.7rem 0;color:var(--color-ink,#18131E);font:.85rem Manrope,sans-serif;border-bottom:1px solid currentColor;text-decoration:none}.ds-ghost svg{transition:transform .5s cubic-bezier(.16,1,.3,1)}.ds-ghost:hover{color:var(--wine,#54283F)}.ds-ghost:hover svg{transform:translateX(4px)}.ds-ghost:focus-visible{outline:3px solid var(--color-gold,#C9A227);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-ghost svg{transition:none}}"
+    },
+    {
+      "name": "Text field",
+      "kind": "input",
+      "description": "Square field with bottom rule, wine focus and existing invalid colour.",
+      "html": "<label class=\"ds-field\">Your name<input class=\"ds-input\" placeholder=\"Your name\" autocomplete=\"name\"></label>",
+      "css": ".ds-field{display:grid;gap:.5rem;font:400 .66rem Manrope,sans-serif;letter-spacing:.08em;color:var(--color-muted,#53465C)}.ds-input{border:0;border-bottom:1px solid #95869e;border-radius:0;background:#e8e3ef;min-height:48px;font:1rem Manrope,sans-serif;padding:.8rem;color:var(--color-ink,#18131E);caret-color:var(--wine,#54283F)}.ds-input::placeholder{color:#64576b;opacity:1}.ds-input:hover{border-color:var(--color-grey,#65576E)}.ds-input:focus-visible{background:#fff;outline:2px solid var(--wine,#54283F);outline-offset:1px}.ds-input[aria-invalid=true]{border-color:#A8321E}"
+    },
+    {
+      "name": "Rolling navigation label",
+      "kind": "nav",
+      "description": "Two visual copies share one accessible label.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#courses\"><span class=\"ds-roll\"><span>Courses</span><span aria-hidden=\"true\">Courses</span></span></a></nav>",
+      "css": ".ds-nav{background:var(--color-ink,#18131E);padding:1.3rem}.ds-nav a{display:inline-block;color:var(--paper,#F0EEF4);font:600 .73rem Manrope,sans-serif;letter-spacing:.04em;text-decoration:none;padding:.65rem 0}.ds-roll{display:inline-grid;overflow:hidden;vertical-align:middle;line-height:1.4}.ds-roll>span{grid-area:1/1;transition:transform .55s cubic-bezier(.16,1,.3,1)}.ds-roll>span:last-child{transform:translateY(110%);color:var(--color-gold-lt,#E3C766)}.ds-nav a:hover .ds-roll>span:first-child,.ds-nav a:focus-visible .ds-roll>span:first-child{transform:translateY(-110%)}.ds-nav a:hover .ds-roll>span:last-child,.ds-nav a:focus-visible .ds-roll>span:last-child{transform:translateY(0)}.ds-nav a:focus-visible{outline:3px solid var(--color-gold,#C9A227);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-roll>span{transition:none}}"
+    },
+    {
+      "name": "Campus tab",
+      "kind": "custom",
+      "refersTo": "campus-tab-selected",
+      "description": "Selected campus is an ink rectangle; the snippet represents selection only.",
+      "html": "<button class=\"ds-tab\" aria-pressed=\"true\">Surrey Hills</button>",
+      "css": ".ds-tab{border:0;border-radius:0;min-height:49px;padding:.85rem 1.25rem;font:500 .85rem Manrope,sans-serif;background:transparent;color:var(--color-ink,#18131E);cursor:pointer}.ds-tab[aria-pressed=true]{background:var(--color-ink,#18131E);color:var(--paper,#F0EEF4)}.ds-tab:hover{background:#b5a4cc;color:var(--color-ink,#18131E)}.ds-tab:focus-visible{outline:3px solid var(--color-gold,#C9A227);outline-offset:5px}"
+    },
+    {
+      "name": "Discipline panel",
+      "kind": "card",
+      "description": "Lilac panel excerpt with condensed title and full-width ruled action; photography is supplied by the real page.",
+      "html": "<article class=\"ds-panel\"><h3>Drama</h3><a href=\"#drama\">Explore <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></a></article>",
+      "css": ".ds-panel{padding:clamp(1.5rem,3vw,2.8rem);background:var(--lilac,#B9ADE8);color:var(--color-ink,#18131E);border-radius:0}.ds-panel h3{margin:0 0 1.8rem;font:600 clamp(2.2rem,3.6vw,3.6rem)/1.03 \"Barlow Condensed\",sans-serif;text-transform:uppercase;letter-spacing:-.02em}.ds-panel a{display:flex;justify-content:space-between;align-items:center;padding:.7rem 0;border-bottom:1px solid currentColor;color:inherit;text-decoration:none;font:.8rem Manrope,sans-serif}.ds-panel a svg{transition:transform .5s cubic-bezier(.16,1,.3,1)}.ds-panel a:hover svg{transform:translateX(4px)}.ds-panel:focus-within{outline:3px solid var(--color-gold,#C9A227);outline-offset:5px}.ds-panel a:focus-visible{outline:none}@media(prefers-reduced-motion:reduce){.ds-panel a svg{transition:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Performance in colour",
+    "overview": "Real school film and photography carry a contemporary season programme. Condensed uppercase headings provide scale; square frames, fine rules and saturated colour changes establish the theatrical setting. Manrope keeps practical information calm and readable.\n\nThis documents the completed independent preview. The original logo remains in the shared masthead, footer and intro. PageHero uses a short three-panel stage cue and masked title; ImageFrame supplies shuttered portraits, course galleries, production stills and venue photographs while preserving each existing slot. Existing film cards retain their grid with visibility-aware playback. Source authority is the cascade of `app/globals.css` followed by `app/studio.css` and `app/component-motion.css`, the font setup in `app/layout.tsx`, and the motion and site components. The final bounded review is recorded in `research/FINISH-REVIEW.md`.",
+    "keyCharacteristics": [
+      "Monumental condensed headings with ordinary reading text.",
+      "Original gold, dark plum ink, lilac and wine scene fields.",
+      "Actual school imagery in precise rectangular frames.",
+      "Original Mirror Arts logo preserved in shared placements.",
+      "Progressive motion with an immediate static reading state."
+    ],
+    "rules": [
+      {
+        "name": "The Original Gold Rule",
+        "body": "Preserve the original gold primitive; do not reinterpret it as a brighter yellow or a gradient.",
+        "section": "colors"
+      },
+      {
+        "name": "The Reading Voice Rule",
+        "body": "Chinese-language spans use the reading stack, normal case and restrained tracking; never apply condensed English display treatment to them.",
+        "section": "typography"
+      },
+      {
+        "name": "The Available Content Rule",
+        "body": "Reveal targets are visible before enhancement. Animation cannot be the only route to reading content or using a control. Reduced motion removes the intro, decorative autoplay, sticky dwell and staged transitions, showing the poster and static composition. General keyboard focus uses a 3px gold outline with 5px offset; individual controls retain their more specific focus treatment.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do keep original gold as the persistent identity across changing scene colours.",
+      "Do pair condensed display scale with readable Manrope information.",
+      "Do use actual school film and photographs in square frames.",
+      "Do preserve static content availability and visible keyboard states."
+    ],
+    "donts": [
+      "Don't replace the original gold with a reference website's yellow.",
+      "Don't force Chinese text into the condensed display voice.",
+      "Don't turn editorial image frames into decorative arches.",
+      "Don't make concealed controls focusable during scene transitions."
+    ]
+  }
+}
