@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import PartnersDetail from "@/components/sections/partners-detail";
+import ArtsComposition from "@/components/shared/arts-composition";
 import PageHero from "@/components/site/page-hero";
 import PageNav from "@/components/site/page-nav";
 import { Section, SectionHead } from "@/components/site/section";
@@ -83,7 +84,7 @@ export default function AboutPage() {
         density="deep"
       />
 
-      <Section>
+      <Section id="school" className="sect--composition sect--story">
         <SectionHead
           eyebrow="What the school is"
           title={
@@ -149,6 +150,7 @@ export default function AboutPage() {
             by the world.
           </blockquote>
         </figure>
+        <ArtsComposition variant="story" />
       </Section>
 
       <Section id="history" tone="alt">

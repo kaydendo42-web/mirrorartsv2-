@@ -83,7 +83,7 @@ components:
 
 Real school film and photography carry a contemporary season programme. Condensed uppercase headings provide scale; square frames, fine rules and saturated colour changes establish the theatrical setting. Manrope keeps practical information calm and readable.
 
-This documents the completed independent preview. The colour and motion language is shared across its existing pages; the homepage's particular scene sequence belongs in its surface brief. Source authority is the cascade of `app/globals.css` followed by `app/studio.css`, the font setup in `app/layout.tsx`, and the motion and site components. The final bounded review is recorded in `research/FINISH-REVIEW.md`.
+This documents the independent preview. The colour and motion language is shared across its existing pages; the homepage's particular scene sequence belongs in its surface brief. Source authority is the cascade of `app/globals.css`, `app/studio.css`, `app/component-motion.css` and `app/art-direction.css`, the font setup in `app/layout.tsx`, and the motion and site components. The initial bounded review is recorded in `research/FINISH-REVIEW.md`; subsequent art-direction decisions and verification are recorded in `research/ART-DIRECTION-PASS.md`.
 
 The second component pass keeps the original `/public/assets/logo.png` artwork in the shared masthead, footer and intro. PageHero openings add a three-panel stage cue behind the existing copy. `ImageFrame` supplies the common image language for page media, course galleries, faculty portraits, production stills and venue photographs: one real asset, a bounded crop, three clearing shutters and a full-size dialog where the source quality supports it. Existing film cards retain their grid and now use a cinema aperture and visibility-aware playback.
 
@@ -135,7 +135,7 @@ Most surfaces are flat. Colour fields, image crops, fine borders and the moving 
 
 ## Shapes
 
-Photography, discipline panels, form surfaces, campus controls and lightboxes use square corners. Primary actions have a nearly square functional radius. The typographic brand mark combines condensed lettering with a fine angular SVG symbol; it is the preview's authored treatment of the existing school name. Small radii remain in underlying utility controls and are not a reason to round editorial imagery.
+Photography, discipline panels, form surfaces, campus controls and lightboxes use square corners. Primary actions have a nearly square functional radius. The brand mark is the unchanged original `/assets/logo.png`. Photographs sit in angled paper mounts, with smaller tilts in dense grids. Small radii remain in underlying utility controls; the new artwork pause controls are circular.
 
 ## Components
 
@@ -149,9 +149,9 @@ The fixed dark bar keeps the brand and primary action compact. Each main label h
 
 ### Panels and media
 
-Discipline panels have distinct lilac, rose, gold and wine fields with inherited text contrast, internal dividing rules and 4:3 image windows. Teacher portraits use square-cornered 4:5 frames. Production cards tighten the image crop on hover. These are content-bearing panels, not raised dashboard tiles.
+Discipline panels have distinct lilac, rose, gold and wine fields with inherited text contrast, internal dividing rules and 4:3 image windows. Teacher portraits preserve the source image ratio in square-cornered photographic mounts. Production films use shallow tilted paper borders. These are content-bearing panels, not raised dashboard tiles.
 
-The portrait treatment adds a small rotated backing plane and a bordered image window inspired by the observed Stageo/Danzia card construction, without duplicating the photo or changing the card's left/right placement. Portrait and production still triggers retain the existing dialog focus trap and return focus to the trigger. Page media and gallery photos use the same shuttered frame without inventing additional content.
+The current portrait treatment uses a full image in a paper mount with a small tape tab. Faculty rows alternate image and biography placement within the existing teacher sequence, as authorised in the latest request. Room-hire photos alternate against the practical details, with paired photos overlapping. Portrait and production still triggers retain the existing dialog focus trap and return focus to the trigger. Page media, class stills, productions and the campus gallery share this photographic language with varied angles, sizes and paper colours.
 
 ### Forms and campus tabs
 
@@ -164,6 +164,10 @@ The optional intro holds for 850ms once per session and lifts in 850ms; it does 
 **The Available Content Rule.** Reveal targets are visible before enhancement. Animation cannot be the only route to reading content or using a control. Reduced motion removes the intro, decorative autoplay, sticky dwell and staged transitions, showing the poster and static composition. General keyboard focus uses a 3px gold outline with 5px offset; individual controls retain their more specific focus treatment.
 
 The component pass uses one short opening cue per page, a 780ms masked title entrance, an 820ms shutter clear and a 1050ms image settle. Production loops play only while visible and pause when the document is hidden; selecting a full film retains native playback controls. Reduced motion hides the decorative shutters and cue, pauses loops and leaves the underlying image immediately readable.
+
+The art-direction pass adds a sticky photographic collage beside the About prose and a folding paper fan beside the school-workshop prose. The same existing school photos are reused decoratively, without new claims or captions. Paper prints drift over 9 seconds, the fan opens and closes over 12 seconds, and both compositions have a 44px pause/play control. Motion stops outside the viewport and when the document is hidden. Reduced motion disables the art animations and hides the unnecessary pause control, leaving a complete static composition. On screens below 1000px, the artwork follows the heading in the normal document flow.
+
+Partner mark wrappers are transparent and the supplied images use multiply blending, eliminating their white rectangles on the pale section backgrounds without editing the marks. Exam-body names explicitly use #F0EEF4 on #211625; their heading uses #E3C766.
 
 ## Do's and Don'ts
 

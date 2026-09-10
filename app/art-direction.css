@@ -1,0 +1,277 @@
+/* A performing-arts scrapbook: real photographs, paper mounts and a moving fan.
+   Section order and copy stay intact. Image composition is deliberately freer. */
+:root {
+  --print-paper: #FFFCF7;
+  --print-shadow: 0 16px 28px -20px #21162566;
+}
+
+/* The white in supplied marks blends into the section, including their baked-in
+   image backgrounds. The original artwork and colour information stay intact. */
+.institutions__mark { background: transparent; padding: .35rem .7rem .35rem 0; }
+.institutions__mark img, .ticker__track img { mix-blend-mode: multiply; }
+.ticker__track img { filter: none; opacity: 1; }
+.institutions__mark--none { padding: 0; }
+
+/* Explicit foregrounds on dark sections; these previously inherited dark ink. */
+.sect--band .minihead { color: var(--gold-lt); }
+.sect--band .bodies, .sect--band .bodies li { border-color: #7D6687; }
+.sect--band .bodies li { color: var(--paper); font-size: 1.05rem; padding-block: 1.15rem; }
+.sect--band .prose p, .sect--band .sect__note { color: #D5C5DB; }
+.sect--band .prose p:first-child { color: var(--paper); }
+
+/* About and school incursions: the existing prose occupies the left column;
+   a self-contained artwork inhabits the previously empty right column. */
+.sect--composition > .wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  column-gap: clamp(2rem, 5.5vw, 6rem);
+  align-items: start;
+}
+.sect--composition .sect__head, .sect--composition .prose, .sect--composition .creed { grid-column: 1; }
+.sect--composition .sect__head { margin-bottom: 2.7rem; }
+.sect--composition .h2 { font-size: clamp(2.9rem, 4.6vw, 5.2rem); }
+.sect--composition .arts-composition { grid-column: 2; grid-row: 1 / span 3; }
+.sect--story .creed { max-width: none; margin-top: 2rem; padding-block: 1.5rem; }
+.sect--story .creed blockquote { font-size: clamp(2.4rem, 3.6vw, 3.8rem); }
+.arts-composition {
+  position: sticky;
+  top: calc(var(--bar-h) + 2rem);
+  align-self: start;
+  width: 100%;
+  max-width: min(650px, calc((100svh - var(--bar-h) - 5.25rem) * .8571));
+  margin-inline: auto;
+  isolation: isolate;
+}
+.arts-composition__canvas { width: 100%; aspect-ratio: 6 / 7; position: relative; }
+.art-arch, .art-ribbon { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.art-arch { color: #D8CDE9; transform: rotate(8deg); }
+.art-ribbon { color: var(--gold); }
+.art-ribbon__line { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.arts-composition[data-seen="true"] .art-ribbon__line { animation: ribbon-draw 1.8s var(--studio-ease) both; }
+.art-print { position: absolute; animation: print-drift 9s ease-in-out infinite; }
+.art-print--1 { width: 82%; left: 0; top: 17%; --print-angle: -8deg; }
+.art-print--2 { width: 66%; right: -1%; top: 47%; --print-angle: 9deg; animation-delay: -3s; }
+.art-print--3 { width: 45%; left: 2%; top: 71%; --print-angle: -6deg; animation-delay: -6s; }
+.art-print__paper { background: var(--print-paper); padding: 10px 10px 30px; box-shadow: var(--print-shadow); transform: rotate(var(--print-angle)); }
+.art-print--2 .art-print__paper { background: var(--gold); }
+.art-print--3 .art-print__paper { background: var(--wine); padding: 8px 8px 22px; }
+.art-print__image { position: relative; aspect-ratio: 1.6; overflow: hidden; }
+.art-print__image img { object-fit: cover; }
+.art-print--3 .art-print__image { aspect-ratio: 1.3; }
+.art-print--1 .art-print__paper::before {
+  content: ""; position: absolute; width: 22%; height: 20px; top: -10px; left: 38%;
+  background: #E3C766B8; transform: rotate(7deg); z-index: 1;
+}
+.arts-composition[data-seen="true"] .art-print__arrival { animation: print-arrive 1s var(--studio-ease) both; }
+.arts-composition[data-seen="true"] .art-print--2 .art-print__arrival { animation-delay: .14s; }
+.arts-composition[data-seen="true"] .art-print--3 .art-print__arrival { animation-delay: .28s; }
+.art-spark { position: absolute; width: 18%; top: 5%; right: 4%; color: var(--wine); animation: spark-turn 20s linear infinite; }
+.arts-composition__pause {
+  display: grid; place-items: center; margin: .5rem 0 0 auto; width: 44px; height: 44px;
+  border: 1px solid #9C88AC; border-radius: 50%; color: var(--wine); background: transparent;
+  cursor: pointer; transition: background .25s, color .25s;
+}
+.arts-composition__pause:hover { background: var(--wine); color: var(--paper); }
+.arts-composition--workshop { margin-top: 2rem; }
+.arts-composition--workshop .art-fan { position: absolute; top: -3%; left: 0; width: 100%; height: auto; }
+.art-fan__leaf { transform-origin: 320px 440px; transform: rotate(var(--fan-angle)); animation: fan-unfold 12s ease-in-out infinite; }
+.arts-composition--workshop .art-print--1 { width: 63%; top: 45%; left: -1%; --print-angle: -10deg; }
+.arts-composition--workshop .art-print--2 { width: 59%; top: 64%; right: -2%; --print-angle: 8deg; }
+.arts-composition--workshop .art-print--1 .art-print__paper { background: var(--lilac); }
+.arts-composition--workshop .art-print--2 .art-print__paper { background: var(--print-paper); }
+.arts-composition--workshop .art-spark { width: 13%; top: 79%; left: 5%; color: var(--gold); }
+.arts-composition--workshop .arts-composition__pause { color: var(--gold-lt); border-color: #7D6687; }
+.arts-composition--workshop .arts-composition__pause:hover { background: var(--gold); color: var(--ink); }
+.arts-composition[data-running="false"] .art-print,
+.arts-composition[data-running="false"] .art-fan__leaf,
+.arts-composition[data-running="false"] .art-spark { animation-play-state: paused; }
+@keyframes print-arrive { from { opacity: 0; transform: translateY(55px) rotate(-5deg); } to { opacity: 1; transform: none; } }
+@keyframes print-drift { 0%, 100% { translate: 0 0; } 50% { translate: 0 -13px; } }
+@keyframes fan-unfold { 0%, 100% { transform: rotate(calc(var(--fan-angle) * .58)); } 35%, 65% { transform: rotate(var(--fan-angle)); } }
+@keyframes spark-turn { to { rotate: 360deg; } }
+@keyframes ribbon-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+/* Portraits are actual photographic prints. A full source ratio preserves faces
+   and bodies; the print's tilt is separate from the image's reveal animation. */
+.image-frame--portrait {
+  --portrait-angle: -5deg;
+  aspect-ratio: auto;
+  padding: 10px 10px 30px;
+  rotate: var(--portrait-angle);
+  box-shadow: var(--print-shadow);
+  transition: rotate .65s var(--studio-ease), box-shadow .65s var(--studio-ease);
+}
+.image-frame--portrait::after { content: ""; display: block; aspect-ratio: var(--image-ratio); pointer-events: none; }
+.image-frame--portrait::before {
+  inset: -10px auto auto 36%; width: 26%; height: 23px; background: #E3C766B8;
+  transform: rotate(7deg); z-index: 2; pointer-events: none;
+}
+.facultycard__frame.image-frame, .teachercard__frame.image-frame { background: var(--print-paper); }
+.image-frame--portrait .image-frame__window,
+.facultycard:nth-child(even) .image-frame--portrait .image-frame__window { inset: 10px 10px 30px; border: 0; transform: none; }
+.image-frame--portrait .image-frame__picture { object-fit: contain; }
+.facultycard:nth-child(even) .image-frame--portrait { --portrait-angle: 6deg; background: var(--gold); }
+.facultycard:nth-child(even) .image-frame--portrait::before { background: #FFFCF7B8; transform: rotate(-9deg); }
+.facultycard:nth-child(3n) .image-frame--portrait { --portrait-angle: -3deg; background: var(--lilac); }
+.facultycard:hover .image-frame--portrait, .facultycard:focus-within .image-frame--portrait,
+.teachercard:hover .image-frame--portrait, .teachercard:focus-within .image-frame--portrait { rotate: 0deg; }
+.facultycard:hover .image-frame__picture, .image-frame--portrait .image-frame__hit:hover .image-frame__picture,
+.image-frame--portrait .image-frame__hit:focus-visible .image-frame__picture { transform: none; }
+.facultycard:hover .image-frame--portrait::before { transform: rotate(7deg); }
+.facultylist { gap: clamp(5rem, 8vw, 8rem); padding-block: 1.5rem 2rem; }
+.facultycard { border: 0; padding-bottom: 0; align-items: center; }
+.facultycard__frame { max-width: 360px; }
+.facultycard__body { padding-block: 1.5rem; }
+.facultycard__name { font-size: clamp(2.5rem, 4.7vw, 4.9rem); margin-bottom: .8rem; }
+.facultycard__subject { margin-bottom: 1.4rem; }
+.facultycard__teaches { border-top: 1px solid var(--line); padding-top: 1.4rem; margin-top: 1.5rem; }
+.facultycard__disc { color: #65576E; }
+.teachercards { gap: clamp(3rem, 8vw, 8rem); padding: 1.5rem 1.5rem 2rem; max-width: 1120px; }
+.teachercard__frame { max-width: 300px; margin-bottom: 2rem; }
+.teachercard:nth-child(even) { padding-top: 3.5rem; }
+.teachercard:nth-child(even) .image-frame--portrait { --portrait-angle: 5deg; background: var(--lilac); }
+.teachercard__name { font-size: clamp(2.2rem, 3vw, 3rem); }
+
+/* Room hire reads like a studio visit: photographs and practical details trade
+   places. Paired views overlap like prints, keeping both originals available. */
+.spaces { gap: clamp(5rem, 9vw, 9rem); padding-block: 1.5rem; }
+.space { align-items: center; }
+.space__photos { gap: 0; padding: 1rem; }
+.space__photos .image-frame, .stills .image-frame {
+  box-sizing: content-box; width: calc(100% - 24px); border: 12px solid var(--print-paper);
+  border-bottom-width: 30px; background: var(--print-paper); outline: none;
+  rotate: -4deg; box-shadow: var(--print-shadow); transition: rotate .7s var(--studio-ease);
+}
+.space__photos .image-frame__window { inset: 0; }
+.space__photos .image-frame__picture { height: 100%; aspect-ratio: auto; }
+.space:nth-child(2n) .image-frame { rotate: 5deg; border-color: var(--lilac); }
+.space:nth-child(3n) .image-frame { rotate: -3deg; border-color: #E3C766; }
+.space__photos:has(li + li) { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; padding-bottom: 1rem; }
+.space__photos:has(li + li) > li { grid-column: 1 / 10; grid-row: 1; }
+.space__photos:has(li + li) > li:nth-child(2) { grid-column: 5 / -1; margin-top: 55%; }
+.space__photos:has(li + li) > li:nth-child(2) .image-frame { rotate: 7deg; border-color: #E3C766; }
+.space__body { position: relative; padding-block: 1.5rem; }
+.space__name { font-size: clamp(2.5rem, 4vw, 4.25rem); gap: .8rem; }
+.space__size { font-family: var(--sans); font-size: .68rem; letter-spacing: .06em; }
+.space__rates { gap: 2rem; padding-block: 1.3rem 1.7rem; margin-bottom: 1rem; }
+.space__rates dd { font-family: var(--disp); font-size: 2.7rem; line-height: 1.25; }
+.space__rates dd span { font-family: var(--sans); font-size: .76rem; }
+.space:hover .image-frame { rotate: -1deg; }
+.space:hover .space__photos > li:nth-child(2) .image-frame { rotate: 3deg; }
+
+/* The same paper language carries through class stills and production work,
+   with smaller angles for the denser grids. */
+.phero__media { overflow: visible; padding-inline: 1.8%; }
+.phero__media .image-frame--hero {
+  rotate: -1.5deg; border: 10px solid var(--print-paper); border-bottom-width: 28px;
+  box-shadow: var(--print-shadow);
+}
+.phero[data-scene="About"] .image-frame--hero { rotate: 1.5deg; }
+.stills { padding: 1.5rem clamp(.75rem, 2vw, 2rem) 3rem; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.stills > li { min-width: 0; }
+.stills > li:nth-child(even) { margin-top: 3.5rem; }
+.stills > li:nth-child(even) .image-frame { rotate: 4deg; border-color: var(--lilac); }
+.stills > li:nth-child(3n) .image-frame { rotate: -2deg; border-color: #E3C766; }
+.stills > li:only-child { width: 90%; max-width: 1080px; margin-inline: auto; }
+.stills .image-frame:hover, .stills .image-frame:focus-within { rotate: 0deg; }
+.stagegrid { gap: 4rem 2.5rem; padding: 1.25rem .5rem 2rem; align-items: start; }
+.stagecard__vid { rotate: -3deg; margin-bottom: 2rem; transition: rotate .65s var(--studio-ease); }
+.stagecard:nth-child(even) .stagecard__vid { rotate: 3deg; }
+.stagecard:nth-child(3n + 2) { margin-top: 3rem; }
+.stagecard__vid .vfig__frame { border: 10px solid var(--print-paper); border-bottom-width: 26px; box-shadow: var(--print-shadow); }
+.stagecard:nth-child(even) .stagecard__vid .vfig__frame { border-color: var(--lilac); }
+.stagecard:nth-child(3n) .stagecard__vid .vfig__frame { border-color: #E3C766; }
+.stagecard__vid .vfig__frame::before, .stagecard__vid .vfig__frame::after { display: none; }
+.stagecard__link:hover .stagecard__vid, .stagecard__link:focus-visible .stagecard__vid { rotate: 0deg; }
+.works { gap: 3rem; padding: 1rem; }
+.work__frame { rotate: -3deg; border: 10px solid var(--print-paper); border-bottom-width: 26px; box-shadow: var(--print-shadow); }
+.work:nth-child(even) { padding-top: 3rem; }
+.work:nth-child(even) .work__frame { rotate: 4deg; border-color: var(--lilac); }
+.rooms { gap: clamp(1rem, 3vw, 3rem); padding: 1.2rem; }
+.room { rotate: -2deg; transition: rotate .65s var(--studio-ease); }
+.room:nth-child(even) { rotate: 3deg; }
+.room:nth-child(3n) { rotate: -3deg; }
+.room:hover, .room:focus-within { rotate: 0deg; z-index: 1; }
+.room__hit { background: var(--print-paper); padding: 10px 10px 55px; overflow: hidden; box-shadow: var(--print-shadow); }
+.room:nth-child(even) .room__hit { background: var(--lilac); }
+.room:nth-child(5) .room__hit { background: #E3C766; }
+.room__name { bottom: 14px; left: 12px; padding: 0; color: var(--ink); background: transparent; font-family: var(--disp); font-size: 1.35rem; font-weight: 600; text-transform: uppercase; }
+.room__open { bottom: 10px; right: 10px; width: 32px; height: 32px; background: var(--ink); color: var(--paper); }
+
+@media (min-width: 1000px) {
+  .facultycard, .space { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2.5vw, 2.5rem); }
+  .facultycard__frame { grid-column: 2 / 6; grid-row: 1; }
+  .facultycard__body { grid-column: 7 / -1; grid-row: 1; }
+  .facultycard:nth-child(even) .facultycard__frame { grid-column: 9 / -1; }
+  .facultycard:nth-child(even) .facultycard__body { grid-column: 2 / 8; }
+  .facultycard:nth-child(3n) .facultycard__frame { grid-column: 1 / 5; }
+  .facultycard:nth-child(3n) .facultycard__body { grid-column: 6 / 12; }
+  .space__photos { grid-column: 1 / 6; grid-row: 1; }
+  .space__body { grid-column: 7 / -1; grid-row: 1; }
+  .space:nth-child(even) .space__photos { grid-column: 8 / -1; }
+  .space:nth-child(even) .space__body { grid-column: 2 / 7; }
+  .space:nth-child(3n) .space__photos { grid-column: 2 / 7; }
+  .space:nth-child(3n) .space__body { grid-column: 8 / -1; }
+}
+@media (min-width: 700px) and (max-width: 999px) {
+  .facultycard { grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); gap: 3rem; padding-inline: 1rem; }
+  .facultycard:nth-child(even) { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); }
+  .facultycard:nth-child(even) .facultycard__frame { grid-column: 2; grid-row: 1; }
+  .facultycard:nth-child(even) .facultycard__body { grid-column: 1; grid-row: 1; }
+  .space { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; }
+  .space:nth-child(even) .space__photos { grid-column: 2; grid-row: 1; }
+  .space:nth-child(even) .space__body { grid-column: 1; grid-row: 1; }
+}
+@media (max-width: 999px) {
+  .sect--composition > .wrap { grid-template-columns: minmax(0, 1fr); }
+  .sect--composition .arts-composition { grid-column: 1; grid-row: 2; position: relative; top: auto; max-width: 530px; margin-block: 0 3rem; }
+  .sect--composition .sect__head { margin-bottom: 2rem; }
+  .sect--composition .h2 { font-size: clamp(2.8rem, 6.5vw, 4.8rem); }
+  .sect--composition .prose { max-width: none; }
+  .sect--story .creed { max-width: 48ch; }
+}
+@media (max-width: 699px) {
+  .arts-composition { max-width: 420px; }
+  .arts-composition__canvas { aspect-ratio: 6 / 7.2; }
+  .art-arch { transform: rotate(8deg) scale(.9); }
+  .art-print__paper { padding: 7px 7px 21px; }
+  .art-print--3 .art-print__paper { padding: 6px 6px 16px; }
+  .art-print--2 { right: 2%; }
+  .arts-composition--workshop .art-print--2 { right: 2%; }
+  .arts-composition--workshop .art-fan { width: 103%; left: -1.5%; }
+  .art-spark { width: 15%; }
+  .facultylist { gap: 4.5rem; }
+  .facultycard { gap: 1.5rem; grid-template-columns: minmax(0, 1fr); }
+  .facultycard__frame { width: 74%; max-width: 280px; margin-left: 5%; }
+  .facultycard:nth-child(even) .facultycard__frame { margin-left: auto; margin-right: 5%; }
+  .facultycard__body { padding-block: .5rem 0; }
+  .facultycard__name { font-size: clamp(2.7rem, 10vw, 4rem); }
+  .facultycard__subject { font-size: .7rem; }
+  .teachercards { padding-inline: .8rem; gap: 4rem; }
+  .teachercard__frame { width: 82%; max-width: 280px; }
+  .teachercard:nth-child(even) { padding-top: 0; margin-left: 8%; }
+  .spaces { gap: 3.5rem; }
+  .space { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .space__photos { width: 94%; margin-inline: auto; }
+  .space__name { font-size: 2.7rem; }
+  .space__body { padding-top: .75rem; }
+  .space__photos .image-frame, .stills .image-frame { border-width: 8px; border-bottom-width: 23px; width: calc(100% - 16px); }
+  .stills { gap: 3rem; padding-inline: .75rem; }
+  .stills > li:nth-child(even) { margin-top: 0; }
+  .stills > li:only-child { width: 100%; }
+  .stagegrid { gap: 3rem 1.5rem; padding-inline: .4rem; }
+  .stagecard:nth-child(3n + 2) { margin-top: 0; }
+  .stagecard__vid .vfig__frame { border-width: 7px; border-bottom-width: 20px; }
+  .phero__media .image-frame--hero { border-width: 6px; border-bottom-width: 17px; }
+  .rooms { gap: 1.1rem; padding: .5rem; }
+  .room__hit { padding: 6px 6px 43px; }
+  .room__name { font-size: 1rem; bottom: 9px; left: 8px; max-width: calc(100% - 16px); }
+  .room__open { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arts-composition *, .arts-composition[data-seen="true"] * { animation: none !important; }
+  .arts-composition__pause { display: none; }
+  .art-fan__leaf { transform: rotate(var(--fan-angle)); }
+  .art-print, .art-print__arrival { translate: none; opacity: 1; }
+  .image-frame--portrait, .space__photos .image-frame, .stills .image-frame, .room, .stagecard__vid { transition: none; }
+}

@@ -3,6 +3,7 @@ import { Barlow_Condensed, Manrope } from "next/font/google";
 import "./globals.css";
 import "./studio.css";
 import "./component-motion.css";
+import "./art-direction.css";
 import StudioMotion from "@/components/motion/studio-motion";
 
 import Intro from "@/components/site/intro";

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ArtsComposition from "@/components/shared/arts-composition";
 
 import { Section, SectionHead } from "@/components/site/section";
 import { WORKSHOPS, WORKSHOP_FAMILIES } from "@/lib/content/workshops";
@@ -14,7 +15,7 @@ const AGE_LIMITED = WORKSHOPS.filter((workshop) => workshop.minAge).sort(
 export default function SchoolsWorkshopsDetail() {
   return (
     <>
-      <Section id="schools" tone="band">
+      <Section id="schools" tone="band" className="sect--composition sect--workshop">
         <SectionHead
           eyebrow="For schools and organisations"
           title={
@@ -46,6 +47,7 @@ export default function SchoolsWorkshopsDetail() {
             Melbourne Chinese Museum since 2022, in English and Mandarin.
           </p>
         </div>
+        <ArtsComposition variant="workshop" />
       </Section>
 
       <Section tone="band">

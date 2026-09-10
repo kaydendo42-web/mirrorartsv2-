@@ -118,7 +118,7 @@ function TeacherCard({ teacher: t }: { teacher: Teacher }) {
 
   return (
     <li className="facultycard" id={t.slug}>
-      <ImageFrame asset={t.portrait} kind="portrait" className="facultycard__frame" sizes="260px" enlargeTitle={t.name} />
+      <ImageFrame asset={t.portrait} kind="portrait" className="facultycard__frame" sizes="(min-width: 1000px) 360px, (min-width: 700px) 32vw, 280px" enlargeTitle={t.name} />
 
       <div className="facultycard__body">
         <h3 className="facultycard__name">{t.name}</h3>

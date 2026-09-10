@@ -1,0 +1,137 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/about",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/contact",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/bilingual-hosting",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/choir",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/dance",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/debating",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/drama",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/dubbing",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/english-speech",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/instrument",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/music-composition",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/musical-theatre",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/mv-production",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/posture-training",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/courses/vocal",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/faculty",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/stage",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/stage/belt-and-road-2025",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/stage/born-to-fly",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/stage/brushstrokes-of-history",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/stage/horse-year-gala",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/stage/jungle-book",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/stage/snake-year-gala",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/workshops",
+    "status": 200,
+    "hasTitle": true
+  },
+  {
+    "path": "/workshops/venue",
+    "status": 200,
+    "hasTitle": true
+  }
+]

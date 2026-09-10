@@ -8,15 +8,17 @@ type Tone = "base" | "alt" | "band";
 export function Section({
   id,
   tone = "base",
+  className = "",
   children,
 }: {
   id?: string;
   tone?: Tone;
+  className?: string;
   children: React.ReactNode;
 }) {
   const cls = tone === "base" ? "sect" : `sect sect--${tone}`;
   return (
-    <section className={cls} id={id}>
+    <section className={`${cls} ${className}`.trim()} id={id}>
       <div className="wrap">{children}</div>
     </section>
   );
