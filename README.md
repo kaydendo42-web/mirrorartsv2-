@@ -6,7 +6,9 @@ Repository: https://github.com/kaydendo42-web/mirrorartsv2-
 
 Hosted redesign: https://mirrorartsv2.vercel.app
 
-`main` is the default GitHub branch and the production branch for the Vercel project `mirrorartsv2`. Pushing to `main` triggers its production deployment. The original school project and domain are separate.
+School domain: https://www.mirrorartsedu.com.au (the bare domain redirects here).
+
+`main` is the default GitHub branch and the production branch for the Vercel project `mirrorartsv2`. Pushing to `main` triggers its production deployment. The school domain is already attached to this project in Vercel. The original local source folder remains separate and unchanged.
 
 ## Run locally
 
@@ -51,7 +53,7 @@ npm test
 
 ## Deployment and enquiry status
 
-This repository contains the redesigned source and assets and is linked to the Vercel project `mirrorartsv2` in `kaydendo42-webs-projects`. The original website remains untouched. Deployment history and build status are available at https://vercel.com/kaydendo42-webs-projects/mirrorartsv2.
+This repository contains the redesigned source and assets and is linked to the Vercel project `mirrorartsv2` in `kaydendo42-webs-projects`. The original local source folder remains untouched. Deployment history and build status are available at https://vercel.com/kaydendo42-webs-projects/mirrorartsv2.
 
 The enquiry form validates entries but does not deliver them to an inbox. A delivery integration must be connected before accepting live enquiries. No credentials or environment files are included.
 

@@ -2,7 +2,7 @@
 
 Open **http://127.0.0.1:3101/** on this Mac. This is the production build of a separate copy; the original project has not been modified or linked to any new deployment.
 
-The hosted redesign is **https://mirrorartsv2.vercel.app**. Its production source is the repository's `main` branch.
+The hosted redesign is **https://mirrorartsv2.vercel.app**, also served on the project's already configured school domain **https://www.mirrorartsedu.com.au**. Its production source is the repository's `main` branch.
 
 ## Start again later
 From this preview directory:
@@ -32,6 +32,6 @@ After changing source, run `npm run build` before starting it. For development, 
 - `research/ART-DIRECTION-PASS.md`: the latest image-composition changes and their verification.
 
 ## Publishing
-The designated GitHub repository is https://github.com/kaydendo42-web/mirrorartsv2-. This copy has its own Git history and excludes the original Git repository, deployment linkage and environment secrets. The separate Vercel project is `mirrorartsv2`, tracking `main` for production. Enquiry delivery still requires an integration before accepting live enquiries; no test enquiry was sent. The original school project and domain remain unchanged.
+The designated GitHub repository is https://github.com/kaydendo42-web/mirrorartsv2-. This copy has its own Git history and excludes the original Git repository, deployment linkage and environment secrets. The separate Vercel project is `mirrorartsv2`, tracking `main` for production. Enquiry delivery still requires an integration before accepting live enquiries; no test enquiry was sent. The original local source folder remains unchanged. Vercel's existing domain configuration publishes this redesign on the school domain as well.
 
 Publishing was configured using Vercel CLI 59.15.1 through `npx`; the global installation was not changed. Upgrading that global installation is recommended: `npm i -g vercel@latest` (or `pnpm add -g vercel@latest`).
