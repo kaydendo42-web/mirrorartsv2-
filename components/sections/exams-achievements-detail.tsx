@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ArtsComposition from "@/components/shared/arts-composition";
 
 import { Section, SectionHead } from "@/components/site/section";
 import { CREDENTIAL_BODIES } from "@/lib/content/achievements";
@@ -41,7 +42,7 @@ export default function ExamsAchievementsDetail() {
         </ul>
       </Section>
 
-      <Section>
+      <Section id="ameb" className="sect--exam-composition">
         <SectionHead
           eyebrow="AMEB"
           title="Speech &amp; Performance, and Vocal"
@@ -61,6 +62,8 @@ export default function ExamsAchievementsDetail() {
           </p>
         </div>
 
+        <ArtsComposition variant="voice" />
+
         <h3 className="minihead">Courses that prepare for grades directly</h3>
         <ul className="includes">
           {EXAM_PREP.map((course) => (
@@ -71,7 +74,7 @@ export default function ExamsAchievementsDetail() {
         </ul>
       </Section>
 
-      <Section>
+      <Section id="cefa" className="sect--exam-composition">
         <SectionHead
           eyebrow="CEFA"
           title="The examination centre"
@@ -92,6 +95,7 @@ export default function ExamsAchievementsDetail() {
             teacher preparing a child knows the syllabus rather than reading it.
           </p>
         </div>
+        <ArtsComposition variant="examination" />
       </Section>
     </>
   );

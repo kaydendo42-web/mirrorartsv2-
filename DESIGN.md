@@ -169,6 +169,8 @@ The art-direction pass adds a sticky photographic collage beside the About prose
 
 Partner mark wrappers are transparent and the supplied images use multiply blending, eliminating their white rectangles on the pale section backgrounds without editing the marks. Exam-body names explicitly use #F0EEF4 on #211625; their heading uses #E3C766.
 
+AMEB and CEFA retain their copy and sequence, with distinct right-column artwork. AMEB combines intact speech and vocal photographs with lilac resonance rings and a gold waveform. CEFA pairs a folded-paper theatre with an existing production still, without introducing certificates, board marks or new claims. The shared visibility, reduced-motion and pause behavior applies to both. On phones, each artwork follows the section introduction; AMEB's course links stay below the prose. The waveform moves over 2.8 seconds, rings over 7 seconds, and stage wings over 10 seconds.
+
 ## Do's and Don'ts
 
 ### Do:

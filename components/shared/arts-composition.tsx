@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { StageArtwork, VoiceArtwork } from "@/components/shared/exam-artwork";
 
 // Decorative reuse of the school's existing photographs, without new claims
 // or captions. Separate entrance, drift and paper layers keep motion composable.
@@ -15,6 +16,13 @@ const PHOTOGRAPHS = {
   workshop: [
     "/assets/video/horse-year-gala-poster.jpg",
     "/assets/courses/choir-gala.jpg",
+  ],
+  voice: [
+    "/assets/courses/vocal-recital.jpg",
+    "/assets/courses/speech-competition.jpg",
+  ],
+  examination: [
+    "/assets/stage/jungle-book-cast.jpg",
   ],
 };
 
@@ -54,7 +62,7 @@ export default function ArtsComposition({ variant }: { variant: keyof typeof PHO
             <path d="M105 645V275a195 195 0 0 1 390 0v370Z" fill="currentColor" />
             <path d="M75 670V275a225 225 0 0 1 450 0v395" stroke="currentColor" strokeWidth="1.5" />
           </svg>
-        ) : (
+        ) : variant === "workshop" ? (
           <svg className="art-fan" viewBox="0 0 640 520" fill="none">
             {Array.from({ length: 13 }, (_, i) => (
               <g key={i} className="art-fan__leaf" style={{ "--fan-angle": `${(i - 6) * 13}deg`, "--leaf-color": i % 3 === 0 ? "#C9A227" : i % 2 === 0 ? "#B9ADE8" : "#8C739E" } as CSSProperties}>
@@ -66,13 +74,13 @@ export default function ArtsComposition({ variant }: { variant: keyof typeof PHO
             <circle cx="320" cy="440" r="11" fill="#E3C766" />
             <circle cx="320" cy="440" r="3" fill="#54283F" />
           </svg>
-        )}
-        <svg className="art-ribbon" viewBox="0 0 600 700" fill="none">
+        ) : variant === "voice" ? <VoiceArtwork /> : <StageArtwork />}
+        {(variant === "story" || variant === "workshop") && <svg className="art-ribbon" viewBox="0 0 600 700" fill="none">
           <path className="art-ribbon__line" pathLength="1" d={variant === "story"
             ? "M60 92C193 3 550 55 531 260C519 393 78 348 75 504C71 669 487 679 552 554"
             : "M548 91C386 1 92 140 101 347C107 481 500 414 528 547C547 640 353 684 195 619"}
             stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-        </svg>
+        </svg>}
         {PHOTOGRAPHS[variant].map((src, i) => (
           <div className={`art-print art-print--${i + 1}`} key={src}>
             <div className="art-print__arrival">
@@ -84,9 +92,9 @@ export default function ArtsComposition({ variant }: { variant: keyof typeof PHO
             </div>
           </div>
         ))}
-        <svg className="art-spark" viewBox="0 0 100 100" fill="none">
+        {(variant === "story" || variant === "workshop") && <svg className="art-spark" viewBox="0 0 100 100" fill="none">
           <path d="M50 0 59 35 85 15 65 41 100 50 65 59 85 85 59 65 50 100 41 65 15 85 35 59 0 50 35 41 15 15 41 35Z" fill="currentColor" />
-        </svg>
+        </svg>}
       </div>
       <button className="arts-composition__pause" type="button"
         onClick={() => setPaused(value => !value)}

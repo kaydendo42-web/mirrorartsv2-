@@ -4,6 +4,10 @@ The Aspire Studio redesign preview for Mirror Arts Education. This is a separate
 
 Repository: https://github.com/kaydendo42-web/mirrorartsv2-
 
+Hosted redesign: https://mirrorartsv2.vercel.app
+
+`main` is the default GitHub branch and the production branch for the Vercel project `mirrorartsv2`. Pushing to `main` triggers its production deployment. The original school project and domain are separate.
+
 ## Run locally
 
 Install Node.js 24 LTS, then run:
@@ -45,9 +49,9 @@ npm test
 - `research/`: reference analysis, design plans and dated verification reports.
 - `PREVIEW-README.md`: review notes for the local preview.
 
-## Preview status
+## Deployment and enquiry status
 
-This repository contains the redesigned source and assets. It is not linked to a Vercel project by this work, and the original website remains untouched.
+This repository contains the redesigned source and assets and is linked to the Vercel project `mirrorartsv2` in `kaydendo42-webs-projects`. The original website remains untouched. Deployment history and build status are available at https://vercel.com/kaydendo42-webs-projects/mirrorartsv2.
 
 The enquiry form validates entries but does not deliver them to an inbox. A delivery integration must be connected before accepting live enquiries. No credentials or environment files are included.
 

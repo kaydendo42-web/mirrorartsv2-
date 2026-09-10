@@ -91,6 +91,52 @@
 @keyframes spark-turn { to { rotate: 360deg; } }
 @keyframes ribbon-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 
+/* Exam pathways: a voice made visible, then a miniature paper theatre.
+   Each artwork occupies only the spare column; course links keep their row. */
+.sect--exam-composition > .wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  column-gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+.sect--exam-composition .sect__head, .sect--exam-composition .prose { grid-column: 1; }
+.sect--exam-composition .sect__head { margin-bottom: 2.4rem; }
+.sect--exam-composition .h2 { font-size: clamp(2.9rem, 4.5vw, 5.2rem); }
+.sect--exam-composition .minihead, .sect--exam-composition .includes { grid-column: 1 / -1; }
+.sect--exam-composition .minihead { margin-top: 3.5rem; }
+.sect--exam-composition .arts-composition {
+  grid-column: 2; grid-row: 1 / span 2; position: relative;
+  top: auto; align-self: center; max-width: 600px;
+}
+.arts-composition--voice .arts-composition__canvas { aspect-ratio: 600 / 650; }
+.arts-composition--examination .arts-composition__canvas { aspect-ratio: 600 / 550; }
+.art-voice, .art-paper-stage { position: absolute; inset: 0; width: 100%; height: 100%; }
+.art-voice__rings { transform-origin: 425px 155px; animation: voice-resonate 7s ease-in-out infinite; }
+.art-voice__bar { transform-box: fill-box; transform-origin: center; animation: voice-phrase 2.8s ease-in-out infinite; }
+.arts-composition--voice .art-print--1 { width: 75%; top: 32%; left: 1%; --print-angle: -9deg; }
+.arts-composition--voice .art-print--2 { width: 45%; top: 72%; right: 0; --print-angle: 8deg; }
+.arts-composition--voice .art-print__image { aspect-ratio: 1.5; }
+.arts-composition--voice .art-print--2 .art-print__paper { background: var(--gold); padding-bottom: 22px; }
+.arts-composition--voice .arts-composition__pause { margin-top: 1.2rem; }
+.arts-composition--examination .art-print--1 { width: 93%; top: 34%; left: 0; --print-angle: -7deg; }
+.arts-composition--examination .art-print__paper { background: var(--print-paper); padding-bottom: 32px; }
+.arts-composition--examination .art-print__image { aspect-ratio: 1.72; }
+.arts-composition--examination .art-print__image img { object-fit: contain; background: var(--ink); }
+.art-paper-stage__wing { transform-box: fill-box; animation: stage-breathe 10s ease-in-out infinite; }
+.art-paper-stage__wing--left { transform-origin: left center; --wing-travel: -7px; }
+.art-paper-stage__wing--right { transform-origin: right center; --wing-travel: 7px; }
+.art-voice__thread, .art-paper-stage__thread { stroke-dasharray: 1; }
+.arts-composition[data-seen="true"] .art-voice__thread,
+.arts-composition[data-seen="true"] .art-paper-stage__thread { animation: ribbon-draw 2s var(--studio-ease) both; }
+.arts-composition[data-running="false"] .art-voice__rings,
+.arts-composition[data-running="false"] .art-voice__bar,
+.arts-composition[data-running="false"] .art-paper-stage__wing,
+.arts-composition[data-running="false"] .art-voice__thread,
+.arts-composition[data-running="false"] .art-paper-stage__thread { animation-play-state: paused; }
+@keyframes voice-resonate { 0%, 100% { scale: 1; } 50% { scale: .95; } }
+@keyframes voice-phrase { 0%, 100% { scale: 1 .55; } 35% { scale: 1 1; } 70% { scale: 1 .72; } }
+@keyframes stage-breathe { 0%, 100% { translate: 0 0; } 50% { translate: var(--wing-travel) 0; } }
+
 /* Portraits are actual photographic prints. A full source ratio preserves faces
    and bodies; the print's tilt is separate from the image's reveal animation. */
 .image-frame--portrait {
@@ -223,6 +269,10 @@
   .space:nth-child(even) .space__body { grid-column: 1; grid-row: 1; }
 }
 @media (max-width: 999px) {
+  .sect--exam-composition > .wrap { grid-template-columns: minmax(0, 1fr); }
+  .sect--exam-composition .arts-composition { grid-column: 1; grid-row: 2; max-width: 500px; margin-block: .5rem 2.5rem; }
+  .sect--exam-composition .prose { max-width: none; }
+  .sect--exam-composition .minihead { margin-top: 2.5rem; }
   .sect--composition > .wrap { grid-template-columns: minmax(0, 1fr); }
   .sect--composition .arts-composition { grid-column: 1; grid-row: 2; position: relative; top: auto; max-width: 530px; margin-block: 0 3rem; }
   .sect--composition .sect__head { margin-bottom: 2rem; }
