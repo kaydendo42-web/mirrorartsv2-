@@ -1,3 +1,5 @@
+> **Workspace update (13 September 2026):** The active source is the verified live V2 design, with Daisy's workshop revisions. Local preview: http://127.0.0.1:3100. The user reviewed this version and authorised its push and deployment to `kaydendo42-web/mirrorartsv2-`. See `docs/LOCAL-V2-WORKSHOPS.md` (from the application root) for the source and workspace history. Earlier preview addresses below are historical.
+
 # Where this project is
 
 **Updated 9 Sep 2026.** Read this first when picking the work back up. It is the live

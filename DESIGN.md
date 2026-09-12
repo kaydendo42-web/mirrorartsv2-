@@ -184,3 +184,7 @@ AMEB and CEFA retain their copy and sequence, with distinct right-column artwork
 - **Don't** force Chinese text into the condensed display voice.
 - **Don't** turn editorial image frames into decorative arches.
 - **Don't** make concealed controls focusable during scene transitions.
+
+## Local workshop revision — 13 September 2026
+
+The revised workshop page inherits the live V2 PageHero, type, colour fields and motion. Its three format links introduce incursions, excursions and customised parties. The existing fan composition remains beside the incursion introduction; the performance and craft lists follow it. Supplied posters use ImageFrame with their full content visible and the existing enlargement dialog. Workshop-specific layout rules live in `app/workshops/workshops.css`. Source artwork hashes and provenance are recorded in `docs/workshop-image-sources.json`.

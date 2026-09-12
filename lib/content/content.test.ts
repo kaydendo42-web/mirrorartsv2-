@@ -18,7 +18,7 @@ import { FACULTY, getTeacher, facultyByDiscipline, teacherSlugs } from "./facult
 import { TEAM, getLeader } from "./team.ts";
 import { TIMELINE } from "./timeline.ts";
 import { PRODUCTIONS, getProduction, productionSlugs } from "./productions.ts";
-import { WORKSHOPS, WORKSHOP_FAMILIES, workshopsByFamily } from "./workshops.ts";
+import { INCURSION_PERFORMANCE, INCURSION_CRAFT, PARTY_OPTIONS, WORKSHOP_FEATURES } from "./workshops.ts";
 import { HIRE_SPACES, VENUE_TERMS, VENUE_RATES_AS_AT } from "./venue.ts";
 import { ACHIEVEMENTS, CREDENTIAL_BODIES } from "./achievements.ts";
 import { CAMPUS_PHOTOS } from "./campus.ts";
@@ -387,20 +387,36 @@ test("the belt and road entry carries the competition and not the results", () =
   );
 });
 
-test("there are fifteen workshops across three families", () => {
-  assert.equal(WORKSHOPS.length, 15);
-  assert.equal(WORKSHOP_FAMILIES.length, 3);
-  assert.equal(workshopsByFamily("arts").length, 4);
-  assert.equal(workshopsByFamily("craft").length, 7);
-  assert.equal(workshopsByFamily("media").length, 4);
+test("Daisy's revised incursion menu includes every performance and craft offering", () => {
+  assert.deepEqual(INCURSION_PERFORMANCE.map((a) => a.title), [
+    "Traditional Chinese Music", "Chinese Martial Arts", "Dragon and Lion Dance",
+    "Traditional Chinese Dance", "Drama", "Puppet Show", "Storytelling & Picture Book Reading",
+  ]);
+  assert.deepEqual(INCURSION_CRAFT.map((a) => a.title), [
+    "Lacquer Fan Making", "Tie-dye", "Chinese Lacquer Beads", "Sachet Making",
+    "Eco-friendly Paper", "Chinese Incense", "Traditional Soap", "Perfume Making",
+  ]);
 });
 
-test("the three age-restricted workshops keep their restrictions", () => {
-  const byslug = Object.fromEntries(WORKSHOPS.map((w) => [w.slug, w]));
-  assert.equal(byslug["lacquer-beads"].minAge, 5);
-  assert.equal(byslug["sachet-making"].minAge, 12);
-  assert.equal(byslug["soap-making"].minAge, 12);
-  assert.ok(byslug["soap-making"].supervision, "soap making needs supervision noted");
+test("party conditions and options remain specific to the party audience", () => {
+  const adult = PARTY_OPTIONS.find((p) => p.id === "adult-parties")!;
+  const birthday = PARTY_OPTIONS.find((p) => p.id === "birthday-parties")!;
+  assert.deepEqual(adult.notes, ["No alcohol", "Events finish by 8:30 pm"]);
+  assert.deepEqual(birthday.notes, ["Suitable for all ages"]);
+  assert.ok(adult.activities.some((a) => a.title === "Perfume Making"));
+  assert.ok(!birthday.activities.some((a) => a.title === "Perfume Making"));
+  for (const party of PARTY_OPTIONS) {
+    assert.deepEqual(party.activities.filter((a) => a.popular).map((a) => a.title), ["Natural Soap Making", "Baking Workshop"]);
+  }
+});
+
+test("all five workshop visuals have a local image and readable supporting content", () => {
+  assert.equal(WORKSHOP_FEATURES.length, 5);
+  for (const feature of WORKSHOP_FEATURES) {
+    assert.ok(existsSync(`public${feature.image.src}`), feature.image.src);
+    assert.ok(feature.description.length > 40);
+    assert.ok(feature.highlights.length >= 3);
+  }
 });
 
 test("there are five hire spaces and the function room is the dearest", () => {
@@ -827,8 +843,9 @@ test("merged nav items link to sections on their parent pages", () => {
     { label: "Exams & achievements", href: "/stage#achievements" },
   ]);
   assert.deepEqual(submenu("Workshops"), [
-    { label: "For schools", href: "/workshops#schools" },
-    { label: "Cultural workshops", href: "/workshops#workshops" },
+    { label: "Incursions", href: "/workshops#schools" },
+    { label: "Excursions", href: "/workshops#excursions" },
+    { label: "Customised parties", href: "/workshops#parties" },
   ]);
 });
 

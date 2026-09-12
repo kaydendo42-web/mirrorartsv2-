@@ -1,3 +1,5 @@
+> **Workspace update (13 September 2026):** The active source is the verified live V2 design, with Daisy's workshop revisions. Local preview: http://127.0.0.1:3100. The user reviewed this version and authorised its push and deployment to `kaydendo42-web/mirrorartsv2-`. See `docs/LOCAL-V2-WORKSHOPS.md` (from the application root) for the source and workspace history. Earlier preview addresses below are historical.
+
 # Mirror Arts Education — redesign
 
 The Aspire Studio redesign preview for Mirror Arts Education. This is a separate project from the original website, preserving its wording, page structure, component order, gold colour (`#C9A227`) and original logo.

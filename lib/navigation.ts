@@ -42,8 +42,9 @@ export const NAV: NavItem[] = [
     label: "Workshops",
     href: "/workshops",
     sub: [
-      { label: "For schools", href: "/workshops#schools" },
-      { label: "Cultural workshops", href: "/workshops#workshops" },
+      { label: "Incursions", href: "/workshops#schools" },
+      { label: "Excursions", href: "/workshops#excursions" },
+      { label: "Customised parties", href: "/workshops#parties" },
     ],
   },
   // Out of the Workshops dropdown and up to the top level. Venue hire is the

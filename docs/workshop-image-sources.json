@@ -1,0 +1,27 @@
+{
+  "drama-incursion.jpg": {
+    "source": "Revision/workshop1.pdf",
+    "sha256": "ab47646e24da67a1d72583296282817ad075d72d209b0e7c3329fb277c57c56f",
+    "method": "Embedded JPEG extracted without altering image data"
+  },
+  "lacquer-fan-making.jpg": {
+    "source": "Revision/workshop1.pdf",
+    "sha256": "19e5562bf2d3f37ef032b285a9a56dda5208f33323fa7feb13ff048c36bbb948",
+    "method": "Embedded JPEG extracted without altering image data"
+  },
+  "natural-soap-making.jpg": {
+    "source": "Revision/workshop1.pdf",
+    "sha256": "f55ba9f3bc629bef4aba784a3b44f2f58ce0f0fe59530aaa5234919ba66e26e7",
+    "method": "Embedded JPEG extracted without altering image data"
+  },
+  "chinese-performing-arts.jpg": {
+    "source": "Revision/workshop1.pdf",
+    "sha256": "7159b172d3ee1d5c1732926770131dac33fb980f131934ca840d1bde51bb37b8",
+    "method": "Embedded JPEG extracted without altering image data"
+  },
+  "perfume-making.jpg": {
+    "source": "Revision/workshop1.pdf",
+    "sha256": "3672142c0007430d46326fa9f82daa1041b24ffe654cbfd35ddb6962947317ba",
+    "method": "Embedded JPEG extracted without altering image data"
+  }
+}

@@ -1,3 +1,5 @@
+> **Workspace update (13 September 2026):** The active source is the verified live V2 design, with Daisy's workshop revisions. Local preview: http://127.0.0.1:3100. The user reviewed this version and authorised its push and deployment to `kaydendo42-web/mirrorartsv2-`. See `docs/LOCAL-V2-WORKSHOPS.md` (from the application root) for the source and workspace history. Earlier preview addresses below are historical.
+
 # Mirror Arts — Aspire Studio design preview
 
 Open **http://127.0.0.1:3101/** on this Mac. This is the production build of a separate copy; the original project has not been modified or linked to any new deployment.

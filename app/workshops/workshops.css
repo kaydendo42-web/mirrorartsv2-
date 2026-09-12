@@ -1,0 +1,80 @@
+/* Workshop revision: uses the live V2 design tokens and shared components. */
+.workshops-page .phero { padding-bottom: 2.75rem; }
+.workshop-jump { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding-bottom: 3.5rem; }
+.workshop-jump a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.5rem 1.75rem 1.5rem 0; border-top: 1px solid var(--line); text-decoration: none; font-family: var(--disp); font-size: clamp(1.25rem, 2vw, 1.65rem); }
+.workshop-jump a + a { padding-left: 1.75rem; border-left: 1px solid var(--line); }
+.workshop-jump a:hover { background: var(--base-2); }
+.workshop-jump small { display: block; margin-top: .35rem; font: 400 .85rem/1.5 var(--sans); color: var(--muted); }
+.workshop-jump svg { flex-shrink: 0; width: 20px; }
+.workshop-format-heading { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; }
+.workshop-format-heading > svg { width: 56px; height: 56px; stroke-width: 1.2; flex-shrink: 0; color: var(--muted); }
+.workshop-format-heading p { margin: .5rem 0 0; color: var(--muted); }
+.sect--band .workshop-format-heading > svg,
+.sect--band .workshop-format-heading p { color: var(--gold-lt); }
+.workshop-incursion-lists { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem; }
+.workshop-incursion-lists h3,
+.workshop-parties h3,
+.workshop-feature h3 { margin: 0 0 1rem; font: 600 clamp(2rem, 3vw, 3rem)/1.05 var(--disp); text-transform: uppercase; text-wrap: balance; }
+.workshop-activities { margin: 0; padding: 0; list-style: none; }
+.workshop-activities li { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: .35rem .75rem; padding: .9rem 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.sect--band .workshop-activities li { border-color: #7D6687; }
+.workshop-popular { flex-shrink: 0; padding: .12rem .45rem; background: var(--gold-lt); color: var(--ink); font: 600 .7rem/1.5 var(--sans); border-radius: 2px; }
+.workshop-text-link { display: inline-flex; align-items: center; gap: .65rem; min-height: 44px; margin-top: 1rem; font-size: .95rem; text-underline-offset: 5px; }
+.workshop-text-link:hover { text-decoration-thickness: 2px; }
+.sect--band .workshop-text-link { color: var(--gold-lt); }
+.workshop-copy { max-width: 65ch; color: var(--muted); }
+.workshop-excursion { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: clamp(2rem, 6vw, 6rem); }
+.workshop-excursion-options { margin: 2rem 0 0; }
+.workshop-excursion-options div { padding: 1rem 0; border-top: 1px solid var(--line); }
+.workshop-excursion-options dt { font-weight: 600; }
+.workshop-excursion-options dd { margin: .25rem 0 0; font-size: .92rem; color: var(--muted); }
+.workshop-venue { margin: 0; }
+.workshop-venue figcaption { margin-top: 1rem; font: italic 400 1.25rem/1.4 var(--disp); color: var(--muted); }
+.workshop-parties { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 6vw, 6rem); margin-top: 3rem; }
+.workshop-parties article { padding-top: 2rem; border-top: 1px solid var(--line); scroll-margin-top: calc(var(--bar-h) + 2rem); }
+.workshop-parties article > p { color: var(--muted); max-width: 45ch; min-height: 3.5em; margin: 0 0 1.75rem; }
+.workshop-party-notes { margin: 1.5rem 0 0; padding: 0; list-style: none; font-size: .9rem; }
+.workshop-party-notes li + li { margin-top: .35rem; }
+.workshop-features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3.5rem 2.5rem; }
+.workshop-feature { min-width: 0; scroll-margin-top: calc(var(--bar-h) + 2rem); }
+.workshop-feature-copy { padding-top: 1.5rem; }
+.workshop-feature-copy p { max-width: 65ch; color: var(--muted); margin: 0; }
+.workshop-feature-copy ul { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; margin: 1.25rem 0 0; padding: 0; list-style: none; font-size: .8rem; color: var(--muted); }
+.workshop-feature:last-child { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--line); }
+.workshop-feature:last-child .workshop-feature-copy { padding: 0 clamp(0rem, 2vw, 2rem); }
+.workshop-enquiry { display: flex; align-items: center; justify-content: space-between; gap: 3rem; }
+.workshop-enquiry > div { max-width: 65ch; }
+.workshop-enquiry p { margin: 1.5rem 0 0; color: var(--paper); }
+.workshop-enquiry > a { flex-shrink: 0; gap: .75rem; }
+@media (max-width: 1100px) {
+  .workshop-enquiry { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 899px) {
+  .workshop-excursion, .workshop-features { grid-template-columns: 1fr; }
+  .workshop-feature:last-child { display: block; }
+  .workshop-feature:last-child .workshop-feature-copy { padding: 1.5rem 0 0; }
+}
+@media (max-width: 599px) {
+  .workshop-jump { grid-template-columns: 1fr; padding-bottom: 2.5rem; }
+  .workshop-jump a, .workshop-jump a + a { padding: 1.1rem 0; border-left: 0; }
+  .workshop-format-heading { gap: 1rem; }
+  .workshop-format-heading > svg { width: 38px; height: 38px; }
+  .workshop-incursion-lists, .workshop-parties { grid-template-columns: 1fr; }
+  .workshop-parties article > p { min-height: 0; }
+  .workshop-enquiry > a { white-space: normal; }
+}
+
+/* Extend V2's existing lilac, plum and paper image language. */
+.workshop-jump { background: var(--lilac); padding-top: 1rem; }
+.workshops-page > .workshop-jump { width: 100%; padding-inline: var(--gut); }
+.workshop-jump a { font-weight: 600; text-transform: uppercase; font-size: clamp(1.8rem, 3vw, 2.5rem); border-color: var(--wine); }
+.workshop-jump small { text-transform: none; }
+.workshop-jump a:hover { background: transparent; color: var(--wine); }
+.workshop-catalogue { padding-top: 0; }
+.workshop-venue > .image-frame { display: block; border: 10px solid var(--print-paper); border-bottom-width: 28px; rotate: 2deg; box-shadow: var(--print-shadow); }
+.workshop-venue figcaption { margin-top: 2rem; font: 400 .9rem/1.6 var(--sans); }
+.workshop-feature > .image-frame { display: block; border: 8px solid var(--print-paper); border-bottom-width: 24px; box-shadow: var(--print-shadow); }
+.workshop-feature:nth-child(even) > .image-frame { border-color: var(--lilac); }
+.workshop-feature .image-frame__picture { object-fit: contain; }
+.workshop-feature-copy { padding-top: 2rem; }
+@media (max-width: 599px) { .workshop-jump a { font-size: 2rem; } }
