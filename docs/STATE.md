@@ -180,14 +180,14 @@ that the client rejected.
 
 ## What exists
 
-**Twenty-seven content URLs, all building.**
+**Twenty-eight content URLs, all building.**
 
 ```
 /                       /about
 /courses                /courses/[slug] ×13    /faculty
 /stage                  /stage/[slug] ×6
 /workshops              /workshops/venue       /contact
-                        /sitemap.xml           /robots.txt          404
+/privacy                /sitemap.xml           /robots.txt          404
 ```
 
 Partners, Exams & Achievements, and For Schools are sections rather than
@@ -200,8 +200,21 @@ three course slugs the 8 Sep revision renamed (`/courses/english-drama`, `/cours
 npm run dev        # http://localhost:3000
 npm run build      # must stay clean
 npm run lint       # zero warnings
-npm test           # 63 tests, node --test, no framework
+npm test           # 81 tests, node --test, no framework
 ```
+
+**Privacy, 20 September 2026.** `/privacy` is the Australian Privacy Principles policy,
+naming the registered entity (The Trustee for Mirror Arts Unit Trust, ABN 46 672 926 216 —
+`SITE.legal`, checksum-tested) and describing exactly what the site does: one form to Resend,
+Vercel logs, one `sessionStorage` flag, and Google Maps only after the reader presses "Show
+map" (`campus-tabs.tsx` now gates the iframe). Cookies are a section, `#cookies`, not a page;
+the footer links both and prints the ABN; the enquiry form carries the APP 5 collection
+notice. **No cookie banner, on purpose:** Australian law does not ask for one and, with the
+map gated, the site sets nothing third-party unasked. If analytics ever arrives, the cookies
+section and `SITE.legal.policyUpdated` change the same day. Not lawyer-reviewed; the client
+should have it read. The same day the venue page's eight 456px poster slices were replaced
+by the client's own photographs, assigned by number from `Revision/Photos - 1` (see
+`venue.ts`; one reading of "room 3 → 1.png" as Room 1 is flagged there for confirmation).
 
 **This is live.** `https://mirrorartsedu.com.au` serves this build as of 9 September 2026.
 **The faculty pass is on it** — pushed to `main` the same day at Kayden's instruction, which
@@ -438,7 +451,7 @@ pages · a news/blog.
 | Path | What |
 |---|---|
 | `lib/content/` | 13 modules, ~2,300 lines. Every fact on the site |
-| `lib/content/content.test.ts` | 63 tests over all of it |
+| `lib/content/content.test.ts` | 81 tests over all of it |
 | `lib/schema.ts` | JSON-LD, built from the content layer. `SITE_URL` lives here |
 | `app/` | 17 route files. Sections are `Section`/`SectionHead`; page headers are `PageHero` |
 | `app/globals.css` | 3,342 lines. Tokens in `@theme` at the top, bespoke CSS below with its reasoning, the shadcn mapping at the bottom |

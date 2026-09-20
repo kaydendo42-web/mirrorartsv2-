@@ -16,8 +16,10 @@ export type CampusPhoto = Asset & { label: string };
  *
  * These are the first photographs of the school's own spaces that were shot
  * for the purpose. Everything before them was either pulled off a Chinese CDN
- * at web resolution or sliced out of a poster — public/assets/venue is eight
- * room shots at 456px because the poster was all there was.
+ * at web resolution or sliced out of a poster — until 20 September 2026
+ * the venue page ran on eight room shots at 456px cut out of the rate card,
+ * because the poster was all there was. It now reads these same files; see
+ * lib/content/venue.ts.
  *
  * They arrived as PNGs and are converted by scripts/import-campus-photos.mjs;
  * the widths and heights below are the converted files on disk, which the

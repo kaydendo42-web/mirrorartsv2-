@@ -577,8 +577,7 @@ test("no rendered source names the two AMEB students", () => {
 });
 
 test("every venue photograph named in content exists on disk", () => {
-  // Eight crops out of one poster, so a renamed or re-cut file is the likely
-  // failure. The alt-length check is here because "venue photo" would pass a
+  // The alt-length check is here because "venue photo" would pass a
   // presence test and tell a screen reader nothing.
   let total = 0;
   for (const s of HIRE_SPACES) {
@@ -588,11 +587,27 @@ test("every venue photograph named in content exists on disk", () => {
       assert.ok(p.alt.length > 15, `${p.src} needs real alt text`);
     }
   }
-  // Seven of the eight crops are wired up. function-room-lit.jpg is the
-  // eighth and is deliberately unused — see the note on the function room in
-  // venue.ts. A count rather than a >= so a silently dropped photograph still
-  // fails here.
-  assert.equal(total, 7, "seven room photographs should be wired up");
+  // Six photographs across five spaces. A count rather than a >= so a
+  // silently dropped photograph still fails here.
+  assert.equal(total, 6, "six room photographs should be wired up");
+});
+
+test("the venue photographs are the ones the client assigned on 20 September 2026", () => {
+  // Kayden's instruction, by the numbers in Revision/Photos - 1: function
+  // room 8, Room 2 → 3, Room 1 → 1, Room 3 & 4 → 2, workshop space 6 then 4.
+  // Files 1–7 are the campus photographs already on disk under
+  // /assets/campus (see campus.ts for the number-to-name mapping); 8 is the
+  // function-room composite and is new. Locked here so a later "tidy" of
+  // the venue page cannot quietly put the poster slices back.
+  const by = Object.fromEntries(HIRE_SPACES.map((s) => [s.slug, s.photos.map((p) => p.src)]));
+  assert.deepEqual(by["function-room"], ["/assets/venue/function-room.jpg"]);
+  assert.deepEqual(by["room-2"], ["/assets/campus/studio-barre.jpg"]);
+  assert.deepEqual(by["room-1"], ["/assets/campus/studio-mirror-wall.jpg"]);
+  assert.deepEqual(by["rooms-3-4"], ["/assets/campus/studio-windows.jpg"]);
+  assert.deepEqual(by["workshop-space"], [
+    "/assets/campus/classroom-kitchen.jpg",
+    "/assets/campus/classroom-tables.jpg",
+  ]);
 });
 
 test("every faculty portrait exists on disk", () => {

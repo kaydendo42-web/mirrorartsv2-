@@ -3020,10 +3020,10 @@ select.field__input { appearance: none; background-image: none; }
 @media (min-width: 520px) {
   .space__photos:has(li + li) { grid-template-columns: 1fr 1fr; }
 }
-/* A fixed 4:3 box rather than each photograph's own ratio. The eight slices
-   run from 1.15:1 to 1.72:1 because they were cut out of a poster, and a pair
-   of them side by side with different heights reads as a broken grid rather
-   than as two photographs of one room. */
+/* A fixed 4:3 box rather than each photograph's own ratio. The set mixes
+   4:3, 3:2 and one portrait frame, and a pair side by side with different
+   heights reads as a broken grid rather than as two photographs of one
+   room. */
 .space__photos img {
   width: 100%;
   aspect-ratio: 4 / 3;

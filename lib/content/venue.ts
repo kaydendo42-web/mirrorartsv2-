@@ -9,10 +9,15 @@ import type { Asset, Slug } from "./types.ts";
  * All five spaces are at the main campus, 1F/244 Canterbury Rd, Surrey
  * Hills. offPeakRate is the weekday-before-5pm rate.
  *
- * Room photographs (eight, sliced out of the poster) are Task 7 output —
- * `photos` is left as a literal empty array with a comment rather than a
- * guessed path, and the brief's own photograph test is written to run
- * after Task 7, so it is deliberately not added here.
+ * Room photographs: the client's own, assigned by Kayden on 20 September
+ * 2026 by file number in Revision/Photos - 1. Numbers 1–7 were already on
+ * disk as the campus photographs (lib/content/campus.ts holds the
+ * number-to-name mapping in its own words), so five of the six entries
+ * below point at /assets/campus rather than carrying a second copy of the
+ * same file. Number 8 is new: a three-panel composite of the function room,
+ * copied byte-for-byte to /assets/venue/function-room.jpg. The eight
+ * 456px slices cut out of the poster that stood in until then are gone.
+ * content.test.ts locks the assignment.
  *
  * Venue rates are a pre-launch gate (design spec §9, gate 3) — Rachel needs
  * to confirm they are still current before this goes live. */
@@ -49,18 +54,17 @@ export const HIRE_SPACES: HireSpace[] = [
       { label: "LED screen", rate: 50 },
       { label: "Stage lighting", rate: 30 },
     ],
-    /* One photograph, not two. The pair were the same room in two states —
-       empty, then lit purple for a showcase — and side by side at half width
-       they rendered smaller than every single-photograph room under them, so
-       the largest space on the rate card looked like the least important one.
-       The showcase shot is still on disk at
-       /assets/venue/function-room-lit.jpg if it is ever wanted back. */
+    /* Photos - 1/8.jpg, as supplied: one frame holding three views of the
+       room — the full hall with its mirrored end wall on top, and two
+       smaller shots under stage lighting below. It ships as the composite
+       because that is what the client sent and chose; the .space__photos
+       4:3 crop trims its sides a little and nothing else. */
     photos: [
       {
-        src: "/assets/venue/function-room-empty.jpg",
-        alt: "The function room empty, with a row of black folding chairs facing a large wall-mounted screen and a lighting rig overhead",
-        width: 456,
-        height: 337,
+        src: "/assets/venue/function-room.jpg",
+        alt: "Three views of the function room: the full hall with a mirrored end wall and sprung timber floor, and two smaller views of the same room under stage lighting with black drapes and a lighting rig",
+        width: 1536,
+        height: 1024,
       },
     ],
   },
@@ -72,16 +76,13 @@ export const HIRE_SPACES: HireSpace[] = [
     offPeakRate: 50,
     inclusions: ["Air conditioning"],
     extras: [],
-    /* See the note in scripts/slice-venue.mjs: the poster heads this pair
-       "Room1 32M² & Room2 47M²" and never captions which photograph is which
-       room. The pairing follows the poster's reading order — left photograph
-       to the first room named. Confirm with the client. */
+    /* Photos - 1/3.png — the barre room. */
     photos: [
       {
-        src: "/assets/venue/rooms-1-2-b.jpg",
-        alt: "A studio room with a ballet barre along the left wall, a support column, and a glazed wall looking through to a meeting area and greenery beyond",
-        width: 402,
-        height: 341,
+        src: "/assets/campus/studio-barre.jpg",
+        alt: "A movement studio with a ballet barre along the wall under framed FOCUS and DISCIPLINE prints, glazed through to the meeting room beyond",
+        width: 1448,
+        height: 1086,
       },
     ],
   },
@@ -93,12 +94,16 @@ export const HIRE_SPACES: HireSpace[] = [
     offPeakRate: 40,
     inclusions: ["Air conditioning"],
     extras: [],
+    /* Photos - 1/1.png. The instruction read "room 3 → 1.png", and there
+       is no Room 3 on its own — it is half of "Room 3 & Room 4", which got
+       its own file in the same message. Room 1 is the space left without
+       one, so this is read as Room 1. Confirm with Kayden. */
     photos: [
       {
-        src: "/assets/venue/rooms-1-2-a.jpg",
-        alt: "A studio room with a mirrored wall, track lighting, a whiteboard and windows opening onto trees",
-        width: 477,
-        height: 381,
+        src: "/assets/campus/studio-mirror-wall.jpg",
+        alt: "A rehearsal studio with a full mirrored wall, track lighting overhead, a keyboard on a stand and folding chairs set out for a class",
+        width: 1448,
+        height: 1086,
       },
     ],
   },
@@ -110,18 +115,13 @@ export const HIRE_SPACES: HireSpace[] = [
     offPeakRate: 30,
     inclusions: ["Air conditioning"],
     extras: [],
+    /* Photos - 1/2.png — the corner studio with the long window. */
     photos: [
       {
-        src: "/assets/venue/rooms-3-4-a.jpg",
-        alt: "A studio room with a mirrored end wall and a full-height window wall looking onto trees",
-        width: 439,
-        height: 297,
-      },
-      {
-        src: "/assets/venue/rooms-3-4-b.jpg",
-        alt: "A studio room with corner window walls onto a suburban street, track lighting and a timber floor",
-        width: 503,
-        height: 377,
+        src: "/assets/campus/studio-windows.jpg",
+        alt: "A corner studio with mirrored walls meeting a two-storey window that runs the length of the room, looking out into the tree canopy over Canterbury Road",
+        width: 1448,
+        height: 1086,
       },
     ],
   },
@@ -133,18 +133,21 @@ export const HIRE_SPACES: HireSpace[] = [
     offPeakRate: 60,
     inclusions: ["Air conditioning"],
     extras: [],
+    /* Photos - 1/6.png then 4.png, in the order given. 6 is the one
+       portrait frame in the set; the 4:3 box crops it to its middle band,
+       which is the tables, so nothing that matters is lost. */
     photos: [
       {
-        src: "/assets/venue/workshop-space-a.jpg",
-        alt: "The workshop space set with mobile tables and chairs, a glazed partition along one side and a wall-mounted screen at the far end",
-        width: 674,
-        height: 391,
+        src: "/assets/campus/classroom-kitchen.jpg",
+        alt: "Hexagonal tables pushed together into a single work surface, with the kitchen and the parents' waiting area behind",
+        width: 1086,
+        height: 1448,
       },
       {
-        src: "/assets/venue/workshop-space-b.jpg",
-        alt: "Hexagonal tables pushed together into a cluster with chairs around them, a kitchenette along the back wall",
-        width: 377,
-        height: 341,
+        src: "/assets/campus/classroom-tables.jpg",
+        alt: "A teaching room of hexagonal tables on castors facing a wall-mounted screen, with the glazed corridor running past it",
+        width: 1448,
+        height: 1086,
       },
     ],
   },
