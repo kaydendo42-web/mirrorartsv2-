@@ -66,6 +66,33 @@ test("site does not carry the poster's wrong email", () => {
   );
 });
 
+/* The ATO's ABN check: subtract one from the first digit, weight the eleven
+   digits 10,1,3,5,7,9,11,13,15,17,19, and the sum divides by 89. A typo in
+   the footer's ABN is a legal identifier pointing at a different business,
+   and nothing else on the site would notice. */
+function abnIsValid(abn: string): boolean {
+  const digits = abn.replace(/\s/g, "").split("").map(Number);
+  if (digits.length !== 11 || digits.some(Number.isNaN)) return false;
+  const weights = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+  digits[0] -= 1;
+  const sum = digits.reduce((acc, d, i) => acc + d * weights[i], 0);
+  return sum % 89 === 0;
+}
+
+test("site carries the registered entity and a checksum-valid ABN", () => {
+  assert.equal(SITE.legal.entity, "The Trustee for Mirror Arts Unit Trust");
+  assert.equal(SITE.legal.abn, "46 672 926 216");
+  assert.ok(abnIsValid(SITE.legal.abn), "ABN fails the ATO checksum");
+  assert.ok(!abnIsValid("46 672 926 217"), "checksum helper must reject a wrong digit");
+});
+
+test("the privacy policy carries a real last-updated date that is not in the future", () => {
+  const d = new Date(SITE.legal.policyUpdated);
+  assert.ok(!Number.isNaN(d.getTime()), "policyUpdated is not a parseable date");
+  assert.match(SITE.legal.policyUpdated, /^\d{4}-\d{2}-\d{2}$/, "policyUpdated must be ISO yyyy-mm-dd");
+  assert.ok(d.getTime() <= Date.now(), "policyUpdated is in the future");
+});
+
 test("both campuses are present with full addresses", () => {
   assert.equal(SITE.campuses.length, 2);
   const [main, glen] = SITE.campuses;
@@ -887,4 +914,47 @@ test("no page-level hreflang points at a route that does not exist", () => {
     !/alternates\s*:/.test(layout),
     "app/layout.tsx declares an alternates key; /zh does not exist yet",
   );
+});
+
+test("every static page route is listed in the sitemap", () => {
+  // The sitemap's static list is a literal (see app/sitemap.ts for why), so a
+  // new page.tsx can be added and quietly left out of it. This walks app/ for
+  // every non-dynamic page.tsx and checks its route string is in the source.
+  // Dynamic segments ([slug]) are generated from the content layer and are
+  // covered by the slug helpers, not here.
+  const appDir = new URL("../../app/", import.meta.url);
+  const routes: string[] = [];
+  const walk = (at: URL, route: string) => {
+    for (const e of readdirSync(at, { withFileTypes: true })) {
+      if (e.isDirectory()) {
+        if (e.name.startsWith("[")) continue;
+        walk(new URL(`${e.name}/`, at), `${route}/${e.name}`);
+      } else if (e.name === "page.tsx") {
+        routes.push(route || "/");
+      }
+    }
+  };
+  walk(appDir, "");
+
+  const sitemap = readFileSync(new URL("../../app/sitemap.ts", import.meta.url), "utf8");
+  for (const r of routes) {
+    assert.ok(sitemap.includes(`"${r}"`), `${r} has a page.tsx but is not in app/sitemap.ts`);
+  }
+  assert.ok(routes.includes("/privacy"), "the privacy policy page does not exist");
+});
+
+test("the footer and the enquiry form both link the privacy policy", () => {
+  // APP 5: a collection notice at the point of collection, and APP 1: the
+  // policy reachable from every page. The form is the only point of
+  // collection and the footer is on every page, so those two files are the
+  // whole requirement. Source-level, like the consent-gate test above,
+  // because there is no component runner and a missing link is a legal
+  // gap rather than a visual one.
+  const src = (rel: string) => readFileSync(new URL(rel, import.meta.url), "utf8");
+  const footer = src("../../components/site/footer.tsx");
+  const form = src("../../components/shared/enquiry-form.tsx");
+  assert.ok(footer.includes('"/privacy"'), "footer does not link /privacy");
+  assert.ok(footer.includes("/privacy#cookies"), "footer does not link /privacy#cookies");
+  assert.ok(footer.includes("SITE.legal.abn"), "footer does not print the ABN from SITE.legal");
+  assert.ok(form.includes('"/privacy"'), "enquiry form carries no collection notice linking /privacy");
 });

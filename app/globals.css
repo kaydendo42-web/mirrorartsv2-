@@ -977,6 +977,10 @@ html.intro-lock, html.intro-lock body { overflow: hidden; }
 .foot__base p { margin: 0; }
 .foot__base a { text-decoration: none; }
 .foot__base a:hover { color: var(--gold-lt); }
+/* ABN after the copyright line, separated by a hairline dot rather than a
+   second line — one line of small print, not two. */
+.foot__abn::before { content: "·"; margin-inline: 0.6em; }
+.foot__legal { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.25rem; }
 
 /* -------------------------------------------------------- mobile ---- */
 
@@ -1443,6 +1447,34 @@ html.intro-lock, html.intro-lock body { overflow: hidden; }
 }
 .find__frame iframe { width: 100%; height: 100%; border: 0; display: block; }
 
+/* The map before it is asked for. The frame keeps its 4:3 (16:9 on
+   /contact), so pressing the button swaps content without moving the page.
+   Address first, so a reader who only wanted the street gets it without
+   loading anything; the fine print names Google so the press is informed. */
+.find__gate {
+  height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0, transparent 38%, rgba(0,0,0,0.03) 39%, transparent 40%),
+    var(--base-2);
+}
+.find__gate-place { margin: 0; display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.9rem; color: var(--muted); }
+.find__gate-suburb {
+  font-family: var(--disp);
+  font-variation-settings: var(--wonk);
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--ink);
+}
+.find__gate .pill { border: 0; cursor: pointer; font: inherit; font-size: 0.86rem; font-weight: 600; }
+.find__gate-fine { margin: 0; font-size: 0.75rem; color: var(--grey); max-width: 30ch; }
+.find__gate-fine a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+.find__gate-fine a:hover { color: var(--ink); }
+
 .find__address {
   display: flex; flex-direction: column; gap: 0.3rem;
   font-style: normal;
@@ -1506,6 +1538,11 @@ select.field__input { appearance: none; background-image: none; }
 .field__error { display: block; margin-top: 0.3rem; font-size: 0.8rem; color: #A8321E; }
 
 .form__fine { font-size: 0.8rem; color: var(--grey); margin: 0 0 1.4rem; }
+/* The collection notice sits directly under the field hint; pull the two
+   lines together and give the policy link an underline so it reads as one. */
+.form__fine + .form__notice { margin-top: -0.9rem; }
+.form__notice a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+.form__notice a:hover { color: var(--ink); }
 /* The honeypot in EnquiryForm. Moved off-canvas rather than display:none,
    because some form-fillers skip fields they can see are hidden. */
 .form__trap { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; margin: 0; }
@@ -3105,6 +3142,55 @@ select.field__input { appearance: none; background-image: none; }
   left: 0; top: 0.7em;
   width: 0.9rem; height: 2px;
   background: var(--gold);
+}
+
+
+/* ------------------------------------------------------- privacy ---- */
+
+/* One article of headed prose at the course-page measure. The headings are
+   the h2 face at h3 scale: nine of them on one page at full h2 size would
+   be nine section openers, and this is one document. */
+.legal { max-width: 62ch; }
+.legal__updated {
+  margin: 0 0 1.5rem;
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold);
+}
+.legal__contents { margin: 0 0 3rem; padding: 1.25rem 1.5rem; border: 1px solid var(--line); border-radius: 6px; background: var(--base-2); }
+.legal__contents ol { margin: 0; padding-left: 1.2rem; columns: 2; column-gap: 2rem; font-size: 0.9rem; line-height: 1.7; }
+.legal__contents a { color: var(--muted); text-decoration: none; }
+.legal__contents a:hover { color: var(--ink); text-decoration: underline; }
+.legal h2 {
+  font-family: var(--disp);
+  font-variation-settings: var(--wonk);
+  font-weight: 500;
+  font-size: clamp(1.45rem, 1.1rem + 1.4vw, 2rem);
+  line-height: 1.1;
+  letter-spacing: -0.012em;
+  margin: 2.75rem 0 0.85rem;
+  scroll-margin-top: 6rem;
+}
+.legal p, .legal li {
+  margin: 0 0 1.05em;
+  font-size: clamp(1rem, 0.97rem + 0.18vw, 1.1rem);
+  line-height: 1.65;
+  color: var(--muted);
+}
+.legal strong { color: var(--ink); font-weight: 600; }
+.legal ul { margin: 0 0 1.05em; padding-left: 1.2rem; list-style: disc; }
+.legal li { margin-bottom: 0.5em; }
+.legal a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--gold); transition: color 0.2s ease; }
+.legal a:hover { color: var(--gold); }
+.legal code { font-size: 0.9em; padding: 0.1em 0.35em; border-radius: 3px; background: var(--base-2); color: var(--ink); }
+.legal__table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1.25rem; font-size: 0.9rem; line-height: 1.5; }
+.legal__table th, .legal__table td { text-align: left; vertical-align: top; padding: 0.7rem 0.6rem 0.7rem 0; border-bottom: 1px solid var(--line); color: var(--muted); }
+.legal__table th { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.legal__table td:first-child { color: var(--ink); white-space: nowrap; }
+@media (max-width: 640px) {
+  .legal__contents ol { columns: 1; }
+  .legal__table { display: block; overflow-x: auto; }
+  .legal__table td:first-child { white-space: normal; }
 }
 
 

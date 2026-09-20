@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
+import Link from "next/link";
 
 import { submitEnquiry, type EnquiryState } from "@/app/actions/enquiry";
 import { COURSES } from "@/lib/courses";
@@ -131,6 +132,16 @@ export default function EnquiryForm({
 
       <p className="form__fine">
         A phone number, an email or a WeChat ID — whichever suits you.
+      </p>
+
+      {/* The collection notice (APP 5). One sentence at the point of
+          collection saying what the details are for and where the policy
+          is. No checkbox: Australian law asks for notice here, not opt-in
+          consent, and a mandatory tick-box on a trial-class form is a
+          hurdle in front of the site's only conversion. */}
+      <p className="form__fine form__notice">
+        We use these details only to reply to your enquiry. See our{" "}
+        <Link href="/privacy">privacy policy</Link>.
       </p>
 
       {/* Honeypot. Off-screen, out of the tab order, hidden from assistive

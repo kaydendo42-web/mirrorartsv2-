@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 import { SITE, campusAddress, type Campus } from "@/lib/content/site";
 
@@ -8,8 +9,16 @@ import { SITE, campusAddress, type Campus } from "@/lib/content/site";
  * choosing between them, not comparing them, and two maps at half width are
  * two maps nobody can read.
  *
- * Google's no-key embed, loaded lazily so it costs nothing on a visit that
- * never scrolls this far. The URL matters: the obvious
+ * Google's no-key embed, and it loads only when the reader presses "Show
+ * map". Google sets cookies the moment its frame loads, and that was the one
+ * third-party cookie this site set without anyone asking for it. Behind a
+ * press, /privacy can say truthfully that nothing third-party touches the
+ * reader's device unless they choose it — which is a shorter, stronger
+ * sentence than any consent banner, and Australian law asks for neither.
+ * One press covers both campuses for the rest of the visit; the tab switch
+ * does not re-ask. Nothing is persisted: a reload is a fresh choice.
+ *
+ * The URL matters: the obvious
  * `maps.google.com/maps?q=…&output=embed` 301s to this form, and that redirect
  * response carries `X-Frame-Options: SAMEORIGIN`, so the browser refuses the
  * frame and you get a grey box. The working URL is built once per campus in
@@ -24,6 +33,7 @@ import { SITE, campusAddress, type Campus } from "@/lib/content/site";
  */
 export default function CampusTabs({ campuses }: { campuses: readonly Campus[] }) {
   const [index, setIndex] = useState(0);
+  const [mapOn, setMapOn] = useState(false);
   const here = campuses[index];
   const address = campusAddress(here);
 
@@ -63,13 +73,33 @@ export default function CampusTabs({ campuses }: { campuses: readonly Campus[] }
         role="tabpanel"
         aria-labelledby={`campus-${here.id}`}
       >
-        <iframe
-          key={here.id}
-          title={`Map of the ${here.suburb} campus`}
-          src={here.mapEmbed}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+        {mapOn ? (
+          <iframe
+            key={here.id}
+            title={`Map of the ${here.suburb} campus`}
+            src={here.mapEmbed}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        ) : (
+          <div className="find__gate">
+            <p className="find__gate-place">
+              <span className="find__gate-suburb">{here.suburb}</span>
+              <span>{address}</span>
+            </p>
+            <button
+              type="button"
+              className="pill"
+              onClick={() => setMapOn(true)}
+            >
+              Show map
+            </button>
+            <p className="find__gate-fine">
+              Loads Google Maps, which may set its own cookies.{" "}
+              <Link href="/privacy#cookies">How this site handles cookies</Link>
+            </p>
+          </div>
+        )}
       </div>
 
       <address className="find__address">

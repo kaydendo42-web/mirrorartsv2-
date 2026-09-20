@@ -45,6 +45,21 @@ export const SITE = {
   wechat: "MirrorArtsEdu",
   xiaohongshu: "789947009",
 
+  /* The registered business behind the trading name, from ABN Lookup on 20
+     September 2026. The privacy policy has to say who actually holds the
+     data, and "Mirror Arts Education" is a trading name, not a legal person.
+     The footer prints the ABN because the IA doc planned it there from the
+     start and it never landed. content.test.ts runs the ATO checksum on it.
+
+     policyUpdated is the date printed at the top of /privacy. Bump it when
+     the policy's substance changes — a new provider, a new field on the
+     form, analytics arriving — not for typo fixes. */
+  legal: {
+    entity: "The Trustee for Mirror Arts Unit Trust",
+    abn: "46 672 926 216",
+    policyUpdated: "2026-09-20",
+  },
+
   socials: [
     {
       label: "Facebook",

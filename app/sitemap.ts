@@ -8,7 +8,8 @@ import { SITE_URL } from "@/lib/schema";
    added and then quietly left out of the sitemap. The static routes are a
    literal because that is what they are — a route file exists or it does not,
    and deriving them from the filesystem would be a build-time directory walk
-   to restate thirteen strings. */
+   to restate fourteen strings. A test in lib/content/content.test.ts walks
+   app/ and fails if a static page.tsx is missing from this list. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
@@ -19,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/workshops",
     "/workshops/venue",
     "/contact",
+    "/privacy",
     ...courseSlugs().map((s) => `/courses/${s}`),
     ...productionSlugs().map((s) => `/stage/${s}`),
   ];

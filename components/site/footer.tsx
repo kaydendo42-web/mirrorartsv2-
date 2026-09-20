@@ -95,9 +95,24 @@ export default function Footer() {
       <div className="wrap foot__base">
         <p>
           © {new Date().getFullYear()} Mirror Arts Education
+          <span className="foot__abn">ABN {SITE.legal.abn}</span>
         </p>
-        {/* The 中文 link is out for the same reason it is out of the
+        {/* The privacy policy has to be reachable from every page (APP 1),
+            and this row is on every page. "Cookies" is the same document's
+            #cookies section rather than a page of its own — see the note at
+            the top of app/privacy/page.tsx. content.test.ts checks both
+            links and the ABN are here.
+
+            The 中文 link is out for the same reason it is out of the
             masthead — see the note there. */}
+        <ul className="foot__legal" aria-label="Legal">
+          <li>
+            <Link href="/privacy">Privacy</Link>
+          </li>
+          <li>
+            <Link href="/privacy#cookies">Cookies</Link>
+          </li>
+        </ul>
       </div>
     </footer>
   );
