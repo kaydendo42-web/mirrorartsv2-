@@ -423,6 +423,14 @@ pages · a news/blog.
 
 ## Traps that already cost time
 
+- **Anchors "not scrolling" in a browser-automation tab are the tab, not the site.** A tab
+  Chrome reports as `visibilityState: hidden` (an occluded window counts) runs no
+  scroll animations, and `html { scroll-behavior: smooth }` makes every hash jump one —
+  including the browser's own fragment scroll on load. Check `document.visibilityState`
+  before reading anything into a screenshot. What *was* real underneath it: Next 16 no longer
+  swaps smooth for instant during route transitions unless `<html data-scroll-behavior=
+  "smooth">` is set, and it wasn't (20 Sep 2026). A test now holds the CSS and the attribute
+  in step.
 - **The map URL.** Must be `www.google.com/maps/embed?pb=…`. The
   `maps.google.com/maps?q=…&output=embed` form 301s and that redirect carries
   `X-Frame-Options: SAMEORIGIN`, which silently kills the frame.

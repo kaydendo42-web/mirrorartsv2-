@@ -55,7 +55,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    /* data-scroll-behavior tells Next that globals.css sets scroll-behavior:
+       smooth on html, so it switches to an instant scroll for the length of
+       a route transition and hands smooth back afterwards. Next 16 stopped
+       doing that on its own. Without the attribute a footer link from the
+       bottom of a long page to /privacy#cookies is a smooth animation from
+       the old scroll position across a page that has only just rendered —
+       and in a background tab, where Chrome does not run scroll animations,
+       it never arrives at all. In-page anchor jumps stay smooth: Next skips
+       the override when only the hash changes. content.test.ts checks the
+       CSS and this attribute agree. */
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable}`}
+      data-scroll-behavior="smooth"
+    >
       <body data-design-direction="b71ea108">
         <div hidden aria-hidden="true" dangerouslySetInnerHTML={{ __html: "<!-- THESIS: Mirror's real performances become a contemporary season programme. OWN-WORLD: gold C9A227, plum, lilac, burgundy; condensed type and square frames. STORY: perform, explore, visit, enquire. FIRST VIEWPORT: existing centered headline over actual school film, location above and actions below. FORM: stage lighting scene changes, candidate 6, seed b71ea108. FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance. -->" }} />
         {/* One organisation record for the whole site: the name, both

@@ -973,3 +973,21 @@ test("the footer and the enquiry form both link the privacy policy", () => {
   assert.ok(footer.includes("SITE.legal.abn"), "footer does not print the ABN from SITE.legal");
   assert.ok(form.includes('"/privacy"'), "enquiry form carries no collection notice linking /privacy");
 });
+
+test("smooth scrolling in CSS is declared to Next on the <html> element", () => {
+  // globals.css sets scroll-behavior: smooth on html for in-page anchors.
+  // Next 16 stopped overriding that during route transitions unless <html>
+  // carries data-scroll-behavior="smooth"; without it, every cross-page
+  // navigation — including a footer link to /privacy#cookies — becomes a
+  // smooth animation from the old scroll position across the new page, and
+  // in a hidden tab never lands at all. Source-level, like the tests above:
+  // the two declarations live in different files and have to agree.
+  const src = (rel: string) => readFileSync(new URL(rel, import.meta.url), "utf8");
+  const css = src("../../app/globals.css");
+  const layout = src("../../app/layout.tsx");
+  const smoothInCss = /html\s*\{[^}]*scroll-behavior:\s*smooth/.test(css);
+  const declared = /<html[^>]*data-scroll-behavior="smooth"/.test(layout);
+  assert.equal(declared, smoothInCss, smoothInCss
+    ? "globals.css sets scroll-behavior: smooth on html but app/layout.tsx does not declare data-scroll-behavior=\"smooth\""
+    : "app/layout.tsx declares data-scroll-behavior=\"smooth\" but globals.css no longer sets it");
+});
