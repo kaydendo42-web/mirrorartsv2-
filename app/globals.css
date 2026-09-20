@@ -1506,6 +1506,9 @@ select.field__input { appearance: none; background-image: none; }
 .field__error { display: block; margin-top: 0.3rem; font-size: 0.8rem; color: #A8321E; }
 
 .form__fine { font-size: 0.8rem; color: var(--grey); margin: 0 0 1.4rem; }
+/* The honeypot in EnquiryForm. Moved off-canvas rather than display:none,
+   because some form-fillers skip fields they can see are hidden. */
+.form__trap { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; margin: 0; }
 .form__submit { width: 100%; text-align: center; border: 0; cursor: pointer; }
 .form__submit:disabled { opacity: 0.6; cursor: progress; }
 

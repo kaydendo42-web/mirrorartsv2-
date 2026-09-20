@@ -26,6 +26,13 @@ sound** (20 Sep, Kayden, from Daisy's message and the `Production page` Drive fo
 - **To redo a render:** `node scripts/transcode.mjs --full --only=<slug>`, then the `vercel
   blob put` line above with `--allow-overwrite`. Needs `BLOB_STORE_ID` in `.env.local`
   alongside the OIDC token `vercel link` writes — the CLI refuses one without the other.
+- **The enquiry form sends at last.** Resend (`mirrorarts-enquiries`, Vercel Marketplace,
+  free plan) emails each enquiry to `workshop@mirrorartsedu.com` from
+  `enquiries@mirrorartsedu.com.au`, Reply-To the parent. `lib/enquiry-mail.ts` +
+  `lib/enquiry-mail.test.ts`; the action in `app/actions/enquiry.ts`. DNS for the sending
+  domain (DKIM TXT, `send` MX + SPF TXT) is in Namecheap, Mail Settings switched to Custom
+  MX — the domain had no forwarders. Honeypot field `website` on the form. `npm test` glob
+  widened to `lib/**/*.test.ts`.
 - **Still open from Daisy's message:** the Google Business Profile URL (needs the Mirror
   Google login). The `Childhood` MV in the same Drive folder is not on the site — §64.
 
@@ -294,9 +301,12 @@ Do not relitigate these without a reason.
    English Speech and for the homepage's Language card **has a student's full name on the
    screen behind him**, two metres high, and it now appears on two pages.
    `content/OPEN-QUESTIONS.md` §43.
-5. **The enquiry form is not wired to a mail provider.** It validates, returns, and says so
-   plainly rather than faking success. Picking a provider decides where parent contact
-   details live, so it is the client's call.
+5. ~~**The enquiry form is not wired to a mail provider.**~~ **Wired 20 Sep 2026.** Resend,
+   provisioned from the Vercel Marketplace on `mirrorartsv2` (`mirrorarts-enquiries`, free
+   plan, Tokyo region), delivers to `workshop@mirrorartsedu.com` at Kayden's instruction.
+   From `enquiries@mirrorartsedu.com.au`; the DKIM and `send` SPF/MX records are in
+   Namecheap. `lib/enquiry-mail.ts` shapes the message and is tested; the action returns an
+   honest failure (with the phone number) if the send fails. A honeypot field drops scripts.
 6. **The poster's `Info@mirrorartseducation.com` versus the site's `info@mirrorartsedu.com`.**
    Settled as far as we can: the contact poster prints the `mirrorartsedu.com` form, so the
    studio-hire poster is the outlier. Worth telling Rachel.
@@ -370,7 +380,7 @@ So the following are owed, on a real device or in a real window:
 
 | Gap | Why |
 |---|---|
-| **The enquiry form does not send** | `app/actions/enquiry.ts` validates and returns; there is no mail provider. One marked block to replace |
+| ~~The enquiry form does not send~~ | **Closed 20 Sep 2026.** Resend via Vercel Marketplace; see §5 above |
 | ~~The Music card image is a 253px thumbnail~~ | **Closed 8 Sep 2026.** The client replaced it with the choir gala frame, which is 1448px. The old file is still at `assets/cards/music.jpg` and is now used by nothing |
 | Two team portraits are small | Diana Zhao and Rachel Cai are 262×444 off the client's CDN — that IS the original. `/faculty` holds its portrait column to 260px so nothing upscales; `/about`'s stepper still renders them at 380px |
 | One media logo has a screenshot artifact | `assets/partners/media/auyang-media.png` carries a Chinese browser's "AI识图" tooltip baked into the pixels |
@@ -462,8 +472,8 @@ pages · a news/blog.
    one on 9 Sep. Nobody has read either end to end. Ten cards of credentials, several of them
    translated out of the cards' Chinese, is the largest block of unread copy on the site.
 4. **Client review** — Rachel has seen none of this.
-5. **Wire the enquiry form** to a mail provider (client's call). Note that the form now
-   appears in exactly two places, `/` and `/contact`, since the course pages lost theirs.
+5. ~~**Wire the enquiry form**~~ Done 20 Sep 2026 — Resend to `workshop@mirrorartsedu.com`.
+   The form appears in exactly two places, `/` and `/contact`.
 6. **Answer the gates**, starting with the CEFA sole-centre claim — the 8 Sep rewrite took it
    out of the bilingual hosting course, so it now stands in two places instead of four.
 7. Then `/zh`. Note it grew: thirteen courses and five adult programs to write, not nine

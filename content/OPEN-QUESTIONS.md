@@ -371,3 +371,9 @@ pick up their new teachers automatically. These are what that pass raised.
     ask for it and it is not on the site. If it is meant to join the productions, send a
     line about it — what it is, who made it, which course it came from — and it goes in as
     a seventh work.
+
+65. **Enquiries now land in `workshop@mirrorartsedu.com`.** Every "Book a trial class" form
+    submission is emailed there from `enquiries@mirrorartsedu.com.au`, with the parent's
+    email as Reply-To so a reply goes straight back. The site still prints
+    `info@mirrorartsedu.com` as the public address, so two inboxes are in play. Say if the
+    form should go to `info@` instead, or to both.

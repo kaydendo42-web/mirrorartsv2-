@@ -2,16 +2,29 @@
 
 /* The enquiry form's server side.
  *
- * Validation and the shape of the payload are settled here; actually
- * delivering it is not — there is no mail provider wired up yet, and picking
- * one is a decision for the client (it determines where parent contact details
- * end up living). Until then this validates, logs, and tells the truth to the
- * person who submitted it rather than pretending to have sent something.
+ * Validates, then emails the enquiry to the school through Resend — the
+ * Vercel Marketplace integration provisioned on 20 September 2026, which
+ * supplies RESEND_API_KEY. Where it lands and how it reads are settled in
+ * lib/enquiry-mail.ts, which is tested; this file only runs the send.
  *
- * To finish it: install an email integration, then replace the marked block.
+ * Three things the send does on purpose:
+ *
+ * The parent's own email is the Reply-To, so the office answers by hitting
+ * reply. Without one, the note says to phone or WeChat instead.
+ *
+ * A failure is reported as a failure. If Resend is down, the key is missing
+ * or the sending domain is not verified yet, the parent is told the message
+ * did not go and given the phone number — never a "thanks" over a lost
+ * enquiry. The cause is logged for us; the parent does not see it.
+ *
+ * A honeypot. The form carries a field no person can see; anything that
+ * fills it is a script, and a script gets a cheerful "thanks" and no email.
  */
 
+import { Resend } from "resend";
+
 import { COURSES } from "@/lib/courses";
+import { ENQUIRY_FROM, ENQUIRY_TO, formatEnquiry } from "@/lib/enquiry-mail";
 
 export type EnquiryState = {
   status: "idle" | "ok" | "error";
@@ -24,6 +37,12 @@ export async function submitEnquiry(
   formData: FormData,
 ): Promise<EnquiryState> {
   const get = (k: string) => String(formData.get(k) ?? "").trim();
+
+  // The honeypot. Named to look worth filling in; hidden from people by
+  // the form. See EnquiryForm for the other half.
+  if (get("website")) {
+    return { status: "ok", message: "Thanks — we have your details." };
+  }
 
   const enquiry = {
     student: get("student"),
@@ -55,19 +74,37 @@ export async function submitEnquiry(
     return { status: "error", message: "Have another look at the form.", errors };
   }
 
-  // ---- delivery — NOT WIRED UP YET -------------------------------------
-  // Replace with the chosen provider. Everything above is finished.
-  console.info("[enquiry] validated, no delivery configured", {
-    ...enquiry,
-    email: enquiry.email ? "[redacted]" : "",
-    phone: enquiry.phone ? "[redacted]" : "",
-    wechat: enquiry.wechat ? "[redacted]" : "",
+  const failed = {
+    status: "error" as const,
+    message:
+      "Sorry — the message didn't send. Please call +61 498 183 332 or email info@mirrorartsedu.com and we'll book you in.",
+  };
+
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    console.error("[enquiry] RESEND_API_KEY is not set; enquiry not sent");
+    return failed;
+  }
+
+  const mail = formatEnquiry(enquiry, new Date());
+  const { error } = await new Resend(key).emails.send({
+    from: ENQUIRY_FROM,
+    to: [ENQUIRY_TO],
+    replyTo: mail.replyTo,
+    subject: mail.subject,
+    text: mail.text,
   });
-  // ----------------------------------------------------------------------
+
+  if (error) {
+    // The provider's reason, for the log; the names and numbers stay out of it.
+    console.error("[enquiry] send failed", { name: error.name, message: error.message });
+    return failed;
+  }
 
   return {
     status: "ok",
-    message:
-      "Thanks — we have your details. Sending isn't connected yet on this preview, so for anything urgent call +61 498 183 332 or email info@mirrorartsedu.com.",
+    message: enquiry.email
+      ? "Thanks — we have your details and will reply by email, usually within a day."
+      : "Thanks — we have your details and will be in touch, usually within a day.",
   };
 }

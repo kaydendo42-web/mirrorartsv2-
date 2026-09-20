@@ -133,6 +133,20 @@ export default function EnquiryForm({
         A phone number, an email or a WeChat ID — whichever suits you.
       </p>
 
+      {/* Honeypot. Off-screen, out of the tab order, hidden from assistive
+          tech; a person never meets it and a form-filling script fills it.
+          The server action drops anything that arrives with it set. */}
+      <p className="form__trap" aria-hidden="true">
+        <label htmlFor="enq-website">Website</label>
+        <input
+          id="enq-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </p>
+
       <Submit />
 
       {state.status !== "idle" && state.message && (
