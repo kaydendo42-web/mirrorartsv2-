@@ -841,6 +841,7 @@ test("merged nav items link to sections on their parent pages", () => {
   assert.deepEqual(submenu("Stage"), [
     { label: "Productions", href: "/stage" },
     { label: "Exams & achievements", href: "/stage#achievements" },
+    { label: "Competitions", href: "/stage#competitions" },
   ]);
   assert.deepEqual(submenu("Workshops"), [
     { label: "Incursions", href: "/workshops#schools" },

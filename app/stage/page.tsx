@@ -8,6 +8,8 @@ import PageNav from "@/components/site/page-nav";
 import { Section, SectionHead } from "@/components/site/section";
 import { PRODUCTIONS, type Kind } from "@/lib/content/productions";
 
+import "./achievements.css";
+
 /* Six works, and the first place on this site where the school's own footage
  * is actually watchable. 4.9 GB of masters sat in a folder nobody could see.
  *
@@ -61,10 +63,13 @@ export default function StagePage() {
       />
 
       <Section>
+        {/* Heading and line are the client's own words, 18 September 2026 —
+            "CREATIVE PRODUCTIONS" (the h2 is uppercase by style) and the
+            sentence beneath it verbatim. */}
         <SectionHead
           eyebrow="Works"
-          title="Six pieces of work"
-          note="Each card runs ten silent seconds of the thing itself. The full film is on its own page."
+          title="Creative productions"
+          note="Where young talent creates, performs and shines."
         />
         <ul className="stagegrid">
           {ORDERED.map((p) => (

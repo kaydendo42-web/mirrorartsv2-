@@ -36,6 +36,7 @@ export const NAV: NavItem[] = [
     sub: [
       { label: "Productions", href: "/stage" },
       { label: "Exams & achievements", href: "/stage#achievements" },
+      { label: "Competitions", href: "/stage#competitions" },
     ],
   },
   {

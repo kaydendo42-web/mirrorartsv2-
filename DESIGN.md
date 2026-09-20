@@ -188,3 +188,11 @@ AMEB and CEFA retain their copy and sequence, with distinct right-column artwork
 ## Local workshop revision — 13 September 2026
 
 The revised workshop page inherits the live V2 PageHero, type, colour fields and motion. Its three format links introduce incursions, excursions and customised parties. The existing fan composition remains beside the incursion introduction; the performance and craft lists follow it. Supplied posters use ImageFrame with their full content visible and the existing enlargement dialog. Workshop-specific layout rules live in `app/workshops/workshops.css`. Source artwork hashes and provenance are recorded in `docs/workshop-image-sources.json`.
+
+## Exams & achievements — 18 September 2026
+
+The client's certificates arrived, and the two exam artworks gave up their column to them. `CertStack` (`components/shared/cert-stack.tsx`) is a pile of documents in paper mounts, dealt across the slot so each overlaps the last: 58% card width for three or more, 70% for a pair, 82% for one; resting tilts from a fixed sequence between −8° and 7°; mounts mostly paper with lilac, gold and wine dealt in. Hover or focus lifts a card to the top of the pile, squares it and deepens the shadow; every card opens in the existing lightbox at full size. The deal-in follows the `.reveal` contract: server-rendered cards are visible, the script arms the hide only for piles below the fold, and a six-second failsafe shows everything regardless.
+
+AMEB holds eight examination documents and CEFA eight certificates in the right column of their existing sections. A new Competitions section (`#competitions`, alt ground) puts one pile per event on a twelve-column shelf — 7 / 5 in the first row, 4 / 4 / 4 in the second — each with the event, its years, the categories entered and a certificate count, and closes with the twenty-three ceremony photographs on the campus condition grid with even mounts, smaller tilts and sparser colour. `ArtsComposition` "voice" and "examination" stay in the source, unimported. Layout rules live in `app/stage/achievements.css`; provenance hashes in `docs/achievement-image-sources.json`.
+
+Alt text names the document — body, year, grade or award, category — and never the child; `lib/content/certificates.test.ts` holds that line alongside the existing consent gate.

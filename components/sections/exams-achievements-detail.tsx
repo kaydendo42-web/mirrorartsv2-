@@ -1,8 +1,14 @@
 import Link from "next/link";
-import ArtsComposition from "@/components/shared/arts-composition";
 
+import CeremonyGrid from "@/components/shared/ceremony-grid";
+import CertStack from "@/components/shared/cert-stack";
 import { Section, SectionHead } from "@/components/site/section";
 import { CREDENTIAL_BODIES } from "@/lib/content/achievements";
+import {
+  AMEB_DOCUMENTS,
+  CEFA_CERTIFICATES,
+  COMPETITIONS,
+} from "@/lib/content/certificates";
 import { COURSES } from "@/lib/content/courses";
 import { INSTITUTIONS } from "@/lib/content/partners";
 
@@ -10,7 +16,14 @@ import { INSTITUTIONS } from "@/lib/content/partners";
  * page on 9 September 2026 at the client's request: the header's Book a trial
  * class button is the site's one enrolment path, and a second form this far
  * down the page competed with it. The bodies list moved up into the overview
- * band rather than leaving with the prose that happened to house it. */
+ * band rather than leaving with the prose that happened to house it.
+ *
+ * On 18 September 2026 the client sent the documents themselves: AMEB
+ * examination reports, CEFA certificates, competition certificates and the
+ * ceremony photographs. The two animated artworks that had stood in for them
+ * (ArtsComposition "voice" and "examination", kept unimported in
+ * components/shared) gave up the right column to the real thing, and a
+ * Competitions section joined the two examining bodies. */
 
 const EXAM_PREP = COURSES.filter(
   (course) => course.leadsTo?.href === "/stage#achievements",
@@ -62,7 +75,11 @@ export default function ExamsAchievementsDetail() {
           </p>
         </div>
 
-        <ArtsComposition variant="voice" />
+        <CertStack
+          items={AMEB_DOCUMENTS}
+          label="AMEB examination report"
+          className="certstack--exam"
+        />
 
         <h3 className="minihead">Courses that prepare for grades directly</h3>
         <ul className="includes">
@@ -95,7 +112,49 @@ export default function ExamsAchievementsDetail() {
             teacher preparing a child knows the syllabus rather than reading it.
           </p>
         </div>
-        <ArtsComposition variant="examination" />
+        <CertStack
+          items={CEFA_CERTIFICATES}
+          label="CEFA certificate"
+          className="certstack--exam"
+        />
+      </Section>
+
+      <Section id="competitions" tone="alt" className="sect--competitions">
+        <SectionHead
+          eyebrow="Competitions"
+          title={
+            <>
+              Eisteddfods, contests and <em>speech finals</em>
+            </>
+          }
+          note="What the students have brought home since 2023, one pile per event. Every certificate opens at full size."
+        />
+
+        <ul className="shelf">
+          {COMPETITIONS.map((c) => (
+            <li key={c.slug} className="shelf__pile" data-count={c.certificates.length}>
+              <CertStack
+                items={c.certificates}
+                label={`${c.title}, ${c.years}`}
+                sizes="(min-width: 1000px) 30vw, 70vw"
+              />
+              <div className="shelf__label">
+                <h3 className="shelf__title">{c.title}</h3>
+                <p className="shelf__meta">
+                  <span>{c.years}</span>
+                  <span>{c.categories}</span>
+                  <span>
+                    {c.certificates.length}{" "}
+                    {c.certificates.length === 1 ? "certificate" : "certificates"}
+                  </span>
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <h3 className="minihead">From the ceremonies</h3>
+        <CeremonyGrid />
       </Section>
     </>
   );

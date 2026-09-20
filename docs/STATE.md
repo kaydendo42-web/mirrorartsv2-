@@ -2,8 +2,18 @@
 
 # Where this project is
 
-**Updated 9 Sep 2026.** Read this first when picking the work back up. It is the live
-state of play; everything else is reference.
+**Updated 19 Sep 2026.** Read this first when picking the work back up.
+
+**Latest change: the certificates arrived, and `/stage` grew a Competitions section** (19 Sep,
+Kayden, from Daisy's 18 Sep Drive upload). AMEB and CEFA lost their animated artworks to piles of
+the real documents (`CertStack`, layered and overlapping as Daisy asked); `#competitions` shelves
+one pile per event and closes with the ceremony photographs on the campus grid; the Stage nav
+gained a Competitions item. "Six pieces of work" became "Creative productions" with Daisy's line
+beneath it. Still open from the same message: the new speech-competition video (not yet
+downloaded — needs the Drive link) to replace Belt & Road, and the Google Business Profile URL
+update, which needs the Mirror Google login. See `DESIGN.md` §Exams & achievements and
+`lib/content/certificates.ts`.
+
 
 **Latest change: `/about` lost its campuses section** (9 Sep, Kayden). "Two campuses, both
 in the east" — the two addresses, the Hire a room here link and the ghost link to `/contact`
