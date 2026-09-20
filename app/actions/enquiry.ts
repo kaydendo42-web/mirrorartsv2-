@@ -24,6 +24,7 @@
 import { Resend } from "resend";
 
 import { COURSES } from "@/lib/courses";
+import { SITE } from "@/lib/content/site";
 import { ENQUIRY_FROM, ENQUIRY_TO, formatEnquiry } from "@/lib/enquiry-mail";
 
 export type EnquiryState = {
@@ -76,8 +77,7 @@ export async function submitEnquiry(
 
   const failed = {
     status: "error" as const,
-    message:
-      "Sorry — the message didn't send. Please call +61 498 183 332 or email info@mirrorartsedu.com and we'll book you in.",
+    message: `Sorry — the message didn't send. Please call ${SITE.phone} or email ${SITE.email} and we'll book you in.`,
   };
 
   const key = process.env.RESEND_API_KEY;

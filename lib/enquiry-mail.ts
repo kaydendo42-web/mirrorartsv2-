@@ -17,9 +17,9 @@ export type Enquiry = {
 };
 
 /* Where enquiries go. Set on 20 September 2026 at Kayden's instruction from
-   the client — the workshop mailbox, not info@, which is what the site
-   prints as the public contact address. Change here and the test beside it
-   together. */
+   the client. The same day the site's printed address (lib/content/site.ts)
+   moved to this mailbox too, so form and footer agree. Change here and the
+   test beside it together. */
 export const ENQUIRY_TO = "workshop@mirrorartsedu.com";
 
 /* The From address has to be on a domain Resend has verified, or nothing

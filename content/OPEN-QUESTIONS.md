@@ -372,8 +372,9 @@ pick up their new teachers automatically. These are what that pass raised.
     line about it — what it is, who made it, which course it came from — and it goes in as
     a seventh work.
 
-65. **Enquiries now land in `workshop@mirrorartsedu.com`.** Every "Book a trial class" form
-    submission is emailed there from `enquiries@mirrorartsedu.com.au`, with the parent's
-    email as Reply-To so a reply goes straight back. The site still prints
-    `info@mirrorartsedu.com` as the public address, so two inboxes are in play. Say if the
-    form should go to `info@` instead, or to both.
+65. **Enquiries land in `workshop@mirrorartsedu.com`, and it is now the site's printed
+    address too.** Every "Book a trial class" submission is emailed there from
+    `enquiries@mirrorartsedu.com.au`, Reply-To the parent. Kayden switched the footer,
+    `/contact`, the venue page, the workshops page and the JSON-LD from `info@` to
+    `workshop@` the same day so one inbox holds everything the site produces. If `info@` is
+    still read and should appear anywhere, say where.

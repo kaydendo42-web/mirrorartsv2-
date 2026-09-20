@@ -30,7 +30,7 @@ import nextConfig from "../../next.config.ts";
 test("site carries the locked contact details verbatim", () => {
   assert.equal(SITE.phone, "+61 498 183 332");
   assert.equal(SITE.whatsapp, "0422 362 426");
-  assert.equal(SITE.email, "info@mirrorartsedu.com");
+  assert.equal(SITE.email, "workshop@mirrorartsedu.com");
   assert.equal(SITE.wechat, "MirrorArtsEdu");
 });
 

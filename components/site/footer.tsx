@@ -40,8 +40,8 @@ const COLUMNS = [
       { label: "Surrey Hills campus", href: "/#find-us" },
       { label: "Glen Waverley campus", href: "/#find-us" },
       { label: "Venue hire", href: "/workshops/venue" },
-      { label: "+61 498 183 332", href: "tel:+61498183332" },
-      { label: "info@mirrorartsedu.com", href: "mailto:info@mirrorartsedu.com" },
+      { label: SITE.phone, href: `tel:${SITE.phone.replace(/\s/g, "")}` },
+      { label: SITE.email, href: `mailto:${SITE.email}` },
     ],
   },
 ];

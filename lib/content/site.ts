@@ -3,13 +3,17 @@
    Every one of these appears in the footer, on /contact, and inside JSON-LD.
    They are declared once here.
 
-   The studio-hire poster prints a different address than the one below,
-   under a domain the business doesn't own. That's treated as an error on
-   the poster, not a second valid address — the site uses
-   info@mirrorartsedu.com throughout. See
-   docs/superpowers/specs/2026-08-07-inner-pages-design.md, "Decisions
-   taken" → Contact address, for the wrong string and the reasoning; it's
-   deliberately not repeated here. */
+   The public address changed to workshop@mirrorartsedu.com on 20 September
+   2026 at Kayden's instruction, the day the enquiry form started sending
+   there (lib/enquiry-mail.ts). One inbox for everything the site produces,
+   rather than a printed address and a form address that differ. It was
+   info@mirrorartsedu.com from the first build until then.
+
+   The studio-hire poster prints a third address, under a domain the
+   business doesn't own. That's treated as an error on the poster, not a
+   valid address. See docs/superpowers/specs/2026-08-07-inner-pages-design.md,
+   "Decisions taken" → Contact address, for the wrong string and the
+   reasoning; it's deliberately not repeated here. */
 
 export type Campus = {
   id: "surrey-hills" | "glen-waverley";
@@ -37,7 +41,7 @@ export const SITE = {
 
   phone: "+61 498 183 332",
   whatsapp: "0422 362 426",
-  email: "info@mirrorartsedu.com",
+  email: "workshop@mirrorartsedu.com",
   wechat: "MirrorArtsEdu",
   xiaohongshu: "789947009",
 
