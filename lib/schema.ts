@@ -113,7 +113,7 @@ export function productionSchema(p: Production) {
     "@type": "CreativeWork",
     "@id": `${SITE_URL}/stage/${p.slug}#work`,
     name: p.title,
-    alternateName: p.cn,
+    ...(p.cn ? { alternateName: p.cn } : {}),
     url: `${SITE_URL}/stage/${p.slug}`,
     description: p.blurb,
     datePublished: String(p.year),

@@ -19,18 +19,20 @@ import type { Asset, Meta, Slug } from "./types.ts";
  * so it is not a seventh production here. It appears as a credits line on
  * the two later gala entries and as its own 2024 milestone in timeline.ts.
  *
- * Belt & Road carries the competition and not the results. The live site
- * still reads "XXX obtained Third, Second and First places" — that sentence
- * is dropped, not filled in, and content.test.ts fails if any placing claim
- * comes back.
+ * The competition entry changed on 20 September 2026. China Daily's Belt &
+ * Road speech competition (2025) came out at the client's request and the
+ * 2026 Australia International Youth Drama, Speech & Debate Competition went
+ * in, from the film she uploaded to Drive. Belt & Road was held to "the
+ * competition and not the results" because no placing was verified; this
+ * one may name a result because the client's own certificates document it —
+ * first and second prize, junior group, the two scans in certificates.ts —
+ * and content.test.ts holds the copy to exactly that. No child is named.
  *
- * video.full is a Vercel Blob URL Task 9 produces. Until then it is the
- * empty string and the player falls back to the poster frame — the
- * behaviour the spec calls for anyway. video.loop and video.poster, and
- * every still, are Task 9 and Task 8 output too: real paths, 404 today,
- * deliberately not asset-tested here. Poster width/height below are the
- * planned 16:9 render size (design spec §5, "CRF 27 at 1920"); Task 9 may
- * correct them once the actual crops exist. */
+ * video.full is the Vercel Blob URL of the full-length render with audio,
+ * which scripts/transcode.mjs --full produces and `vercel blob put` uploads.
+ * The store is mirrorarts-productions on the mirrorartsv2 project. An entry
+ * whose full is "" runs the loop with no play button, which the player
+ * treats as the specified fallback and not a broken one. */
 
 export type Kind = "mv" | "stage" | "gala" | "competition";
 
@@ -69,7 +71,7 @@ export const PRODUCTIONS: Production[] = [
     ],
     video: {
       loop: "/assets/video/born-to-fly-loop.mp4",
-      full: "",
+      full: "https://iwj7bule4frfbhsk.public.blob.vercel-storage.com/productions/born-to-fly-1920.mp4",
       poster: {
         src: "/assets/video/born-to-fly-poster.jpg",
         alt: "The Mirror choir performing in the Born to Fly music video",
@@ -100,7 +102,7 @@ export const PRODUCTIONS: Production[] = [
     ],
     video: {
       loop: "/assets/video/brushstrokes-of-history-loop.mp4",
-      full: "",
+      full: "https://iwj7bule4frfbhsk.public.blob.vercel-storage.com/productions/brushstrokes-of-history-1920.mp4",
       poster: {
         src: "/assets/video/brushstrokes-of-history-poster.jpg",
         alt: "A still from the Brushstrokes of History music video",
@@ -126,7 +128,7 @@ export const PRODUCTIONS: Production[] = [
     credits: [{ label: "Category", value: "2025 annual stage production" }],
     video: {
       loop: "/assets/video/jungle-book-loop.mp4",
-      full: "",
+      full: "https://iwj7bule4frfbhsk.public.blob.vercel-storage.com/productions/jungle-book-1920.mp4",
       poster: {
         src: "/assets/video/jungle-book-poster.jpg",
         alt: "The cast of The Jungle Book on stage in animal costume and face paint",
@@ -151,53 +153,47 @@ export const PRODUCTIONS: Production[] = [
   },
 
   {
-    slug: "belt-and-road-2025",
-    title: "Belt & Road Youth English Speech Competition",
-    cn: '2025英文演讲比赛"一带一路"',
-    year: 2025,
+    slug: "youth-drama-speech-debate-2026",
+    title: "Australia International Youth Drama, Speech & Debate Competition",
+    /* No Chinese title is in hand — the client's certificates, the event's
+       banners and the film are English only. Left empty rather than
+       translated; productionSchema omits alternateName when it is empty. */
+    cn: "",
+    year: 2026,
     kind: "competition",
     blurb:
-      "The 2025 seventh global final of China Daily's Belt & Road Youth English Speech Competition, run since 2019 for entrants from more than fifty countries and regions.",
+      "The 2026 grand final of AYACA's Australia International Youth Drama, Speech & Debate Competition at Glen Eira Town Hall, where Mirror's junior competitors took first and second prize.",
     body: [
-      "The Belt & Road Youth English Speech Competition is hosted by China Daily. Since its 2019 launch, the competition has drawn young participants from more than fifty countries and regions.",
-      /* Verbatim off the competition's own title slide, read at 00:44 of
-         media/2025-belt-and-road-speech-competition.mp4. §8 of the content
-         file renders it "how can we overcome prejudice in building a more
-         connected world?", which is what the old site printed — but that is
-         second-hand, and this is the event projecting its own theme behind
-         the speakers. A sentence inside quotation marks has to match
-         something; the slide is the closest thing to a primary source we
-         hold. Flagged to the client. */
-      'The 2025 seventh global final\'s theme was "As global citizens in the digital age, how can we overcome bias as we build a connected world?" Mirror students competed.',
+      /* Every fact below is read off the film itself or the certificates:
+         the pull-up banner names the presenter and the supporter; the opening
+         shots and the honour roll place it at Glen Eira (Caulfield) Town Hall;
+         the captioned welcome calls it the grand final; the competitors'
+         intro slides show the four forms and three age groups. */
+      "The Australia International Youth Drama, Speech & Debate Competition is presented by the Australian Youth Arts & Cultures Association (AYACA) and supported by the Victorian State Government. Its 2026 grand final was held at Glen Eira Town Hall in Caulfield, with competitors in public speaking, poetry, dramatic monologue and storytelling across junior, intermediate and senior groups.",
+      "Mirror students competed in the junior group and took first and second prize; both certificates are in the competitions section of the achievements on this page. Delyse Weisz, who teaches speech and drama at Mirror, addressed the awards ceremony.",
     ],
     credits: [
-      { label: "Host", value: "China Daily" },
-      { label: "Running since", value: "2019" },
+      { label: "Presented by", value: "Australian Youth Arts & Cultures Association" },
+      { label: "Supported by", value: "Victorian State Government" },
+      { label: "Grand final", value: "Glen Eira Town Hall, Caulfield" },
+      { label: "Mirror result", value: "First and second prize, junior group" },
     ],
     video: {
-      loop: "/assets/video/belt-and-road-2025-loop.mp4",
-      full: "",
+      loop: "/assets/video/youth-drama-speech-debate-2026-loop.mp4",
+      full: "https://iwj7bule4frfbhsk.public.blob.vercel-storage.com/productions/youth-drama-speech-debate-2026-1920.mp4",
       poster: {
-        src: "/assets/video/belt-and-road-2025-poster.jpg",
-        alt: "A speaker at the microphone in the finals of the China Daily Belt and Road Youth English Speech Competition",
+        src: "/assets/video/youth-drama-speech-debate-2026-poster.jpg",
+        alt: "Glen Eira Town Hall in Caulfield, the venue of the 2026 grand final, in afternoon light",
         width: 1920,
         height: 1080,
       },
     },
-    /* The competition's own title slide is projected in this frame and reads
-       "The 7th China Daily, Belt and Road Yout[h]" with the theme under it,
-       which is what identifies the photograph — and what corroborates the
-       theme wording quoted above. The segment on screen is the adult group's,
-       so the alt says a speaker, not a student. */
-    stills: [
-      {
-        src: "/assets/stage/belt-and-road-stage.jpg",
-        alt: "A speaker at the microphone on the competition stage beside the two hosts, judges at a table in front, and the competition's theme slide projected behind",
-        width: 1523,
-        height: 870,
-      },
-    ],
-    relatedCourses: ["english-speech"],
+    /* The film's only subtitle-free stretch is its opening montage, which is
+       what the loop and poster are cut from; see scripts/transcode.mjs. No
+       photograph of the event is in hand, so no still. The certificates and
+       the ceremony photographs on this page carry the result. */
+    stills: [],
+    relatedCourses: ["english-speech", "debating", "drama"],
   },
 
   {
@@ -214,7 +210,7 @@ export const PRODUCTIONS: Production[] = [
     credits: [{ label: "Chief director, Year of the Dragon gala, 2024", value: "Rachel Fu" }],
     video: {
       loop: "/assets/video/snake-year-gala-loop.mp4",
-      full: "",
+      full: "https://iwj7bule4frfbhsk.public.blob.vercel-storage.com/productions/snake-year-gala-1920.mp4",
       poster: {
         src: "/assets/video/snake-year-gala-poster.jpg",
         alt: "A promotional still from Mirror's 2025 Year of the Snake gala",
@@ -240,7 +236,7 @@ export const PRODUCTIONS: Production[] = [
     credits: [{ label: "Chief director, Year of the Dragon gala, 2024", value: "Rachel Fu" }],
     video: {
       loop: "/assets/video/horse-year-gala-loop.mp4",
-      full: "",
+      full: "https://iwj7bule4frfbhsk.public.blob.vercel-storage.com/productions/horse-year-gala-1920.mp4",
       poster: {
         src: "/assets/video/horse-year-gala-poster.jpg",
         alt: "A promotional still from Mirror's 2026 Year of the Horse gala",

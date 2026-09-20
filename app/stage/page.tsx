@@ -27,7 +27,7 @@ import "./achievements.css";
 export const metadata: Metadata = {
   title: "Stage and screen",
   description:
-    "Mirror Arts Education's own productions: two original music videos, the annual stage production, two Spring Festival galas, and the China Daily Belt & Road youth speech competition.",
+    "Mirror Arts Education's own productions: two original music videos, the annual stage production, two Spring Festival galas, and the Australia International Youth Drama, Speech & Debate Competition.",
 };
 
 const KIND_LABEL: Record<Kind, string> = {

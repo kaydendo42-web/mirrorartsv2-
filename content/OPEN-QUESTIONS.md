@@ -211,8 +211,8 @@ asked for over WeChat the same evening. These are what that pass raised.
     **Answered 8 Sep 2026** — "No, this is government institution. Please remove them." Both
     are off the partners list. What they actually did is still recorded where it is a fact
     rather than a claim: the two music videos still say where they were broadcast and
-    screened, and the Belt & Road entry still says who hosts the competition. Say if you want
-    those gone as well.
+    screened. The Belt & Road entry itself came off `/stage` on 20 Sep 2026 (§62), so China
+    Daily is now named nowhere on the site.
 46. **The homepage no longer has an About section.** Removing the "Teaching a child to be
     understood" block and moving the room photographs into Two campuses left a heading and a
     link, so the section came out entirely. `/about` is still in the top navigation and in the
@@ -342,3 +342,32 @@ pick up their new teachers automatically. These are what that pass raised.
     Worth a word to Rachel and Daisy, because "two campuses" is a size signal as much as a
     location one. If they want it back, one line on `/about` naming both suburbs and linking
     to `/contact` would do the same work the section did.
+
+## ⚫ From the 20 Sep 2026 competition video
+
+62. **Belt & Road is off `/stage`, replaced by the 2026 Australia International Youth Drama,
+    Speech & Debate Competition.** Daisy's 18 Sep message: "remove the Belt and Road Speech
+    Competition video and replace it with the new speech competition video." The film in
+    the Drive `Production page` folder is the 2026 grand final at Glen Eira Town Hall. Its
+    card loop and poster are cut from the opening montage — the only ten seconds of the
+    film without burned-in captions — so the card shows the venue, not a competitor.
+    `/stage/belt-and-road-2025` redirects to the new entry.
+
+    Two things the entry says that came from the film and the certificates rather than
+    from you, worth a glance: that AYACA presents the competition with Victorian State
+    Government support (the pull-up banner), and that Delyse Weisz addressed the awards
+    ceremony (she is at the lectern under the "Award Ceremony" slide). The result line —
+    first and second prize, junior group — is exactly what the two certificates say.
+
+63. **Every production page now plays the full film with sound.** The six full-length
+    renders are on Vercel Blob (`mirrorarts-productions`, Sydney). The Blob plan is the
+    Hobby tier's: 1 GB stored, 10 GB served a month. The six films are about 400 MB; a
+    full viewing streams 40–80 MB, so the monthly allowance is roughly 150 full plays.
+    A school site will not touch that in most months, but a viral week would, and the
+    films would stop playing (the ten-second loops, served from the site itself, would
+    not). Say if you would rather host them on YouTube or Vimeo instead.
+
+64. **The `Production page` folder also holds "MV 2026 Term 2 《Childhood》".** You did not
+    ask for it and it is not on the site. If it is meant to join the productions, send a
+    line about it — what it is, who made it, which course it came from — and it goes in as
+    a seventh work.

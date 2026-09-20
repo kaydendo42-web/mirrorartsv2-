@@ -45,6 +45,16 @@ const nextConfig: NextConfig = {
         destination: "/faculty",
         permanent: true,
       },
+      /* The Belt & Road speech competition came off /stage on 20 September
+         2026, replaced by the 2026 Australia International Youth Drama,
+         Speech & Debate Competition. Its case study was live at this URL, so
+         the old address lands on the entry that took its place: same page,
+         same kind of work, same course it grew out of. */
+      {
+        source: "/stage/belt-and-road-2025",
+        destination: "/stage/youth-drama-speech-debate-2026",
+        permanent: true,
+      },
       /* Three course slugs renamed in the 8 September 2026 revision. Unlike
          everything above, these URLs were never public — nothing has been
          deployed — so no index or bookmark points at them. They are here for

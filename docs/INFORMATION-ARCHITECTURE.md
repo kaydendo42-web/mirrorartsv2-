@@ -88,7 +88,7 @@ near-white / charcoal so position on the page is always legible.
 | 6 | **Testimonials** | ⛔ **Blocked** — none exist. `OPEN-QUESTIONS #24`. Section is built and held empty rather than faked. | — |
 | 7 | **Achievements** | Competition wins, AMEB and CEFA results, China Daily. ⛔ Blocked by live placeholder text — `OPEN-QUESTIONS #2`. | Achievements |
 | 8 | ~~*Diverse Cultures*~~ | **Cut.** Rushd uses it for diversity metrics; Mirror's equivalent content is already carried by the hero, the mission band and the workshops. | — |
-| 9 | **Stage** | The productions, as video: 2025 Snake Year gala, 2026 Horse Year gala, Belt & Road speech competition, plus both original MVs. All six masters in hand. | Productions |
+| 9 | **Stage** | The productions, as video: 2025 Snake Year gala, 2026 Horse Year gala, the 2026 Australia International Youth Drama, Speech & Debate Competition (replaced Belt & Road on 20 Sep 2026), plus both original MVs. All six masters in hand; full films on Vercel Blob. | Productions |
 | 10 | **Partners** | AYACA, CEFA, Melbourne Chinese Museum, AMEB, Venus Dance, 明心舞蹈学校 and the 23-logo sheet. | Partners |
 | 11 | **Workshops** | The fifteen cultural workshops, lightly covered — enough to signal the offer exists. | Workshops |
 | 12 | **Social + footer** | Facebook, Instagram, YouTube, WeChat QR modal, 小红书. Footer nav, both campuses, ABN, language toggle. | — |

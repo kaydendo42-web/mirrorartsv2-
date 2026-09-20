@@ -2,17 +2,41 @@
 
 # Where this project is
 
-**Updated 19 Sep 2026.** Read this first when picking the work back up.
+**Updated 20 Sep 2026.** Read this first when picking the work back up.
 
-**Latest change: the certificates arrived, and `/stage` grew a Competitions section** (19 Sep,
+**Latest change: Belt & Road is off `/stage`, and every production plays its full film with
+sound** (20 Sep, Kayden, from Daisy's message and the `Production page` Drive folder).
+
+- **The competition entry is now the 2026 Australia International Youth Drama, Speech & Debate
+  Competition** — `youth-drama-speech-debate-2026` in `lib/content/productions.ts`. Its loop and
+  poster are cut from the film's opening montage (00:02–00:12, Glen Eira Town Hall), the only
+  ten seconds without burned-in captions; `scripts/transcode.mjs` says why. The three Belt &
+  Road assets are deleted and `/stage/belt-and-road-2025` 308s to the new slug. The copy names
+  only the result the certificates document (first and second prize, junior group) and no
+  child; `content.test.ts` holds it to that. `content/OPEN-QUESTIONS.md` §62–64.
+- **`video.full` is filled for all six works.** Blob store `mirrorarts-productions` (Sydney,
+  public) on the `mirrorartsv2` Vercel project, created with `vercel blob create-store` and
+  connected to all three environments; `BLOB_READ_WRITE_TOKEN` is on the project. The renders
+  (CRF 27, 1920 wide, AAC 128k; ~390 MB for six) live at
+  `https://iwj7bule4frfbhsk.public.blob.vercel-storage.com/productions/<slug>-1920.mp4`,
+  uploaded with `vercel blob put --access public --cache-control-max-age 31536000`. The
+  "Play the full film" button `VideoFigure` was built with now appears on every case study.
+  Masters and renders sit in `media/` (gitignored); the five older masters are still in
+  `Original Website/media/`.
+- **To redo a render:** `node scripts/transcode.mjs --full --only=<slug>`, then the `vercel
+  blob put` line above with `--allow-overwrite`. Needs `BLOB_STORE_ID` in `.env.local`
+  alongside the OIDC token `vercel link` writes — the CLI refuses one without the other.
+- **Still open from Daisy's message:** the Google Business Profile URL (needs the Mirror
+  Google login). The `Childhood` MV in the same Drive folder is not on the site — §64.
+
+**The change before it: the certificates arrived, and `/stage` grew a Competitions section** (19 Sep,
 Kayden, from Daisy's 18 Sep Drive upload). AMEB and CEFA lost their animated artworks to piles of
 the real documents (`CertStack`, layered and overlapping as Daisy asked); `#competitions` shelves
 one pile per event and closes with the ceremony photographs on the campus grid; the Stage nav
 gained a Competitions item. "Six pieces of work" became "Creative productions" with Daisy's line
-beneath it. Still open from the same message: the new speech-competition video (not yet
-downloaded — needs the Drive link) to replace Belt & Road, and the Google Business Profile URL
-update, which needs the Mirror Google login. See `DESIGN.md` §Exams & achievements and
-`lib/content/certificates.ts`.
+beneath it. The speech-competition video from the same message went in on 20 Sep (above); the
+Google Business Profile URL update still needs the Mirror Google login. See `DESIGN.md` §Exams &
+achievements and `lib/content/certificates.ts`.
 
 
 **Latest change: `/about` lost its campuses section** (9 Sep, Kayden). "Two campuses, both

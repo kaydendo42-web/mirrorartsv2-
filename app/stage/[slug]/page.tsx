@@ -19,10 +19,11 @@ import { jsonLd, productionSchema } from "@/lib/schema";
  *
  * Two constraints hold across all six:
  *
- * Belt & Road carries the competition and not the results. The live site
- * still reads "XXX obtained Third, Second and First places" today; nothing on
- * this page says how anyone placed, how many entered, or who was interviewed.
- * A test in lib/content fails if a placing claim reappears in the data.
+ * The competition entry names only the result the client's certificates
+ * document — first and second prize, junior group, 2026 — and never a child.
+ * Belt & Road, which it replaced, was held to the competition and not the
+ * results because nothing there was verified. A test in lib/content holds
+ * the copy to the certificates.
  *
  * Born to Fly was BROADCAST ON the Beijing Winter Olympics Organising
  * Committee's official website and on the Chinese Consulate-General in
@@ -86,11 +87,10 @@ export default async function ProductionPage({
       />
 
       <Section>
-        {/* full is "" until a Vercel Blob store exists, and VideoFigure then
-            runs the ten-second loop with no play button — the specified
-            fallback, not a degraded one. The moment the store and the token
-            exist, scripts/transcode.mjs --full produces the six renders and
-            the button appears here with no code change. */}
+        {/* full is the Blob URL of the full-length render with audio, and
+            VideoFigure shows its play button when it is set. An entry whose
+            full is "" runs the ten-second loop with no button — the specified
+            fallback, not a degraded one. */}
         <VideoFigure
           loop={p.video.loop}
           full={p.video.full}

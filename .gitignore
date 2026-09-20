@@ -24,3 +24,8 @@ yarn-error.log*
 /public/__preview/
 /original-file-hashes.json
 /research/component-pass/check-preservation.cjs
+
+# Video masters and full-length renders: downloaded from the client's Drive,
+# transcoded by scripts/transcode.mjs, hosted on Vercel Blob. Never committed.
+/media/
+.vercel

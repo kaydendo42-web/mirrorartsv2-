@@ -21,6 +21,7 @@ import { PRODUCTIONS, getProduction, productionSlugs } from "./productions.ts";
 import { INCURSION_PERFORMANCE, INCURSION_CRAFT, PARTY_OPTIONS, WORKSHOP_FEATURES } from "./workshops.ts";
 import { HIRE_SPACES, VENUE_TERMS, VENUE_RATES_AS_AT } from "./venue.ts";
 import { ACHIEVEMENTS, CREDENTIAL_BODIES } from "./achievements.ts";
+import { COMPETITIONS } from "./certificates.ts";
 import { CAMPUS_PHOTOS } from "./campus.ts";
 import { PARTNERS } from "./partners.ts";
 import { NAV } from "../navigation.ts";
@@ -375,16 +376,29 @@ test("productions reference courses that exist", () => {
   }
 });
 
-test("the belt and road entry carries the competition and not the results", () => {
-  const p = getProduction("belt-and-road-2025");
-  const blob = [p.blurb, ...p.body].join(" ");
-  assert.match(blob, /China Daily/);
-  assert.match(blob, /2019/);
-  assert.ok(!/XXX/i.test(blob), "the old placeholder text survived");
-  assert.ok(
-    !/\b(first|second|third)\s+place/i.test(blob),
-    "an unverified placing claim appeared",
-  );
+test("the 2026 competition entry claims only the prizes the certificates show", () => {
+  /* Belt & Road, the entry this one replaced on 20 September 2026, was
+     forbidden any placing claim because none was verified. This one may
+     name a result, but only the two the client's certificates document —
+     first and second prize, junior group — and it must attribute them the
+     way certificates.ts does. Nothing here may name a child. */
+  const p = getProduction("youth-drama-speech-debate-2026");
+  const blob = [p.blurb, ...p.body, ...p.credits.map((c) => c.value)].join(" ");
+  assert.match(blob, /Australian Youth Arts/);
+  assert.equal(p.year, 2026);
+  assert.equal(p.kind, "competition");
+  assert.ok(!/third/i.test(blob), "a third-prize claim has no certificate behind it");
+  assert.ok(!/place\b/i.test(blob), "the certificates say prize, not place");
+
+  const certified = COMPETITIONS.find((c) => c.slug === "youth-drama-speech-debate");
+  assert.ok(certified, "the certificates section still holds this competition");
+  assert.equal(certified.certificates.length, 2);
+  assert.match(blob, /first and second prize/i);
+  assert.match(blob, /junior/i);
+
+  const named = /\b(Isabella|Xi)\b/;
+  assert.ok(!named.test(blob), "a competitor's name leaked into the production copy");
+  assert.ok(!PRODUCTIONS.some((x) => x.slug === "belt-and-road-2025"), "Belt & Road is gone");
 });
 
 test("Daisy's revised incursion menu includes every performance and craft offering", () => {
@@ -799,6 +813,17 @@ test("the three renamed course slugs redirect to their new URLs", async () => {
     assert.ok(slugs.has(to.replace("/courses/", "")), `${to} is not a course`);
     assert.ok(!slugs.has(from.replace("/courses/", "")), `${from} still exists`);
   }
+});
+
+test("the retired Belt & Road case study redirects to the entry that replaced it", async () => {
+  // Live at /stage/belt-and-road-2025 until 20 September 2026, so an indexed
+  // link or a bookmark has to land somewhere that still exists.
+  const redirects = (await nextConfig.redirects?.()) ?? [];
+  const hit = redirects.find((r) => r.source === "/stage/belt-and-road-2025");
+  assert.ok(hit, "no redirect from /stage/belt-and-road-2025");
+  assert.equal(hit.destination, "/stage/youth-drama-speech-debate-2026");
+  assert.equal(hit.permanent, true);
+  assert.ok(productionSlugs().includes("youth-drama-speech-debate-2026"));
 });
 
 test("old section URLs redirect permanently to their parent anchors", async () => {
