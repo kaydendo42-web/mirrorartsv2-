@@ -3,13 +3,15 @@ import ImageFrame from "@/components/shared/image-frame";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import Faq from "@/components/shared/faq";
 import PageHero from "@/components/site/page-hero";
 import PageNav from "@/components/site/page-nav";
 import { Section, SectionHead } from "@/components/site/section";
 import { COURSES, courseFacts, courseSlugs } from "@/lib/content/courses";
+import { faqForCourse } from "@/lib/content/faq";
 import { getDiscipline } from "@/lib/content/disciplines";
 import { getTeacher } from "@/lib/content/faculty";
-import { courseSchema, jsonLd } from "@/lib/schema";
+import { OG, courseSchema, jsonLd } from "@/lib/schema";
 
 /* One page per course.
  *
@@ -59,6 +61,16 @@ export async function generateMetadata({
   return {
     title: c.title,
     description: `${c.strapline}. ${facts}, at Mirror Arts Education in Melbourne.`,
+    alternates: { canonical: `/courses/${slug}` },
+    /* Debating has no photograph yet, so it falls back to the root card. */
+    ...(c.hero
+      ? {
+          openGraph: {
+            ...OG,
+            images: [{ url: c.hero.src, width: c.hero.width, height: c.hero.height, alt: c.hero.alt }],
+          },
+        }
+      : {}),
   };
 }
 
@@ -199,6 +211,8 @@ export default async function CoursePage({
           </ul>
         </Section>
       )}
+
+      <Faq items={faqForCourse(c)} />
 
       <PageNav
         prev={prev && { label: prev.title, href: `/courses/${prev.slug}` }}

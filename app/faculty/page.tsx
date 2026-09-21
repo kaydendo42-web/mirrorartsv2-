@@ -43,6 +43,7 @@ import { jsonLd, personSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Faculty",
+  alternates: { canonical: "/faculty" },
   description:
     "The ten teachers at Mirror Arts Education — drama, musical theatre, speech, bilingual hosting, dubbing, vocal, choir, music composition, dance and posture, across Surrey Hills and Glen Waverley.",
 };

@@ -25,10 +25,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...productionSlugs().map((s) => `/stage/${s}`),
   ];
 
-  const lastModified = new Date();
-
-  return paths.map((p) => ({
-    url: `${SITE_URL}${p}`,
-    lastModified,
-  }));
+  /* No lastModified. The previous version stamped every URL with the build
+     time, which told Google that all 28 pages changed on every deploy — a
+     date it learns to ignore. Real per-page dates would need a content
+     changelog the site does not keep; until it does, silence is honest. */
+  return paths.map((p) => ({ url: `${SITE_URL}${p}` }));
 }

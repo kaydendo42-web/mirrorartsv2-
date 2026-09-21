@@ -9,7 +9,7 @@ import PageNav from "@/components/site/page-nav";
 import { Section, SectionHead } from "@/components/site/section";
 import { getCourse } from "@/lib/content/courses";
 import { PRODUCTIONS, productionSlugs, type Kind } from "@/lib/content/productions";
-import { jsonLd, productionSchema } from "@/lib/schema";
+import { OG, jsonLd, productionSchema } from "@/lib/schema";
 
 /* One page per work. 4.9 GB of masters finally has somewhere to be watched.
  *
@@ -52,7 +52,16 @@ export async function generateMetadata({
   const { slug } = await params;
   const p = PRODUCTIONS.find((x) => x.slug === slug);
   if (!p) return {};
-  return { title: `${p.title} (${p.year})`, description: p.blurb };
+  const poster = p.video.poster;
+  return {
+    title: `${p.shortTitle ?? p.title} (${p.year})`,
+    description: p.blurb,
+    alternates: { canonical: `/stage/${slug}` },
+    openGraph: {
+      ...OG,
+      images: [{ url: poster.src, width: poster.width, height: poster.height, alt: poster.alt }],
+    },
+  };
 }
 
 export default async function ProductionPage({

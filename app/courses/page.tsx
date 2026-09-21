@@ -29,6 +29,7 @@ import { PRODUCTIONS } from "@/lib/content/productions";
 
 export const metadata: Metadata = {
   title: "Courses",
+  alternates: { canonical: "/courses" },
   description:
     "Professional arts training for all ages — performance arts, language and expression, music and vocal, dance and posture, and adult programs, in Surrey Hills and Glen Waverley.",
 };

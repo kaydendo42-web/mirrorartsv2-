@@ -14,6 +14,7 @@ import { SITE } from "@/lib/content/site";
 
 export const metadata: Metadata = {
   title: "Cultural workshops, incursions & parties",
+  alternates: { canonical: "/workshops" },
   description: "Incursions, excursions and customised cultural experiences for schools, companies and private celebrations in Melbourne. Discover performance, craft and creative parties with Mirror Arts Education.",
 };
 

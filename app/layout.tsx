@@ -10,7 +10,7 @@ import Intro from "@/components/site/intro";
 import Masthead from "@/components/site/masthead";
 import Footer from "@/components/site/footer";
 import { YOUNGEST_AGE } from "@/lib/content/courses";
-import { SITE_URL, jsonLd, organisationSchema } from "@/lib/schema";
+import { OG, SITE_URL, jsonLd, organisationSchema } from "@/lib/schema";
 
 const display = Barlow_Condensed({
   variable: "--font-display",
@@ -42,15 +42,24 @@ const body = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default:
-      "Performing Arts School for Kids | Surrey Hills & Glen Waverley | Mirror Arts Education",
+    /* 55 characters. Google shows about 60 of a title; the previous default
+       ran to 86 and dropped the school's name off the end of its own result.
+       The two suburbs moved into the description, where they still count. */
+    default: "Performing Arts School for Kids · Mirror Arts Education",
     template: "%s · Mirror Arts Education",
   },
   /* The age comes off the catalogue rather than out of this string. It said
      "aged 6+" until 8 September 2026, when the client dropped Musical Theatre
      and Vocal to four — and a meta description is exactly the kind of line
-     nobody re-reads after a content change. */
-  description: `Drama, musical theatre, speech, debating, hosting, music and dance for children aged ${YOUNGEST_AGE}+, plus adult programs, in Melbourne's eastern suburbs. AMEB and CEFA exam preparation, taught in English and Mandarin.`,
+     nobody re-reads after a content change. Kept under ~160 characters so
+     the last clause survives the snippet. */
+  description: `Drama, speech, music and dance for children aged ${YOUNGEST_AGE}+ in Surrey Hills and Glen Waverley. Taught in English and Mandarin, with AMEB and CEFA exam preparation.`,
+  /* The image itself is the file convention app/opengraph-image.jpg — Next
+     emits og:image, its type, width and height from the file, and the
+     .alt.txt beside it. Pages without their own openGraph inherit all of
+     this; course and stage pages replace the image with their own still. */
+  openGraph: { ...OG },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

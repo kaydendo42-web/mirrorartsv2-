@@ -26,6 +26,7 @@ import "./achievements.css";
 
 export const metadata: Metadata = {
   title: "Stage and screen",
+  alternates: { canonical: "/stage" },
   description:
     "Mirror Arts Education's own productions: two original music videos, the annual stage production, two Spring Festival galas, and the Australia International Youth Drama, Speech & Debate Competition.",
 };

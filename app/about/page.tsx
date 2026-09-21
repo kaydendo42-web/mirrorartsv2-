@@ -40,8 +40,11 @@ import { TIMELINE } from "@/lib/content/timeline";
 
 export const metadata: Metadata = {
   title: "About",
+  alternates: { canonical: "/about" },
+  /* Under 165 characters since 22 September 2026; the earlier version ran
+     to 282 and Google showed barely half of it. */
   description:
-    "Mirror Arts Education is a leading performing arts education destination for young people in Melbourne. Since 2017, a single drama class has grown into a multidisciplinary creative community across drama, public speaking, vocal, music and dance, at two campuses in Melbourne's east.",
+    "Mirror Arts Education: from one drama class in 2017 to a performing arts school across drama, speech, vocal, music and dance, at two campuses in Melbourne's east.",
 };
 
 const RENAME_YEAR = 2025;

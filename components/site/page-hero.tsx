@@ -2,6 +2,7 @@ import ImageFrame from "@/components/shared/image-frame";
 import KineticText from "@/components/motion/kinetic-text";
 
 import type { Asset, Meta } from "@/lib/content/types";
+import { breadcrumbSchema, jsonLd } from "@/lib/schema";
 
 import Crumbs, { type Crumb } from "./crumbs";
 
@@ -35,6 +36,10 @@ export default function PageHero({
       style={accent ? ({ ["--accent" as string]: accent }) : undefined}
     >
       <div className="page-cue" aria-hidden="true"><span /><span /><span /></div>
+      {/* The same trail, as structured data. One place, every inner page. */}
+      {trail && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(breadcrumbSchema(trail))} />
+      )}
       <div className="wrap">
         {trail && <Crumbs trail={trail} />}
         <p className="eyebrow phero__eyebrow">{eyebrow}</p>

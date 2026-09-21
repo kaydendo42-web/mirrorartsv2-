@@ -4,9 +4,11 @@ import Image from "next/image";
 import CampusTabs from "@/components/shared/campus-tabs";
 import EnquiryForm from "@/components/shared/enquiry-form";
 import Lightbox from "@/components/shared/lightbox";
+import Faq from "@/components/shared/faq";
 import PageHero from "@/components/site/page-hero";
 import PageNav from "@/components/site/page-nav";
 import { Section, SectionHead } from "@/components/site/section";
+import { SITE_FAQ } from "@/lib/content/faq";
 import { SITE, campusAddress } from "@/lib/content/site";
 
 /* Every way to reach the school, in one place, for the first time.
@@ -23,6 +25,7 @@ import { SITE, campusAddress } from "@/lib/content/site";
 
 export const metadata: Metadata = {
   title: "Contact",
+  alternates: { canonical: "/contact" },
   description: `Book a trial class at Mirror Arts Education. Two campuses — ${campusAddress(SITE.campuses[0])} and ${campusAddress(SITE.campuses[1])}. Phone, WhatsApp, email, WeChat and Xiaohongshu.`,
 };
 
@@ -141,6 +144,8 @@ export default function ContactPage() {
           </ul>
         </div>
       </Section>
+
+      <Faq items={SITE_FAQ} />
 
       <PageNav prev={{ label: "Studio hire", href: "/workshops/venue" }} />
     </>

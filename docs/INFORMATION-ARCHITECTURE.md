@@ -22,7 +22,7 @@
 >   sections between the hero and the enquiry band — Courses, Two campuses, Partners — after
 >   About, Faculty, Testimonials, Achievements, Stage and Workshops came out of it across
 >   the 8 and 9 Sep passes. "Every nav item gets one summary section" is no longer the rule
->   the page follows; the comment at the top of `app/page.tsx` is the live record of which
+>   the page follows; the comment at the top of `components/sections/home.tsx` is the live record of which
 >   sections are there and why.
 
 ---

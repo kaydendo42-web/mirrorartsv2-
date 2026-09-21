@@ -1,8 +1,9 @@
-import { YOUNGEST_AGE, type Course } from "@/lib/content/courses";
-import type { Teacher } from "@/lib/content/faculty";
-import type { Production } from "@/lib/content/productions";
-import { SITE, campusAddress, type Campus } from "@/lib/content/site";
-import type { Leader } from "@/lib/content/team";
+import { YOUNGEST_AGE, type Course } from "./content/courses.ts";
+import type { Teacher } from "./content/faculty.ts";
+import type { Production } from "./content/productions.ts";
+import { SITE, campusAddress, type Campus } from "./content/site.ts";
+import type { Leader } from "./content/team.ts";
+import type { FaqItem } from "./content/faq.ts";
 
 /* Structured data, built from the content layer.
  *
@@ -22,7 +23,21 @@ import type { Leader } from "@/lib/content/team";
  * be inventing them on the page — the markup is a claim to a search engine
  * the same way body copy is a claim to a reader. */
 
-export const SITE_URL = "https://mirrorartsedu.com.au";
+/* The host Vercel actually serves. The apex redirects here, so a sitemap,
+   a robots.txt or an @id built on the apex is a URL that redirects — which
+   is how the site described itself until 22 September 2026. Relative
+   imports above rather than the @/ alias so lib/seo.test.ts can load this
+   file under node --test, which does not read tsconfig paths. */
+export const SITE_URL = "https://www.mirrorartsedu.com.au";
+
+/* The Open Graph fields every page shares. Next shallow-merges openGraph,
+   so a page that sets its own image would silently drop siteName and locale
+   unless it spreads this first. Course and stage pages do. */
+export const OG = {
+  siteName: SITE.name,
+  locale: "en_AU",
+  type: "website",
+} as const;
 
 const ORG_ID = `${SITE_URL}/#organisation`;
 
@@ -119,6 +134,43 @@ export function productionSchema(p: Production) {
     datePublished: String(p.year),
     thumbnailUrl: `${SITE_URL}${p.video.poster.src}`,
     creator: { "@id": ORG_ID },
+  };
+}
+
+/* Built from the trail PageHero already draws, so the markup and the visible
+   crumbs cannot disagree. Home is always first. The last crumb is the page
+   itself and carries no item — schema.org allows it and Google prefers it,
+   since the item would just be the URL the crawler is already on. Typed
+   structurally rather than importing Crumb from a component: schema.ts
+   knows about content, not about components. */
+export function breadcrumbSchema(trail: { label: string; href?: string }[]) {
+  const crumbs = [
+    { name: "Home", item: SITE_URL },
+    ...trail.map((c) => ({
+      name: c.label,
+      ...(c.href ? { item: `${SITE_URL}${c.href}` } : {}),
+    })),
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: crumbs.map((c, i) => ({ "@type": "ListItem", position: i + 1, ...c })),
+  };
+}
+
+/* FAQPage. Google stopped showing FAQ dropdowns for most sites in 2023;
+   this is for the answer engines, which lift a Question/Answer pair far
+   more reliably than a paragraph. The visible block and the markup are the
+   same array, so they cannot drift. */
+export function faqSchema(items: FaqItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
   };
 }
 

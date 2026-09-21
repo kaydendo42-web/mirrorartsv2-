@@ -57,7 +57,7 @@ export type Institution = {
 
 /* Three separate top-level bindings rather than one PARTNERS object.
  *
- * The homepage marquees live inside a client component — app/page.tsx is
+ * The homepage marquees live inside a client component — components/sections/home.tsx is
  * "use client" because scroll drives it — so whatever they import ships to
  * the browser. Properties of a single exported object do not tree-shake, so
  * `import { PARTNERS }` for two logo arrays would also ship every

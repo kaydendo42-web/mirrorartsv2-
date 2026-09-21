@@ -39,6 +39,11 @@ export type Kind = "mv" | "stage" | "gala" | "competition";
 export type Production = {
   slug: Slug;
   title: string;
+  /* For the browser tab and the search result only, where the template
+     appends " · Mirror Arts Education" and Google draws about sixty
+     characters. Set only where the full title would run past eighty with
+     the suffix; the page itself, the schema and every link use `title`. */
+  shortTitle?: string;
   cn: string;
   year: number;
   kind: Kind;
@@ -155,6 +160,7 @@ export const PRODUCTIONS: Production[] = [
   {
     slug: "youth-drama-speech-debate-2026",
     title: "Australia International Youth Drama, Speech & Debate Competition",
+    shortTitle: "Youth Drama, Speech & Debate Competition",
     /* No Chinese title is in hand — the client's certificates, the event's
        banners and the film are English only. Left empty rather than
        translated; productionSchema omits alternateName when it is empty. */

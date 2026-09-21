@@ -30,6 +30,7 @@ import { SITE, campusAddress } from "@/lib/content/site";
 
 export const metadata: Metadata = {
   title: "Privacy",
+  alternates: { canonical: "/privacy" },
   description: `How Mirror Arts Education collects, uses and protects the details you send us — the enquiry form, server logs, the campus map, and what this site does and does not store on your device.`,
 };
 

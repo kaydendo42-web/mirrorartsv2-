@@ -32,6 +32,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Studio hire",
+  alternates: { canonical: "/workshops/venue" },
   description: `Five spaces for hire at Mirror Arts Education, ${campusAddress(SITE.campuses[0])} — a 150 m² function room with stage lighting and an LED screen, three studios and an 80 m² workshop space. Rates as at ${VENUE_RATES_AS_AT}.`,
 };
 

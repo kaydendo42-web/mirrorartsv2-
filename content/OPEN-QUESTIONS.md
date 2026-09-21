@@ -378,3 +378,21 @@ pick up their new teachers automatically. These are what that pass raised.
     `/contact`, the venue page, the workshops page and the JSON-LD from `info@` to
     `workshop@` the same day so one inbox holds everything the site produces. If `info@` is
     still read and should appear anywhere, say where.
+
+66. **The site now answers six questions on `/contact` and up to three on each course
+    page, in our words.** "What age can my child start?", "How do I book a trial class?",
+    "Where are the classes held?", "Are classes taught in English or Mandarin?", "Do you
+    prepare students for exams?", "How long is a class?" — every number in every answer is
+    read off the course catalogue and the campus record, so they move when those do. The
+    wording is ours (`lib/content/faq.ts`). Read them once and say where the school would
+    put it differently; the answer on languages ("Both") and the one on trial classes are
+    the two most worth a look. Search engines and AI assistants lift these as the school's
+    own statements, which is why they are worth getting right.
+
+67. **The old website at `mirrorartsedu.com` is still live and outranks the new one for
+    the school's own name.** On 22 September 2026 a Google search for "mirror arts
+    education" showed the old site first, the Facebook page second and the new site third.
+    The old site should permanently redirect (301) to `https://www.mirrorartsedu.com.au`,
+    at whoever hosts it — the DNS is on a Chinese site-builder (`dlszywz.com`). The email
+    on `@mirrorartsedu.com` is separate and unaffected. Also the Google Business Profile
+    and Localsearch listing should point at `.com.au`. See `docs/seo-audit-2026-09-22.md`.

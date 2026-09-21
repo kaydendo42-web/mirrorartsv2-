@@ -2,10 +2,46 @@
 
 # Where this project is
 
-**Updated 20 Sep 2026.** Read this first when picking the work back up.
+**Updated 22 Sep 2026.** Read this first when picking the work back up.
 
-**Latest change: Belt & Road is off `/stage`, and every production plays its full film with
-sound** (20 Sep, Kayden, from Daisy's message and the `Production page` Drive folder).
+**Latest change: the SEO pass** (22 Sep, Kayden). One-time audit and quick-win fixes, planned
+in `docs/SEO-PICKUP.md`, executed from `docs/superpowers/plans/2026-09-22-seo-audit-and-fixes.md`,
+recorded in `docs/seo-audit-2026-09-22.md`.
+
+- **`SITE_URL` is `https://www.mirrorartsedu.com.au`** (`lib/schema.ts`). It was the apex, so
+  every sitemap URL, the robots `Sitemap:` line and every JSON-LD `@id` pointed at a host that
+  307s to www. `lib/schema.ts` now uses relative `.ts` imports so `lib/seo.test.ts` can load it.
+- **Every page has a canonical**, `alternates.canonical` in each `metadata` / `generateMetadata`.
+  `app/page.tsx` became a Server Component to export it; the homepage body and its long
+  section-by-section note moved to `components/sections/home.tsx`.
+- **Share cards.** `app/opengraph-image.jpg` (1200×630, The Jungle Book still, 94 KB) is the
+  root card; course pages use their `hero`, productions their `video.poster`. Root `openGraph`
+  spreads `OG` from `lib/schema.ts` — openGraph is shallow-merged, so any page that sets it
+  must spread `OG` too. `twitter.card` is `summary_large_image`.
+- **`BreadcrumbList`** from `PageHero`'s `trail`, `breadcrumbSchema()` in `lib/schema.ts`.
+- **FAQ.** `lib/content/faq.ts` — six site questions, `faqForCourse()` for up to three per
+  course, every answer derived from the content layer. Rendered by `components/shared/faq.tsx`
+  (`.faq` in `globals.css`) on `/contact` and each course page with `FAQPage` markup. The
+  wording is flagged for Daisy in `content/OPEN-QUESTIONS.md` §66.
+- **Homepage title** is 55 chars; suburbs moved into the description (155). `/about`
+  description trimmed from 282 to 167. The competition case study has a `shortTitle` for the
+  `<title>` only. Sitemap no longer stamps `lastModified: new Date()`.
+- **`lib/seo.test.ts`** holds all of it (host, sitemap, title length, canonical walk over
+  `app/`, JPEG dimensions of the card, breadcrumb, FAQ derivation, shortTitle rule).
+- **`scripts/seo-crawl.mjs <baseUrl>`** grades every sitemap URL; exit 1 on any issue. Live
+  before: 87 issues. Local after: 0 issues, 16 notes (descriptions between 165 and 230 chars —
+  Google truncates, nothing breaks).
+- **Two findings that are not code**, both in the audit doc's off-site list: the old
+  `mirrorartsedu.com` is still live and holds #1 for the school's name (new site #3), and
+  the school is absent from the map pack for "drama classes surrey hills" (GBP). Also the
+  apex → www redirect is an implicit 307 because the apex is not attached to `mirrorartsv2`;
+  adding it as a 308 redirect was blocked by the session's permission policy and is a
+  one-liner in the doc.
+- **Open:** Search Console and Bing verification tokens go into `app/layout.tsx` as
+  `verification` once Kayden has them; the old-site redirect; GBP.
+
+**The change before it: Belt & Road is off `/stage`, and every production plays its full film
+with sound** (20 Sep, Kayden, from Daisy's message and the `Production page` Drive folder).
 
 - **The competition entry is now the 2026 Australia International Youth Drama, Speech & Debate
   Competition** — `youth-drama-speech-debate-2026` in `lib/content/productions.ts`. Its loop and
@@ -69,7 +105,7 @@ the shortened page re-counted to base / alt / base / band, so they still alterna
 
 This ends the "every nav item gets one summary section" rule that
 `docs/INFORMATION-ARCHITECTURE.md` was built on; that file now says so at the top. The
-comment at the head of `app/page.tsx` is the live record.
+comment at the head of `components/sections/home.tsx` is the live record (moved there 22 Sep 2026 so `app/page.tsx` could export metadata).
 
 **And before that: `/stage` lost its enquiry form** (9 Sep, Kayden). The "What a grade is
 actually for" prose and the "Ask about entering" form came off the bottom of `/stage`, on
