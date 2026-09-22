@@ -14,6 +14,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
     "/about",
+    "/surrey-hills",
+    "/glen-waverley",
     "/courses",
     "/faculty",
     "/stage",

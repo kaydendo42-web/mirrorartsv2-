@@ -1,3 +1,4 @@
+import type { CampusId } from "./site.ts";
 import type { Asset, Slug } from "./types.ts";
 
 /* Studio-hire rates, recovered from the studio-hire poster
@@ -41,6 +42,12 @@ export const VENUE_RATES_AS_AT = "January 2026";
    page, because a rate card whose unit is a hard-coded string in one
    component is a rate card that means nothing the day someone reuses it. */
 export const VENUE_RATE_UNIT = "hour";
+
+/* Every space on the rate card is at the main campus. The campus page and
+   the FAQ read this rather than repeating "Surrey Hills", so a second
+   hireable campus would be one edit here and a `campus` field on
+   HireSpace, not a hunt through copy. */
+export const VENUE_CAMPUS: CampusId = "surrey-hills";
 
 export const HIRE_SPACES: HireSpace[] = [
   {

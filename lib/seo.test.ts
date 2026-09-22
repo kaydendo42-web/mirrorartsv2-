@@ -2,8 +2,16 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 
-import { SITE_URL, breadcrumbSchema, faqSchema } from "./schema.ts";
-import { SITE_FAQ, faqForCourse } from "./content/faq.ts";
+import { SITE_URL, breadcrumbSchema, campusSchema, faqSchema, organisationSchema } from "./schema.ts";
+import {
+  ABOUT_FAQ, FACULTY_FAQ, SITE_FAQ, STAGE_FAQ, VENUE_FAQ, WORKSHOPS_FAQ,
+  faqForCampus, faqForCourse,
+} from "./content/faq.ts";
+import { HIRE_SPACES, VENUE_TERMS } from "./content/venue.ts";
+import { FACULTY } from "./content/faculty.ts";
+import { COMPETITIONS } from "./content/certificates.ts";
+import { CREDENTIAL_BODIES } from "./content/achievements.ts";
+import { INCURSION_CRAFT, INCURSION_PERFORMANCE } from "./content/workshops.ts";
 import { COURSES, YOUNGEST_AGE, getCourse } from "./content/courses.ts";
 import { SITE, campusAddress } from "./content/site.ts";
 import { PRODUCTIONS } from "./content/productions.ts";
@@ -155,9 +163,28 @@ test("faqSchema is a FAQPage with one Question per item", () => {
   assert.equal(s.mainEntity[0].acceptedAnswer.text, "Yes, because.");
 });
 
-test("the FAQ block is on the contact page and the course pages", () => {
-  assert.ok(src("../app/contact/page.tsx").includes("<Faq items={SITE_FAQ}"));
-  assert.ok(src("../app/courses/[slug]/page.tsx").includes("<Faq items={faqForCourse(c)}"));
+test("every section page carries its FAQ block", () => {
+  const expect: [string, string][] = [
+    ["../app/contact/page.tsx", "<Faq items={SITE_FAQ}"],
+    ["../app/courses/[slug]/page.tsx", "<Faq items={faqForCourse(c)}"],
+    ["../app/workshops/page.tsx", "<Faq items={WORKSHOPS_FAQ}"],
+    ["../app/workshops/venue/page.tsx", "<Faq items={VENUE_FAQ}"],
+    ["../app/faculty/page.tsx", "<Faq items={FACULTY_FAQ}"],
+    ["../app/stage/page.tsx", "<Faq items={STAGE_FAQ}"],
+    ["../app/about/page.tsx", "<Faq items={ABOUT_FAQ}"],
+  ];
+  for (const [rel, needle] of expect) {
+    assert.ok(src(rel).includes(needle), `${rel} lacks ${needle}`);
+  }
+});
+
+test("the about standfirst opens with the entity, not the pitch", () => {
+  // What / where / since when / for whom, in the first sentence, derived
+  // from the record. The rest of the paragraph is the client's own.
+  const about = src("../app/about/page.tsx");
+  assert.ok(about.includes("is a performing arts school for children and adults in ${SITE.campuses[0].suburb} and ${SITE.campuses[1].suburb}"), "lede is not entity-first / not derived");
+  assert.ok(about.includes("since ${TIMELINE[0].year}"), "founding year is not read from the timeline");
+  assert.ok(!about.includes("Since 2017, we have grown"), "the client's 'Since 2017' now repeats the lede's");
 });
 
 test("a production's shortTitle exists only where the full title would overrun the tab", () => {
@@ -175,4 +202,149 @@ test("a production's shortTitle exists only where the full title would overrun t
       assert.ok(full <= 80, `${p.slug} title runs to ${full} with the template and has no shortTitle`);
     }
   }
+});
+
+test("each campus Place carries its coordinates, a map link and a stable @id", () => {
+  const org = organisationSchema();
+  const [sh, gw] = org.location;
+  assert.equal(sh["@id"], "https://www.mirrorartsedu.com.au/surrey-hills#campus");
+  assert.equal(gw["@id"], "https://www.mirrorartsedu.com.au/glen-waverley#campus");
+  assert.equal(sh.geo["@type"], "GeoCoordinates");
+  assert.equal(sh.geo.latitude, SITE.campuses[0].geo.lat);
+  assert.equal(sh.geo.longitude, SITE.campuses[0].geo.lng);
+  assert.ok(sh.hasMap.startsWith("https://www.google.com/maps/search/?api=1&query="));
+  // No hours on the record → no openingHoursSpecification. A guessed
+  // 9-to-5 would be published by Google as fact.
+  assert.ok(!("openingHoursSpecification" in sh), "hours were invented");
+});
+
+test("openingHoursSpecification appears only when the campus record has hours", () => {
+  const withHours = {
+    ...SITE.campuses[0],
+    hours: [{ days: ["Monday", "Friday"] as const, opens: "15:30", closes: "19:00" }],
+  };
+  const s = campusSchema(withHours as never);
+  assert.deepEqual(s.openingHoursSpecification, [
+    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Friday"], opens: "15:30", closes: "19:00" },
+  ]);
+});
+
+test("a campus page node is a LocalBusiness that shares the Place @id and points at the organisation", () => {
+  const [sh, gw] = SITE.campuses.map((c) => campusSchema(c));
+  assert.deepEqual(sh["@type"], ["LocalBusiness", "EducationalOrganization"]);
+  assert.equal(sh["@id"], organisationSchema().location[0]["@id"]);
+  assert.equal(sh.url, "https://www.mirrorartsedu.com.au/surrey-hills");
+  assert.equal(sh.parentOrganization["@id"], "https://www.mirrorartsedu.com.au/#organisation");
+  assert.equal(sh.telephone, SITE.phone);
+  assert.ok(String(sh.image).startsWith("https://www.mirrorartsedu.com.au/assets/campus/"), "Surrey Hills has photographs");
+  assert.ok(!("image" in gw), "Glen Waverley has no photographs and must not borrow one");
+  assert.equal(sh.address.streetAddress, "1F/244 Canterbury Rd");
+});
+
+/* Every FAQ set on the site obeys the same three rules. */
+function wellFormed(items: { q: string; a: string }[], label: string) {
+  assert.ok(items.length >= 2, `${label} has ${items.length} questions`);
+  for (const f of items) {
+    assert.ok(f.q.endsWith("?"), `${label}: not a question: ${f.q}`);
+    assert.ok(f.a.length >= 40 && f.a.length <= 400, `${label}: answer length ${f.a.length}: ${f.q}`);
+  }
+  assert.equal(new Set(items.map((f) => f.q)).size, items.length, `${label} repeats a question`);
+}
+
+test("a campus FAQ states the address, the courses and the hire rooms, and nothing the record lacks", () => {
+  const [sh, gw] = SITE.campuses;
+  const s = faqForCampus(sh);
+  const g = faqForCampus(gw);
+  wellFormed(s, "surrey-hills");
+  wellFormed(g, "glen-waverley");
+  assert.ok(s[0].a.includes(campusAddress(sh)) && s[0].a.includes(campusAddress(gw)), "both addresses");
+  assert.ok(s[1].a.includes(`All ${COURSES.length} courses`), "today every course runs at both");
+  assert.ok(s.some((f) => f.q.includes("hire")), "Surrey Hills hires rooms");
+  assert.ok(!g.some((f) => f.q.includes("hire")), "Glen Waverley does not");
+  assert.ok(!s.some((f) => /open\?$/.test(f.q)), "no hours on the record → no hours question");
+  assert.ok(!s.some((f) => /parking/i.test(f.q)), "no transport on the record → no parking question");
+  assert.ok(s[s.length - 1].q.startsWith("How do I book a trial"));
+  // The hours and transport questions appear the moment the record has them.
+  const withData = {
+    ...gw,
+    hours: [{ days: ["Saturday"] as const, opens: "09:00", closes: "13:00" }],
+    transport: ["There is parking on the street.", "Glen Waverley station is a ten-minute walk."],
+  };
+  const d = faqForCampus(withData as never);
+  assert.ok(d.some((f) => f.a.includes("Saturday, 9:00am–1:00pm")), "hours are formatted");
+  assert.ok(d.some((f) => f.a.includes("parking on the street")), "transport is quoted verbatim");
+});
+
+test("the workshops FAQ counts the activity lists and names the popular ones", () => {
+  wellFormed(WORKSHOPS_FAQ, "workshops");
+  const text = WORKSHOPS_FAQ.map((f) => f.a).join("\n");
+  assert.ok(text.includes(`${INCURSION_PERFORMANCE.length} performance`));
+  assert.ok(text.includes(`${INCURSION_CRAFT.length} craft`));
+  for (const a of [...INCURSION_PERFORMANCE, ...INCURSION_CRAFT].filter((x) => x.popular)) {
+    assert.ok(text.includes(a.title), `popular activity ${a.title} not named`);
+  }
+  assert.ok(text.includes(SITE.email));
+});
+
+test("the venue FAQ reads the rate card", () => {
+  wellFormed(VENUE_FAQ, "venue");
+  const text = VENUE_FAQ.map((f) => f.a).join("\n");
+  const off = Math.min(...HIRE_SPACES.map((s) => s.offPeakRate));
+  const peak = Math.max(...HIRE_SPACES.map((s) => s.peakRate));
+  assert.ok(text.includes(`$${off}`) && text.includes(`$${peak}`), "rate range not derived");
+  assert.ok(text.includes(`${HIRE_SPACES.length} spaces`));
+  for (const t of VENUE_TERMS) assert.ok(text.includes(t), "a hire term is missing");
+  assert.ok(text.includes(campusAddress(SITE.campuses[0])));
+});
+
+test("the faculty FAQ counts the teachers and names only institutions their cards name", () => {
+  wellFormed(FACULTY_FAQ, "faculty");
+  const text = FACULTY_FAQ.map((f) => f.a).join("\n");
+  assert.ok(text.includes(`${FACULTY.length} teachers`));
+  const trained = FACULTY_FAQ.find((f) => f.q.includes("trained"));
+  assert.ok(trained, "no training question");
+  const credentials = FACULTY.flatMap((t) => t.credentials).join("\n");
+  for (const name of trained.a.match(/[A-Z][A-Za-z'’]+(?: [A-Za-z'’]+)*(?: of [A-Z][A-Za-z]+)*/g) ?? []) {
+    if (/University|Academy|Conservatory/.test(name)) {
+      assert.ok(credentials.includes(name), `${name} is not on any teacher's card`);
+    }
+  }
+});
+
+test("the stage FAQ lists the productions, the bodies and the competitions", () => {
+  wellFormed(STAGE_FAQ, "stage");
+  const text = STAGE_FAQ.map((f) => f.a).join("\n");
+  assert.ok(text.includes(`${PRODUCTIONS.length} productions`));
+  for (const b of CREDENTIAL_BODIES) assert.ok(text.includes(b.name), `${b.name} missing`);
+  for (const c of COMPETITIONS) assert.ok(text.includes(c.title), `${c.title} missing`);
+});
+
+test("the about FAQ dates the school from the timeline and names the former name without a rename year", () => {
+  wellFormed(ABOUT_FAQ, "about");
+  const text = ABOUT_FAQ.map((f) => f.a).join("\n");
+  assert.ok(text.includes("In 2017"));
+  assert.ok(text.includes(SITE.formerName));
+  // The rename year is disputed (content/OPEN-QUESTIONS.md, 2024 vs 2025),
+  // so the answer must not pick one.
+  const renameAnswer = ABOUT_FAQ.find((f) => f.a.includes(SITE.formerName))!.a;
+  assert.ok(!/202[45]/.test(renameAnswer), "the rename answer picked a year");
+});
+
+test("the two campus pages exist, share one component, and are linked from the footer and the map", () => {
+  // Source-level, like the canonical walk. The routes are static folders on
+  // purpose: the canonical and sitemap tests then cover them with no special
+  // case, and a third campus is one more five-line file.
+  for (const id of ["surrey-hills", "glen-waverley"]) {
+    const page = src(`../app/${id}/page.tsx`);
+    assert.ok(page.includes(`getCampus("${id}")`), `${id} route does not load its campus`);
+    assert.ok(page.includes("<CampusPage campus="), `${id} route does not mount CampusPage`);
+    assert.ok(src("../app/sitemap.ts").includes(`"/${id}"`), `${id} missing from sitemap`);
+  }
+  const campus = src("../components/sections/campus.tsx");
+  assert.ok(campus.includes("campusSchema(c)"), "campus page does not emit campusSchema");
+  assert.ok(campus.includes("<Faq items={faqForCampus(c)}"), "campus page has no FAQ");
+  assert.ok(campus.includes("...OG"), "campus metadata sets openGraph without spreading OG");
+  assert.ok(campus.includes('href="/contact#trial"'), "campus page does not send readers to the form");
+  assert.ok(src("../components/site/footer.tsx").includes("campusPath("), "footer still links campuses to /#find-us");
+  assert.ok(src("../components/shared/campus-tabs.tsx").includes("campusPath(here)"), "map address block does not link to the campus page");
 });

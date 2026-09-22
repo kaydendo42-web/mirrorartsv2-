@@ -1,6 +1,6 @@
 # SEO / AEO one-time audit — pickup
 
-**Executed 22 Sep 2026.** Kayden approved the design below ("Do all as you can"); the plan is
+**Shipped 22 Sep 2026, commit `f8ee823` on `mirrorartsv2-`.** Kayden approved the design below ("Do all as you can"); the plan is
 `docs/superpowers/plans/2026-09-22-seo-audit-and-fixes.md`, the record is
 `docs/seo-audit-2026-09-22.md`, and `docs/STATE.md` has the summary. Still open after the
 release: Search Console / Bing verification tokens (→ `app/layout.tsx` `verification`), the

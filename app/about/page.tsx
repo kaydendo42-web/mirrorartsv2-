@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import PartnersDetail from "@/components/sections/partners-detail";
+import Faq from "@/components/shared/faq";
 import ArtsComposition from "@/components/shared/arts-composition";
 import PageHero from "@/components/site/page-hero";
 import PageNav from "@/components/site/page-nav";
 import { Section, SectionHead } from "@/components/site/section";
 import { COURSES } from "@/lib/content/courses";
 import { DISCIPLINES } from "@/lib/content/disciplines";
+import { ABOUT_FAQ } from "@/lib/content/faq";
+import { SITE } from "@/lib/content/site";
 import { TIMELINE } from "@/lib/content/timeline";
 
 /* The story page. The old site's version was four paragraphs of Chinese and a
@@ -64,7 +67,13 @@ export default function AboutPage() {
             A drama class in 2017, and <em>everything since</em>
           </>
         }
-        standfirst="Mirror Arts Education is a leading performing arts education destination for young people in Melbourne. Since 2017, we have grown from a single drama class into a multidisciplinary creative community, bringing together professional educators, industry-standard facilities and real performance opportunities. Across drama, public speaking, vocal, music and dance, we empower every student to build confidence, develop their craft and shine — in the classroom, on stage and beyond."
+        /* The first sentence is ours and says what, where, since when and
+           for whom in plain words — the sentence a search engine or an
+           answer engine lifts. The rest is the client's paragraph as
+           supplied on 4 September 2026, minus its opening "Since 2017,",
+           which the new sentence already says. content/OPEN-QUESTIONS.md
+           §68 flags the change for Daisy. */
+        standfirst={`${SITE.name} is a performing arts school for children and adults in ${SITE.campuses[0].suburb} and ${SITE.campuses[1].suburb}, in Melbourne's east, teaching drama, speech, vocal, music and dance since ${TIMELINE[0].year}. We have grown from a single drama class into a multidisciplinary creative community, bringing together professional educators, industry-standard facilities and real performance opportunities. Across drama, public speaking, vocal, music and dance, we empower every student to build confidence, develop their craft and shine — in the classroom, on stage and beyond.`}
         meta={[
           { label: "Founded", value: "2017" },
           { label: "Established", value: "2019" },
@@ -179,6 +188,9 @@ export default function AboutPage() {
       </Section>
 
       <PartnersDetail />
+
+      {/* PartnersDetail closes on the alt ground. */}
+      <Faq items={ABOUT_FAQ} tone="base" />
 
       <PageNav next={{ label: "Faculty", href: "/faculty" }} />
     </>

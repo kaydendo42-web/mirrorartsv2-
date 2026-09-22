@@ -1,3 +1,4 @@
+import type { CampusId } from "./site.ts";
 import type { Asset } from "./types.ts";
 
 /* A room photograph carries a name as well as a description. The alt text
@@ -86,3 +87,11 @@ export const CAMPUS_PHOTOS: CampusPhoto[] = [
     height: 1086,
   },
 ];
+
+/* The campus page asks for its own photographs by id. Surrey Hills gets the
+   seven above; Glen Waverley gets an empty list and the page renders no
+   rooms section rather than the other campus's rooms — a photograph of the
+   wrong building is worse than none. */
+export function campusPhotos(id: CampusId): CampusPhoto[] {
+  return id === "surrey-hills" ? CAMPUS_PHOTOS : [];
+}

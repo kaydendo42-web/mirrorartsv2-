@@ -1,3 +1,4 @@
+import type { CampusId } from "./site.ts";
 import type { Asset, DisciplineId, Meta, Slug } from "./types.ts";
 
 /* The thirteen courses.
@@ -41,6 +42,15 @@ export type Course = {
      throw away whichever the client wrote second. Falls back to strapline. */
   summary?: string;
   discipline: DisciplineId;
+  /* Where the course runs. Every course must name at least one campus —
+     content.test.ts fails otherwise — and today every course names both,
+     which is the claim the site was already making on /contact and in each
+     course FAQ before the campus pages existed. The real split, and the
+     days each course runs, come from the client (docs/SEO-ROUND-2-PICKUP.md,
+     "Ask Daisy now" 1). Days are deliberately not a field yet: the catalogue
+     test bans weekdays, and it should keep banning them until a timetable
+     exists to carry them. */
+  campuses: CampusId[];
   /* Absent on the two holiday programs. A pair on Instrument, which runs at
      either length. */
   minutes?: number | [number, number];
@@ -99,6 +109,11 @@ export type Course = {
   gallery?: Asset[];
 };
 
+/* The default until the client's timetable arrives — see `campuses` on the
+   type. One constant so the day it changes is one edit per course, not a
+   hunt through thirteen literals. */
+const BOTH_CAMPUSES: CampusId[] = ["surrey-hills", "glen-waverley"];
+
 export const COURSES: Course[] = [
   /* ------------------------------------------------ performance arts ---- */
 
@@ -108,6 +123,7 @@ export const COURSES: Course[] = [
     cn: "英文戏剧课",
     strapline: "Develop confidence, creativity, and authentic stage presence",
     discipline: "performance",
+    campuses: BOTH_CAMPUSES,
     minutes: 120,
     sessionsPerTerm: 20,
     minAge: 5,
@@ -154,6 +170,7 @@ export const COURSES: Course[] = [
     cn: "音乐剧课",
     strapline: "Training for real musical theatre productions",
     discipline: "performance",
+    campuses: BOTH_CAMPUSES,
     minutes: 90,
     sessionsPerTerm: 20,
     minAge: 4,
@@ -201,6 +218,7 @@ export const COURSES: Course[] = [
     cn: "英文演讲课",
     strapline: "Building confident, articulate and expressive speakers",
     discipline: "language",
+    campuses: BOTH_CAMPUSES,
     minutes: 60,
     sessionsPerTerm: 10,
     minAge: 6,
@@ -246,6 +264,7 @@ export const COURSES: Course[] = [
     strapline:
       "Building persuasive arguments, critical thinking and confident delivery",
     discipline: "language",
+    campuses: BOTH_CAMPUSES,
     minutes: 60,
     sessionsPerTerm: 10,
     accent: "#D9633B",
@@ -278,6 +297,7 @@ export const COURSES: Course[] = [
     summary:
       "Developing stage presence, bilingual presentation and hosting skills",
     discipline: "language",
+    campuses: BOTH_CAMPUSES,
     minutes: 60,
     sessionsPerTerm: 10,
     minAge: 6,
@@ -323,6 +343,7 @@ export const COURSES: Course[] = [
     summary:
       "A signature holiday program featuring cartoon & animation dubbing",
     discipline: "language",
+    campuses: BOTH_CAMPUSES,
     holiday: { days: 5 },
     minAge: 5,
     accent: "#D9633B",
@@ -371,6 +392,7 @@ export const COURSES: Course[] = [
     summary:
       "Professional vocal training in technique, musicianship and performance, with AMEB exam preparation available",
     discipline: "music",
+    campuses: BOTH_CAMPUSES,
     minutes: 60,
     sessionsPerTerm: 10,
     minAge: 4,
@@ -418,6 +440,7 @@ export const COURSES: Course[] = [
     strapline:
       "Individual instrumental lessons developing technique, musicianship and confident performance skills",
     discipline: "music",
+    campuses: BOTH_CAMPUSES,
     minutes: [30, 45],
     accent: "#4F8A5B",
     lede: "Piano · Flute · Cello",
@@ -448,6 +471,7 @@ export const COURSES: Course[] = [
     strapline:
       "A complete music video experience combining professional recording, performance coaching and on-camera filming",
     discipline: "music",
+    campuses: BOTH_CAMPUSES,
     holiday: {},
     accent: "#4F8A5B",
     body: [
@@ -477,6 +501,7 @@ export const COURSES: Course[] = [
     strapline:
       "Ensemble vocal training focusing on harmony, part singing, musicality and stage performance",
     discipline: "music",
+    campuses: BOTH_CAMPUSES,
     minutes: 120,
     sessionsPerTerm: 10,
     minAge: 6,
@@ -525,6 +550,7 @@ export const COURSES: Course[] = [
     strapline:
       "Creative composition training in melody, harmony, structure and original music development",
     discipline: "music",
+    campuses: BOTH_CAMPUSES,
     minutes: 60,
     sessionsPerTerm: 10,
     entry: "AMEB Grade 5 or above in at least one instrument, or equivalent",
@@ -569,6 +595,7 @@ export const COURSES: Course[] = [
     cn: "舞蹈课",
     strapline: "Technique, rhythm, movement and performance",
     discipline: "posture",
+    campuses: BOTH_CAMPUSES,
     minutes: 90,
     accent: "#7A5A9E",
     body: [
@@ -611,6 +638,7 @@ export const COURSES: Course[] = [
     strapline:
       "Body alignment, balance, walking, standing and confident presentation",
     discipline: "posture",
+    campuses: BOTH_CAMPUSES,
     minutes: 90,
     sessionsPerTerm: 10,
     minAge: 6,
@@ -720,6 +748,11 @@ export function getCourse(slug: string): Course {
 
 export function coursesByDiscipline(id: DisciplineId): Course[] {
   return COURSES.filter((c) => c.discipline === id);
+}
+
+/* The courses a campus page lists, in catalogue order. */
+export function coursesAt(id: CampusId): Course[] {
+  return COURSES.filter((c) => c.campuses.includes(id));
 }
 
 export function courseSlugs(): string[] {

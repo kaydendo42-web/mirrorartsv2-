@@ -22,7 +22,11 @@ export default function KineticText({ children, wash = false, page = false }: { 
 
   function words(node: ReactNode): ReactNode {
     return Children.map(node, (child) => {
-      if (typeof child === "string") return child.split(/(\s+)/).map((part, index) =>
+      /* A string that starts or ends with a space — " in " between a name
+         and an <em> — splits to an empty part at each end, and an empty
+         .studio-word is not nothing: it is an inline-block with a gap, and
+         at the start of a wrapped line it reads as an indent. Dropped. */
+      if (typeof child === "string") return child.split(/(\s+)/).filter((part) => part !== "").map((part, index) =>
         /\s+/.test(part) ? part : <span key={index} className={wash ? "studio-wash-word" : "studio-word"}><span>{part}</span></span>,
       );
       if (isValidElement<{ children?: ReactNode }>(child) && child.props.children) return cloneElement(child, {}, words(child.props.children));

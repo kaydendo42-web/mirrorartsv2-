@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import CourseIcon from "@/components/shared/course-icon";
+import CourseList from "@/components/shared/course-list";
 import CourseWork, { type WorkTile } from "@/components/shared/course-work";
 import PageHero from "@/components/site/page-hero";
 import { Section, SectionHead } from "@/components/site/section";
-import {
-  COURSES,
-  courseFactLine,
-  coursesByDiscipline,
-} from "@/lib/content/courses";
+import { COURSES, coursesByDiscipline } from "@/lib/content/courses";
 import { ADULT_PROGRAMS, DISCIPLINES } from "@/lib/content/disciplines";
 import { PRODUCTIONS } from "@/lib/content/productions";
 
@@ -133,37 +129,7 @@ export default function CoursesPage() {
               </p>
             </>
           ) : (
-            <ul className="courselist">
-              {coursesByDiscipline(d.id).map((c) => (
-                <li
-                  key={c.slug}
-                  className="courselist__row"
-                  style={{ ["--accent" as string]: c.accent }}
-                >
-                  <Link href={`/courses/${c.slug}`} className="courselist__link">
-                    {/* A drawing, not a photograph. There are thirteen courses
-                        and nine usable photographs between them, so four rows
-                        would show the same picture as the row beside them —
-                        see the note at the top of
-                        components/shared/course-icon.tsx. The photographs
-                        still lead each course's own page, where they are large
-                        enough to be worth looking at. */}
-                    <span className="courselist__icon" aria-hidden="true">
-                      <CourseIcon slug={c.slug} />
-                    </span>
-                    <span className="courselist__body">
-                      <span className="courselist__title">{c.title}</span>
-                      <span className="courselist__strap">
-                        {c.summary ?? c.strapline}
-                      </span>
-                      <span className="courselist__meta">
-                        {courseFactLine(c)}
-                      </span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <CourseList courses={coursesByDiscipline(d.id)} />
           )}
         </Section>
       ))}

@@ -15,8 +15,20 @@
    "Decisions taken" → Contact address, for the wrong string and the
    reasoning; it's deliberately not repeated here. */
 
+export type CampusId = "surrey-hills" | "glen-waverley";
+
+export type Weekday =
+  | "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday";
+
+/* One row of a timetable-style hours list: the days it covers and a
+   24-hour open/close pair, "HH:MM". This is the shape schema.org's
+   OpeningHoursSpecification takes, so lib/schema.ts emits it without
+   translation, and formatHours() below turns it into the sentence the
+   page prints. */
+export type OpeningHours = { days: Weekday[]; opens: string; closes: string };
+
 export type Campus = {
-  id: "surrey-hills" | "glen-waverley";
+  id: CampusId;
   name: string;
   cn: string;
   address: string;
@@ -32,7 +44,60 @@ export type Campus = {
      parameter format, `!1m3!2m1!1s<address, space→+, url-encoded>!6i15`, run
      against this campus's own verbatim address. Not a hand-typed blob. */
   mapEmbed: string;
+  /* The pin Google's own embed drops for the address above, read off the
+     mapEmbed response on 22 September 2026 and cross-checked against
+     Nominatim (OpenStreetMap), which put both within about twelve metres.
+     Six decimal places is roughly a tenth of a metre; more would be
+     pretending. These go into GeoCoordinates in the JSON-LD and nowhere
+     visible. */
+  geo: { lat: number; lng: number };
+  /* The three fields below are the client's to fill (docs/SEO-ROUND-2-PICKUP.md,
+     "Ask Daisy now"). Each is optional and the campus page renders nothing
+     for an absent one — no "hours to be confirmed" placeholder, because a
+     placeholder is a claim that the site knows something it does not.
+       hours     — reception / when someone is there.
+       transport — parking and public transport, in her words, one string
+                   per paragraph.
+       nearby    — suburbs the families actually come from. Named in copy
+                   only once she confirms them; the SEO temptation to list
+                   every suburb within ten minutes is exactly what makes a
+                   doorway page. */
+  hours?: OpeningHours[];
+  transport?: string[];
+  nearby?: string[];
 };
+
+/* Typed as Campus[] rather than left to `as const` below: the optional
+   fields (hours, transport, nearby) are absent from the literals, and a
+   literal type has no `hours` to read — every consumer would have to cast.
+   The cost is that `.id` is CampusId rather than the exact string, which
+   nothing needed. */
+const CAMPUSES: readonly Campus[] = [
+  {
+    id: "surrey-hills",
+    name: "Main campus",
+    cn: "总校区",
+    address: "1F/244 Canterbury Rd",
+    suburb: "Surrey Hills",
+    state: "VIC",
+    postcode: "3127",
+    mapEmbed:
+      "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s1F%2F244+Canterbury+Rd%2C+Surrey+Hills+VIC+3127!6i15",
+    geo: { lat: -37.824955, lng: 145.086874 },
+  },
+  {
+    id: "glen-waverley",
+    name: "Glen campus",
+    cn: "Glen 校区",
+    address: "36 Kincumber Dr",
+    suburb: "Glen Waverley",
+    state: "VIC",
+    postcode: "3150",
+    mapEmbed:
+      "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s36+Kincumber+Dr%2C+Glen+Waverley+VIC+3150!6i15",
+    geo: { lat: -37.8766, lng: 145.177326 },
+  },
+];
 
 export const SITE = {
   name: "Mirror Arts Education",
@@ -75,30 +140,7 @@ export const SITE = {
     },
   ],
 
-  campuses: [
-    {
-      id: "surrey-hills",
-      name: "Main campus",
-      cn: "总校区",
-      address: "1F/244 Canterbury Rd",
-      suburb: "Surrey Hills",
-      state: "VIC",
-      postcode: "3127",
-      mapEmbed:
-        "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s1F%2F244+Canterbury+Rd%2C+Surrey+Hills+VIC+3127!6i15",
-    },
-    {
-      id: "glen-waverley",
-      name: "Glen campus",
-      cn: "Glen 校区",
-      address: "36 Kincumber Dr",
-      suburb: "Glen Waverley",
-      state: "VIC",
-      postcode: "3150",
-      mapEmbed:
-        "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s36+Kincumber+Dr%2C+Glen+Waverley+VIC+3150!6i15",
-    },
-  ] satisfies Campus[],
+  campuses: CAMPUSES,
 } as const;
 
 /* One-line postal form: "1F/244 Canterbury Rd, Surrey Hills VIC 3127".
@@ -110,4 +152,68 @@ export const SITE = {
  * reads as carelessness on the one line a parent is most likely to copy. */
 export function campusAddress(c: Campus): string {
   return `${c.address}, ${c.suburb} ${c.state} ${c.postcode}`;
+}
+
+/* The campus pages live at the top level — /surrey-hills, not
+   /campuses/surrey-hills — because a suburb is the one word a parent
+   searching for a class already has, and the shortest URL that carries it
+   wins. Two static route folders wrap one component; see
+   components/sections/campus.tsx. */
+export function campusPath(c: Campus): string {
+  return `/${c.id}`;
+}
+
+/* The "open in Google Maps" link the address block prints and the hasMap
+   the JSON-LD carries. One formula, so the two cannot point at different
+   pins. */
+export function campusMapUrl(c: Campus): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(campusAddress(c))}`;
+}
+
+export function getCampus(id: CampusId): Campus {
+  const found = SITE.campuses.find((c) => c.id === id);
+  if (!found) throw new Error(`unknown campus: ${id}`);
+  return found;
+}
+
+/* There are two. A campus page closes with a link to the other one, and
+   the campus FAQ names it; both read it from here rather than assuming
+   an index. */
+export function otherCampus(c: Campus): Campus {
+  const found = SITE.campuses.find((x) => x.id !== c.id);
+  if (!found) throw new Error("there is only one campus");
+  return found;
+}
+
+const WEEKDAYS: Weekday[] = [
+  "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
+];
+
+/* "09:00" → "9:00am". Australian usage; a parent reads 5:30pm, not 17:30. */
+function clockTime(t: string): string {
+  const [h, m] = t.split(":").map(Number);
+  const suffix = h >= 12 ? "pm" : "am";
+  return `${h % 12 || 12}:${String(m).padStart(2, "0")}${suffix}`;
+}
+
+/* Joins a list with commas and a final "and": ["A","B","C"] → "A, B and C". */
+function listed(xs: string[]): string {
+  if (xs.length <= 1) return xs.join("");
+  return `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
+}
+
+/* One sentence per hours entry: "Monday to Friday, 9:00am–5:30pm". A run of
+   three or more consecutive days collapses to "X to Y"; anything else is
+   listed. Used by the campus hero, the campus FAQ and nothing else — the
+   JSON-LD takes the raw shape. */
+export function formatHours(hours: readonly OpeningHours[]): string[] {
+  return hours.map((h) => {
+    const idx = h.days.map((d) => WEEKDAYS.indexOf(d));
+    const consecutive =
+      idx.length >= 3 && idx.every((v, i) => i === 0 || v === idx[i - 1] + 1);
+    const days = consecutive
+      ? `${h.days[0]} to ${h.days[h.days.length - 1]}`
+      : listed(h.days);
+    return `${days}, ${clockTime(h.opens)}–${clockTime(h.closes)}`;
+  });
 }

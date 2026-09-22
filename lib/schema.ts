@@ -1,7 +1,8 @@
 import { YOUNGEST_AGE, type Course } from "./content/courses.ts";
 import type { Teacher } from "./content/faculty.ts";
 import type { Production } from "./content/productions.ts";
-import { SITE, campusAddress, type Campus } from "./content/site.ts";
+import { campusPhotos } from "./content/campus.ts";
+import { SITE, campusAddress, campusMapUrl, campusPath, type Campus } from "./content/site.ts";
 import type { Leader } from "./content/team.ts";
 import type { FaqItem } from "./content/faq.ts";
 
@@ -41,9 +42,20 @@ export const OG = {
 
 const ORG_ID = `${SITE_URL}/#organisation`;
 
+/* One Place per campus, inside the organisation's `location` on every page
+   and — with more types and more fields — as the campus page's own node.
+   Both carry the same @id, so a crawler that sees the organisation on /about
+   and the LocalBusiness on /surrey-hills merges them into one thing rather
+   than two Surrey Hills addresses.
+
+   geo and hasMap are always present: the coordinates are on the record and
+   the map link is the same one the address block prints.
+   openingHoursSpecification is present only when the record has hours.
+   There is no fallback and no default; Google publishes hours as fact. */
 function placeSchema(c: Campus) {
   return {
     "@type": "Place",
+    "@id": `${SITE_URL}${campusPath(c)}#campus`,
     name: `${SITE.name} — ${c.suburb}`,
     address: {
       "@type": "PostalAddress",
@@ -53,6 +65,39 @@ function placeSchema(c: Campus) {
       postalCode: c.postcode,
       addressCountry: "AU",
     },
+    geo: { "@type": "GeoCoordinates", latitude: c.geo.lat, longitude: c.geo.lng },
+    hasMap: campusMapUrl(c),
+    ...(c.hours
+      ? {
+          openingHoursSpecification: c.hours.map((h) => ({
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: h.days,
+            opens: h.opens,
+            closes: h.closes,
+          })),
+        }
+      : {}),
+  };
+}
+
+/* The campus page's own node. LocalBusiness is what the map pack reads;
+   EducationalOrganization is what it is. Multi-typing is ordinary JSON-LD
+   and Google's local-business documentation accepts subtypes and arrays.
+   parentOrganization ties it back to the one organisation record, and the
+   image is the first campus photograph or nothing — Glen Waverley has not
+   been shot, and a photograph of Surrey Hills on the Glen Waverley node
+   would be a wrong claim with a picture attached. */
+export function campusSchema(c: Campus) {
+  const photo = campusPhotos(c.id).at(0);
+  return {
+    "@context": "https://schema.org",
+    ...placeSchema(c),
+    "@type": ["LocalBusiness", "EducationalOrganization"],
+    url: `${SITE_URL}${campusPath(c)}`,
+    telephone: SITE.phone,
+    email: SITE.email,
+    parentOrganization: { "@id": ORG_ID },
+    ...(photo ? { image: `${SITE_URL}${photo.src}` } : {}),
   };
 }
 

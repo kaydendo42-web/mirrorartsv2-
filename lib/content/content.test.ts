@@ -2,12 +2,13 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 
-import { SITE } from "./site.ts";
+import { SITE, campusPath, campusMapUrl, getCampus, otherCampus, formatHours } from "./site.ts";
 import { ADULT_PROGRAMS, DISCIPLINES, getDiscipline } from "./disciplines.ts";
 import {
   COURSES,
   YOUNGEST_AGE,
   courseFactLine,
+  coursesAt,
   courseFacts,
   getCourse,
   coursesByDiscipline,
@@ -19,10 +20,10 @@ import { TEAM, getLeader } from "./team.ts";
 import { TIMELINE } from "./timeline.ts";
 import { PRODUCTIONS, getProduction, productionSlugs } from "./productions.ts";
 import { INCURSION_PERFORMANCE, INCURSION_CRAFT, PARTY_OPTIONS, WORKSHOP_FEATURES } from "./workshops.ts";
-import { HIRE_SPACES, VENUE_TERMS, VENUE_RATES_AS_AT } from "./venue.ts";
+import { HIRE_SPACES, VENUE_CAMPUS, VENUE_TERMS, VENUE_RATES_AS_AT } from "./venue.ts";
 import { ACHIEVEMENTS, CREDENTIAL_BODIES } from "./achievements.ts";
 import { COMPETITIONS } from "./certificates.ts";
-import { CAMPUS_PHOTOS } from "./campus.ts";
+import { CAMPUS_PHOTOS, campusPhotos } from "./campus.ts";
 import { PARTNERS } from "./partners.ts";
 import { NAV } from "../navigation.ts";
 import nextConfig from "../../next.config.ts";
@@ -114,6 +115,58 @@ test("campus map embeds use the frameable google endpoint", () => {
       `${c.id} must use the /maps/embed?…pb=… form`,
     );
   }
+});
+
+test("each campus carries geocoded coordinates inside Melbourne's east", () => {
+  // Google embed pins, read 22 September 2026; Nominatim agreed to ~12 m.
+  // The box is generous on purpose — it catches a swapped lat/lng or a
+  // pasted coordinate from the wrong city, not a pin one street off.
+  for (const c of SITE.campuses) {
+    assert.ok(c.geo.lat > -38.2 && c.geo.lat < -37.6, `${c.id} latitude ${c.geo.lat}`);
+    assert.ok(c.geo.lng > 144.8 && c.geo.lng < 145.5, `${c.id} longitude ${c.geo.lng}`);
+  }
+  assert.ok(SITE.campuses[1].geo.lng > SITE.campuses[0].geo.lng, "Glen Waverley is east of Surrey Hills");
+});
+
+test("campus hours, when present, are well-formed; today none are", () => {
+  // Daisy has not supplied opening hours (docs/SEO-ROUND-2-PICKUP.md).
+  // When she does, this keeps the shape schema.org expects.
+  for (const c of SITE.campuses) {
+    if (!c.hours) continue;
+    for (const h of c.hours) {
+      assert.ok(h.days.length > 0, `${c.id} hours entry with no days`);
+      assert.match(h.opens, /^\d{2}:\d{2}$/);
+      assert.match(h.closes, /^\d{2}:\d{2}$/);
+      assert.ok(h.opens < h.closes, `${c.id} opens after it closes`);
+    }
+  }
+});
+
+test("campus helpers resolve paths, map links and the other campus", () => {
+  const [sh, gw] = SITE.campuses;
+  assert.equal(campusPath(sh), "/surrey-hills");
+  assert.equal(campusPath(gw), "/glen-waverley");
+  assert.equal(getCampus("glen-waverley"), gw);
+  assert.throws(() => getCampus("box-hill" as never));
+  assert.equal(otherCampus(sh), gw);
+  assert.equal(otherCampus(gw), sh);
+  assert.ok(campusMapUrl(sh).startsWith("https://www.google.com/maps/search/?api=1&query="));
+  assert.ok(campusMapUrl(sh).includes(encodeURIComponent("Surrey Hills")));
+});
+
+test("formatHours reads like a sign on the door", () => {
+  assert.deepEqual(
+    formatHours([{ days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "17:30" }]),
+    ["Monday to Friday, 9:00am–5:30pm"],
+  );
+  assert.deepEqual(
+    formatHours([{ days: ["Saturday", "Sunday"], opens: "10:00", closes: "16:00" }]),
+    ["Saturday and Sunday, 10:00am–4:00pm"],
+  );
+  assert.deepEqual(
+    formatHours([{ days: ["Monday", "Wednesday", "Friday"], opens: "12:00", closes: "12:30" }]),
+    ["Monday, Wednesday and Friday, 12:00pm–12:30pm"],
+  );
 });
 
 test("there are five sections and their ids are unique", () => {
@@ -298,6 +351,39 @@ test("no course carries a price or a timetable", () => {
     ),
     "a weekday appeared in the catalogue",
   );
+});
+
+test("every course runs at at least one real campus", () => {
+  const ids = SITE.campuses.map((c) => c.id);
+  for (const c of COURSES) {
+    assert.ok(c.campuses.length > 0, `${c.slug} names no campus`);
+    for (const id of c.campuses) assert.ok(ids.includes(id), `${c.slug} names unknown campus ${id}`);
+    assert.equal(new Set(c.campuses).size, c.campuses.length, `${c.slug} repeats a campus`);
+  }
+});
+
+test("until the client splits the timetable, every course runs at both campuses", () => {
+  // This is what the site already said before the campus pages existed
+  // ("Classes run at both" on /contact and in every course FAQ). When Daisy
+  // sends the per-campus timetable (docs/SEO-ROUND-2-PICKUP.md, ask 1),
+  // update the records and rewrite this test to the real split.
+  for (const c of SITE.campuses) {
+    assert.equal(coursesAt(c.id).length, COURSES.length, `${c.id} lost a course`);
+  }
+  assert.deepEqual(coursesAt("surrey-hills").map((c) => c.slug), COURSES.map((c) => c.slug), "coursesAt keeps catalogue order");
+});
+
+test("the photographs are Surrey Hills' and Glen Waverley has none yet", () => {
+  // The seven room shots are all the main campus (campus.ts). Glen Waverley
+  // arrived as a composite contact sheet and was left out; when real frames
+  // come (docs/SEO-ROUND-2-PICKUP.md, ask 4) this test moves.
+  assert.equal(campusPhotos("surrey-hills"), CAMPUS_PHOTOS);
+  assert.deepEqual(campusPhotos("glen-waverley"), []);
+});
+
+test("the venue's campus is a real campus id", () => {
+  assert.ok(SITE.campuses.some((c) => c.id === VENUE_CAMPUS));
+  assert.equal(VENUE_CAMPUS, "surrey-hills", "venue.ts says every hire space is at Surrey Hills");
 });
 
 test("courseSlugs returns every slug", () => {

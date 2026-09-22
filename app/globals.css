@@ -1488,6 +1488,8 @@ html.intro-lock, html.intro-lock body { overflow: hidden; }
 }
 .find__address a { color: var(--muted); text-decoration: none; }
 .find__address a:hover { color: var(--ink); text-decoration: underline; }
+.find__more { font-weight: 600; }
+.find__address .find__more { color: var(--ink); }
 
 /* --------------------------------------------------------- form ---- */
 
@@ -1917,6 +1919,17 @@ select.field__input { appearance: none; background-image: none; }
 .courselist__link:focus-visible .courselist__icon::before {
   opacity: 1;
   transform: scale(1);
+}
+
+/* Campus page: the catalogue grouped under discipline headings inside one
+   section, rather than the four sections /courses runs. A place page lists
+   what runs there; it does not re-run the catalogue. */
+.campus-group + .campus-group { margin-top: clamp(2rem, 4vw, 3rem); }
+.campus-group__title {
+  font-family: var(--disp);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0 0 0.9rem;
 }
 
 .courselist__body { display: block; min-width: 0; }

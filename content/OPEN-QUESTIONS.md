@@ -396,3 +396,30 @@ pick up their new teachers automatically. These are what that pass raised.
     at whoever hosts it — the DNS is on a Chinese site-builder (`dlszywz.com`). The email
     on `@mirrorartsedu.com` is separate and unaffected. Also the Google Business Profile
     and Localsearch listing should point at `.com.au`. See `docs/seo-audit-2026-09-22.md`.
+
+## ⚫ From the 22 Sep 2026 SEO round 2
+
+68. **The About page now opens with one plain sentence of ours** before your paragraph:
+    *"Mirror Arts Education is a performing arts school for children and adults in Surrey
+    Hills and Glen Waverley, in Melbourne's east, teaching drama, speech, vocal, music and
+    dance since 2017."* Your paragraph follows unchanged except that its own "Since 2017,"
+    is dropped, since the new sentence says it. Happy with the wording?
+
+69. **Two campus pages are live — `/surrey-hills` and `/glen-waverley`.** They show the
+    address and map, the courses, the Surrey Hills rooms, studio hire, and a short FAQ.
+    Three things are missing because only you can supply them, and the pages simply do
+    not show those sections until you do:
+    - **Which courses run at which campus, and on which days.** Today every course is
+      listed at both, which is what the site already said. A photo of the timetable is
+      fine.
+    - **Opening hours for each campus** (when someone is at reception), and whether
+      they change in school holidays.
+    - **Parking and public transport**, in your words — nearest station or tram, where
+      parents park, drop-off.
+    Also: three to five photographs of Glen Waverley (the page has none), and whether
+    families mostly come from the two suburbs themselves or from around them — and
+    which. We only name a nearby suburb if you tell us families come from it.
+
+70. **Five more pages answer questions at the foot** — Workshops, Studio hire, Faculty,
+    Stage and About — same rule as §66: every number is read off the site's own record,
+    the wording is ours. Worth a read for tone.

@@ -6,9 +6,11 @@ import Link from "next/link";
 import { ArrowDown, ArrowUpRight, BusFront, PartyPopper } from "lucide-react";
 
 import SchoolsWorkshopsDetail, { WorkshopActivityList } from "@/components/sections/schools-workshops-detail";
+import Faq from "@/components/shared/faq";
 import PageHero from "@/components/site/page-hero";
 import PageNav from "@/components/site/page-nav";
 import { Section, SectionHead } from "@/components/site/section";
+import { WORKSHOPS_FAQ } from "@/lib/content/faq";
 import { EXCURSION_EXPERIENCES, PARTY_OPTIONS, WORKSHOP_FEATURES } from "@/lib/content/workshops";
 import { SITE } from "@/lib/content/site";
 
@@ -109,6 +111,7 @@ export default function WorkshopsPage() {
         </div>
       </Section>
 
+      <Faq items={WORKSHOPS_FAQ} tone="base" />
       <Section id="workshop-enquiry" tone="band">
         <div className="workshop-enquiry">
           <div>

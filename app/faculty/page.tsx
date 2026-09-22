@@ -8,11 +8,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Faq from "@/components/shared/faq";
 import PageHero from "@/components/site/page-hero";
 import { Section, SectionHead } from "@/components/site/section";
 import { COURSES } from "@/lib/content/courses";
 import { DISCIPLINES, getDiscipline } from "@/lib/content/disciplines";
 import { FACULTY, type Teacher } from "@/lib/content/faculty";
+import { FACULTY_FAQ } from "@/lib/content/faq";
 import { TEAM } from "@/lib/content/team";
 import { jsonLd, personSchema } from "@/lib/schema";
 
@@ -102,6 +104,10 @@ export default function FacultyPage() {
           </ul>
         </Section>
       ))}
+
+      {/* The sections above alternate base/alt by index; this continues
+          the run rather than doubling a ground. */}
+      <Faq items={FACULTY_FAQ} tone={groups.length % 2 ? "alt" : "base"} />
     </>
   );
 }

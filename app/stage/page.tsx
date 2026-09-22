@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import ExamsAchievementsDetail from "@/components/sections/exams-achievements-detail";
+import Faq from "@/components/shared/faq";
 import VideoFigure from "@/components/shared/video-figure";
 import PageHero from "@/components/site/page-hero";
 import PageNav from "@/components/site/page-nav";
 import { Section, SectionHead } from "@/components/site/section";
+import { STAGE_FAQ } from "@/lib/content/faq";
 import { PRODUCTIONS, type Kind } from "@/lib/content/productions";
 
 import "./achievements.css";
@@ -94,6 +96,9 @@ export default function StagePage() {
       </Section>
 
       <ExamsAchievementsDetail />
+
+      {/* #competitions above is the alt ground. */}
+      <Faq items={STAGE_FAQ} tone="base" />
 
       <PageNav
         prev={{ label: "Faculty", href: "/faculty" }}

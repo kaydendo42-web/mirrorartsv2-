@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import ImageFrame from "@/components/shared/image-frame";
 
 import PageHero from "@/components/site/page-hero";
+import Faq from "@/components/shared/faq";
 import PageNav from "@/components/site/page-nav";
 import { Section, SectionHead } from "@/components/site/section";
+import { VENUE_FAQ } from "@/lib/content/faq";
 import { SITE, campusAddress } from "@/lib/content/site";
 import {
   HIRE_SPACES,
@@ -208,6 +210,8 @@ export default function VenuePage() {
           </li>
         </ul>
       </Section>
+
+      <Faq items={VENUE_FAQ} tone="base" />
 
       <PageNav
         prev={{

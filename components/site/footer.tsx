@@ -1,7 +1,7 @@
 import BrandMark from "./brand-mark";
 import Link from "next/link";
 
-import { SITE } from "@/lib/content/site";
+import { SITE, campusPath } from "@/lib/content/site";
 
 /* The three off-site accounts come from the content layer rather than being
    declared again here — they are also in the footer's JSON-LD's ancestor, on
@@ -37,8 +37,8 @@ const COLUMNS = [
   {
     title: "Visit",
     links: [
-      { label: "Surrey Hills campus", href: "/#find-us" },
-      { label: "Glen Waverley campus", href: "/#find-us" },
+      { label: `${SITE.campuses[0].suburb} campus`, href: campusPath(SITE.campuses[0]) },
+      { label: `${SITE.campuses[1].suburb} campus`, href: campusPath(SITE.campuses[1]) },
       { label: "Venue hire", href: "/workshops/venue" },
       { label: SITE.phone, href: `tel:${SITE.phone.replace(/\s/g, "")}` },
       { label: SITE.email, href: `mailto:${SITE.email}` },

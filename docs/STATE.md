@@ -4,7 +4,49 @@
 
 **Updated 22 Sep 2026.** Read this first when picking the work back up.
 
-**Latest change: the SEO pass** (22 Sep, Kayden). One-time audit and quick-win fixes, planned
+**Latest change: SEO round 2 — campus pages, geo in the schema, FAQ everywhere** (22 Sep,
+Kayden, from `docs/SEO-ROUND-2-PICKUP.md`, planned in
+`docs/superpowers/plans/2026-09-22-seo-round-2.md`).
+
+- **`/surrey-hills` and `/glen-waverley`** are real place pages: two five-line route files
+  around `components/sections/campus.tsx` (`CampusPage`, `campusMetadata`). Hero with the
+  first campus photograph (Surrey Hills only), the gated map via `CampusTabs` mounted with one
+  campus (no tablist), the courses that run there grouped by discipline through the new
+  shared `components/shared/course-list.tsx` (lifted out of `/courses`), the rooms grid
+  (`RoomGrid` now takes `photos`), a studio-hire band on the venue's campus, a campus FAQ, a
+  trial band, and a `PageNav` to the other campus. Footer and the `CampusTabs` address block
+  link to them. Both are in the sitemap and pass the canonical walk unchanged.
+- **The campus record** (`lib/content/site.ts`, now a typed `CAMPUSES` constant rather than
+  an `as const` literal) carries `geo` — Google's own embed pins, read 22 Sep, Nominatim within
+  ~12 m — and three optional client-fed fields, `hours`, `transport`, `nearby`. **An absent
+  field renders nothing**: no hours line, no "Getting here", no nearby suburbs, no
+  `openingHoursSpecification`. Helpers: `campusPath`, `campusMapUrl`, `getCampus`,
+  `otherCampus`, `formatHours`.
+- **`Course.campuses: CampusId[]`** is required and, until Daisy's timetable arrives, every
+  course names both — the claim the site already made. `content.test.ts` pins the
+  both-for-all state and says to rewrite it when the split comes. `coursesAt(id)`.
+  `campusPhotos(id)` returns the seven for Surrey Hills and `[]` for Glen Waverley;
+  `VENUE_CAMPUS` in `venue.ts` says where the hire rooms are.
+- **Structured data.** `placeSchema` gains `@id` (`<campus url>#campus`), `geo`, `hasMap`
+  and, only when hours exist, `openingHoursSpecification`. New `campusSchema(c)` emits a
+  `["LocalBusiness", "EducationalOrganization"]` node on the same `@id` with
+  `parentOrganization` → the organisation, `url`, `telephone`, `email`, `image` (first photo
+  or nothing).
+- **FAQ on every section page.** `lib/content/faq.ts` adds `faqForCampus`, `WORKSHOPS_FAQ`,
+  `VENUE_FAQ`, `FACULTY_FAQ`, `STAGE_FAQ`, `ABOUT_FAQ` — every number derived (rates, room
+  sizes, activity counts, teacher count, institutions filtered against the credential
+  strings, production/competition lists, timeline). `lib/seo.test.ts` holds each to 40–400
+  characters, a question mark, no repeats. Flagged for Daisy in `content/OPEN-QUESTIONS.md`
+  §70.
+- **`/about` lede** opens with one derived, entity-first sentence (what / where / since when
+  / for whom) and then Daisy's paragraph minus its "Since 2017,". §68.
+- **`KineticText`** drops the empty parts a leading or trailing space produced — an empty
+  `.studio-word` was an indent at the start of a wrapped line.
+- **Open:** everything in §69 (hours, transport, nearby suburbs, Glen Waverley photographs,
+  the course split) waits on Daisy. Still open from round 1: the apex 308, the old-site 301,
+  GBP.
+
+**The change before it: the SEO pass** (22 Sep, Kayden). One-time audit and quick-win fixes, planned
 in `docs/SEO-PICKUP.md`, executed from `docs/superpowers/plans/2026-09-22-seo-audit-and-fixes.md`,
 recorded in `docs/seo-audit-2026-09-22.md`.
 
@@ -37,8 +79,10 @@ recorded in `docs/seo-audit-2026-09-22.md`.
   apex → www redirect is an implicit 307 because the apex is not attached to `mirrorartsv2`;
   adding it as a 308 redirect was blocked by the session's permission policy and is a
   one-liner in the doc.
-- **Open:** Search Console and Bing verification tokens go into `app/layout.tsx` as
-  `verification` once Kayden has them; the old-site redirect; GBP.
+- **Open:** Search Console is verified (Domain property, DNS TXT, 22 Sep) and the sitemap
+  submitted; Bing imported. Round 2 — campus pages, geo/hours schema, entity-first about
+  lede, FAQ on the remaining pages — is chosen and not started: `docs/SEO-ROUND-2-PICKUP.md`.
+  Also open: the apex 308, the old-site redirect, GBP.
 
 **The change before it: Belt & Road is off `/stage`, and every production plays its full film
 with sound** (20 Sep, Kayden, from Daisy's message and the `Production page` Drive folder).

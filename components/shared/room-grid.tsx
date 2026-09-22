@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 
 import Lightbox from "@/components/shared/lightbox";
-import { CAMPUS_PHOTOS } from "@/lib/content/campus";
+import { CAMPUS_PHOTOS, type CampusPhoto } from "@/lib/content/campus";
 
 /* The rooms, on a grid, inside the Two campuses section.
  *
@@ -40,6 +40,9 @@ import { CAMPUS_PHOTOS } from "@/lib/content/campus";
  *
  * Any eighth photograph (Glen Waverley has not been shot; see campus.ts)
  * falls through to a 6-span half-width tile rather than breaking the grid.
+ *
+ * The list is a prop since 22 September 2026 so the campus pages can pass
+ * their own set; the homepage and /contact still get the default.
  */
 
 /* Column spans by position, from 700px up. Below that the grid is two columns
@@ -48,10 +51,10 @@ import { CAMPUS_PHOTOS } from "@/lib/content/campus";
 const SPANS = [5, 7, 7, 5, 3, 4, 5];
 const FALLBACK_SPAN = 6;
 
-export default function RoomGrid() {
+export default function RoomGrid({ photos = CAMPUS_PHOTOS }: { photos?: CampusPhoto[] }) {
   return (
     <ul className="rooms">
-      {CAMPUS_PHOTOS.map((photo, i) => {
+      {photos.map((photo, i) => {
         const span = SPANS[i] ?? FALLBACK_SPAN;
 
         return (
